@@ -60,6 +60,7 @@
     hud.labelText = @"Login Failed";
     [hud hide:YES afterDelay:1.5];
     self.logInView.passwordField.text = @"";
+    self.logInView.logInButton.enabled = NO;
 }
 
 #pragma mark - UITextFieldDelegate
