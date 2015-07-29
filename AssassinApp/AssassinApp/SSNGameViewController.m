@@ -11,7 +11,10 @@
 
 @interface SSNGameViewController ()
 
+@property (nonatomic, strong) NSDictionary *playerDict;
+
 @end
+
 
 @implementation SSNGameViewController
 
@@ -21,10 +24,10 @@
     PFQuery *query = [PFQuery queryWithClassName:@"Games"];
     [query getObjectInBackgroundWithId:@"VAOQ2LvVAQ" block:^(PFObject *gameObject, NSError *error) {
         NSLog(@"%@", gameObject);
-        NSDictionary *playerDict = gameObject[@"player_dict"];
-        NSDictionary *playerAttributes =[playerDict valueForKeyPath:@"manavm"];
+        _playerDict = gameObject[@"player_dict"];
+        NSDictionary *playerAttributes =[_playerDict valueForKeyPath:@"manavm"]; // Hard code to my username
         
-        NSLog(@"%@", playerDict);
+        NSLog(@"%@", _playerDict);
         NSString *targetPlayer = playerAttributes[@"target"];
         NSString *timeRemaining = playerAttributes[@"time_remaining"];
         BOOL status = playerAttributes[@"status"];
@@ -32,8 +35,9 @@
         NSLog(@"%@ %@ %d", targetPlayer, timeRemaining, status);
     }];
     
-    
-    
+}
+- (IBAction)confirmKill:(id)sender {
+    NSLog(@"%@", @"Die mothafucka");
 }
 
 - (void)didReceiveMemoryWarning {
