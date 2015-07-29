@@ -9,6 +9,8 @@
 #import "SSNSignUpViewController.h"
 #import "SSNUserViewController.h"
 
+#define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
+
 @interface SSNSignUpViewController () <PFSignUpViewControllerDelegate, UITextInputDelegate>
 
 @end
@@ -21,8 +23,10 @@
     self.delegate = self;
 
     self.signUpView.backgroundColor = [UIColor blackColor];
+    self.signUpView.logo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"assassinlogo.png"]];
     [self.signUpView.signUpButton setBackgroundImage:nil forState:UIControlStateNormal];
-    [self.signUpView.signUpButton setBackgroundColor:[UIColor redColor]];
+    [self.signUpView.signUpButton setBackgroundColor:UIColorFromRGB(0xC0392B)];
+
     self.signUpView.additionalField.placeholder = @"Full Name";
 }
 
@@ -31,6 +35,10 @@
     
     // Move all fields down on smaller screen sizes
     float yOffset = [UIScreen mainScreen].bounds.size.height <= 480.0f ? 30.0f : 0.0f;
+    
+    [self.signUpView.logo setFrame:CGRectMake(66.5f, 60.0f, 190.0f, 190.0f)];
+    
+    yOffset += self.signUpView.logo.frame.size.height + 60.0f;
     
     CGRect fieldFrame = self.signUpView.usernameField.frame;
     
