@@ -33,6 +33,8 @@
 		E5E435631B690F6500A012BA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E5E435621B690F6500A012BA /* Images.xcassets */; };
 		E5E435661B690F6500A012BA /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5E435641B690F6500A012BA /* LaunchScreen.xib */; };
 		E5E435721B690F6500A012BA /* AssassinAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E5E435711B690F6500A012BA /* AssassinAppTests.m */; };
+		E5E435811B692E5100A012BA /* SSNUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5E4357F1B692E5100A012BA /* SSNUserViewController.m */; };
+		E5E435821B692E5100A012BA /* SSNUserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5E435801B692E5100A012BA /* SSNUserViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +81,9 @@
 		E5E4356B1B690F6500A012BA /* AssassinAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AssassinAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5E435701B690F6500A012BA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E5E435711B690F6500A012BA /* AssassinAppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AssassinAppTests.m; sourceTree = "<group>"; };
+		E5E4357E1B692E5100A012BA /* SSNUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SSNUserViewController.h; path = ../SSNUserViewController.h; sourceTree = "<group>"; };
+		E5E4357F1B692E5100A012BA /* SSNUserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SSNUserViewController.m; path = ../SSNUserViewController.m; sourceTree = "<group>"; };
+		E5E435801B692E5100A012BA /* SSNUserViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SSNUserViewController.xib; path = ../SSNUserViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,6 +179,9 @@
 				AC649FB61B6926FA007C3E88 /* SSNSignUpViewController.m */,
 				AC649FB81B692785007C3E88 /* SSNLogInViewController.h */,
 				AC649FB91B692785007C3E88 /* SSNLogInViewController.m */,
+				E5E4357E1B692E5100A012BA /* SSNUserViewController.h */,
+				E5E4357F1B692E5100A012BA /* SSNUserViewController.m */,
+				E5E435801B692E5100A012BA /* SSNUserViewController.xib */,
 			);
 			path = AssassinApp;
 			sourceTree = "<group>";
@@ -284,6 +292,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E5E435821B692E5100A012BA /* SSNUserViewController.xib in Resources */,
 				E5E435611B690F6500A012BA /* Main.storyboard in Resources */,
 				E5E435661B690F6500A012BA /* LaunchScreen.xib in Resources */,
 				E5E435631B690F6500A012BA /* Images.xcassets in Resources */,
@@ -305,6 +314,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AC649FB71B6926FA007C3E88 /* SSNSignUpViewController.m in Sources */,
+				E5E435811B692E5100A012BA /* SSNUserViewController.m in Sources */,
 				E5E4355B1B690F6500A012BA /* AppDelegate.m in Sources */,
 				E5E435581B690F6500A012BA /* main.m in Sources */,
 				AC649FBA1B692785007C3E88 /* SSNLogInViewController.m in Sources */,
