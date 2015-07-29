@@ -23,9 +23,12 @@
 		AC649FAB1B691587007C3E88 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AC649FAA1B691587007C3E88 /* libsqlite3.dylib */; };
 		AC649FAE1B691AFB007C3E88 /* ParseCrashReporting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC649FAC1B691AFB007C3E88 /* ParseCrashReporting.framework */; };
 		AC649FAF1B691AFB007C3E88 /* ParseUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC649FAD1B691AFB007C3E88 /* ParseUI.framework */; };
+		AC649FB71B6926FA007C3E88 /* SSNSignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC649FB61B6926FA007C3E88 /* SSNSignUpViewController.m */; };
+		AC649FBA1B692785007C3E88 /* SSNLogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC649FB91B692785007C3E88 /* SSNLogInViewController.m */; };
+		AC649FBC1B6927E1007C3E88 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC649FBB1B6927E1007C3E88 /* Social.framework */; };
+		AC649FBE1B6927E5007C3E88 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC649FBD1B6927E5007C3E88 /* Accounts.framework */; };
 		E5E435581B690F6500A012BA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E5E435571B690F6500A012BA /* main.m */; };
 		E5E4355B1B690F6500A012BA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E5E4355A1B690F6500A012BA /* AppDelegate.m */; };
-		E5E4355E1B690F6500A012BA /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5E4355D1B690F6500A012BA /* ViewController.m */; };
 		E5E435611B690F6500A012BA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E5E4355F1B690F6500A012BA /* Main.storyboard */; };
 		E5E435631B690F6500A012BA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E5E435621B690F6500A012BA /* Images.xcassets */; };
 		E5E435661B690F6500A012BA /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5E435641B690F6500A012BA /* LaunchScreen.xib */; };
@@ -59,6 +62,10 @@
 		AC649FAA1B691587007C3E88 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		AC649FAC1B691AFB007C3E88 /* ParseCrashReporting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseCrashReporting.framework; sourceTree = "<group>"; };
 		AC649FAD1B691AFB007C3E88 /* ParseUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseUI.framework; sourceTree = "<group>"; };
+		AC649FB51B6926FA007C3E88 /* SSNSignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSNSignUpViewController.h; sourceTree = "<group>"; };
+		AC649FB61B6926FA007C3E88 /* SSNSignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSNSignUpViewController.m; sourceTree = "<group>"; };
+		AC649FB81B692785007C3E88 /* SSNLogInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSNLogInViewController.h; sourceTree = "<group>"; };
+		AC649FB91B692785007C3E88 /* SSNLogInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSNLogInViewController.m; sourceTree = "<group>"; };
 		AC649FBB1B6927E1007C3E88 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		AC649FBD1B6927E5007C3E88 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		E5E435521B690F6500A012BA /* AssassinApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AssassinApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -66,8 +73,6 @@
 		E5E435571B690F6500A012BA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		E5E435591B690F6500A012BA /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		E5E4355A1B690F6500A012BA /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		E5E4355C1B690F6500A012BA /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		E5E4355D1B690F6500A012BA /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		E5E435601B690F6500A012BA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E5E435621B690F6500A012BA /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		E5E435651B690F6500A012BA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -161,12 +166,14 @@
 			children = (
 				E5E435591B690F6500A012BA /* AppDelegate.h */,
 				E5E4355A1B690F6500A012BA /* AppDelegate.m */,
-				E5E4355C1B690F6500A012BA /* ViewController.h */,
-				E5E4355D1B690F6500A012BA /* ViewController.m */,
 				E5E4355F1B690F6500A012BA /* Main.storyboard */,
 				E5E435621B690F6500A012BA /* Images.xcassets */,
 				E5E435641B690F6500A012BA /* LaunchScreen.xib */,
 				E5E435551B690F6500A012BA /* Supporting Files */,
+				AC649FB51B6926FA007C3E88 /* SSNSignUpViewController.h */,
+				AC649FB61B6926FA007C3E88 /* SSNSignUpViewController.m */,
+				AC649FB81B692785007C3E88 /* SSNLogInViewController.h */,
+				AC649FB91B692785007C3E88 /* SSNLogInViewController.m */,
 			);
 			path = AssassinApp;
 			sourceTree = "<group>";
@@ -297,9 +304,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E5E4355E1B690F6500A012BA /* ViewController.m in Sources */,
+				AC649FB71B6926FA007C3E88 /* SSNSignUpViewController.m in Sources */,
 				E5E4355B1B690F6500A012BA /* AppDelegate.m in Sources */,
 				E5E435581B690F6500A012BA /* main.m in Sources */,
+				AC649FBA1B692785007C3E88 /* SSNLogInViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
