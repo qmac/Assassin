@@ -9,11 +9,6 @@
 #import <ParseUI/ParseUI.h>
 #import <ParseUI/PFLogInViewController.h>
 
-@class Reachability;
-
 @interface SSNLogInViewController : PFLogInViewController
-
-@property (nonatomic, strong) Reachability *internetReachable;
-@property (nonatomic, strong) Reachability *hostReachable;
 
 @end
