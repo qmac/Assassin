@@ -38,9 +38,15 @@
     
     [self.signUpView.logo setFrame:CGRectMake(66.5f, 60.0f, 190.0f, 190.0f)];
     
-    yOffset += self.signUpView.logo.frame.size.height + 60.0f;
+    yOffset += self.signUpView.logo.frame.size.height - 30.0f;
     
-    CGRect fieldFrame = self.signUpView.usernameField.frame;
+    CGRect fieldFrame = self.signUpView.additionalField.frame;
+    
+    [self.signUpView.additionalField setFrame:CGRectMake(fieldFrame.origin.x,
+                                                         fieldFrame.origin.y + yOffset,
+                                                         fieldFrame.size.width,
+                                                         fieldFrame.size.height)];
+    yOffset += fieldFrame.size.height;
     
     [self.signUpView.usernameField setFrame:CGRectMake(fieldFrame.origin.x,
                                                        fieldFrame.origin.y + yOffset,
@@ -58,12 +64,6 @@
                                                     fieldFrame.origin.y + yOffset,
                                                     fieldFrame.size.width,
                                                     fieldFrame.size.height)];
-    yOffset += fieldFrame.size.height;
-    
-    [self.signUpView.additionalField setFrame:CGRectMake(fieldFrame.origin.x,
-                                                         fieldFrame.origin.y + yOffset,
-                                                         fieldFrame.size.width,
-                                                         fieldFrame.size.height)];
     yOffset += fieldFrame.size.height;
 
     [self.signUpView.signUpButton setFrame:CGRectMake(fieldFrame.origin.x,
