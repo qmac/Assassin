@@ -8,6 +8,9 @@
 
 #import "AppDelegate.h"
 #import "Parse/Parse.h"
+#import "SSNLogInViewController.h"
+#import "SSNSignUpViewController.h"
+#import "SSNUserViewController.h"
 
 @interface AppDelegate ()
 
@@ -21,6 +24,13 @@
     
     [Parse setApplicationId:@"u9m11ErRytB4i6hNRUNvBMBeROirhXRp93Zj5oKY"
                   clientKey:@"6KeMZ2zHH1wPXW5zv6isZqpyG08jX0TRh3iG3CEG"];
+    
+    SSNUserViewController *userViewController = [[SSNUserViewController alloc] initWithNibName:@"SSNUserViewController" bundle:nil];
+
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window.rootViewController = userViewController;
+    [self.window makeKeyAndVisible];
+
     return YES;
 }
 
