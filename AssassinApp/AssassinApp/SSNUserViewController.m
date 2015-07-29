@@ -6,12 +6,15 @@
 //  Copyright (c) 2015 Quinn McNamara. All rights reserved.
 //
 
+#import "Parse/Parse.h"
+
 #import "SSNUserViewController.h"
 #import "SSNGameViewController.h"
 
 @interface SSNUserViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong, readwrite) UITableView *tableView;
+@property (nonatomic, strong) NSMutableArray *games;
 
 @end
 
@@ -32,6 +35,8 @@ static NSString *const CellIdentifier = @"gameCell";
     
     UIBarButtonItem *createGameButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(launchCreateGame:)];
     self.navigationItem.rightBarButtonItem = createGameButton;
+    
+    [self performFetch];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -46,10 +51,30 @@ static NSString *const CellIdentifier = @"gameCell";
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - Parse Methods
+- (void) performFetch
+{
+    [self.tableView reloadData];
+}
+
 #pragma mark - Nav Bar Handlers
 - (void) launchCreateGame:(id)sender
 {
     NSLog(@"creating new game");
+    PFObject *gameObject = [PFObject objectWithClassName:@"Game"];
+    gameObject[@"active"] = @YES;
+    gameObject[@"users"] = @"Bob the Builder";
+    [gameObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (succeeded)
+        {
+            NSLog(@"created a dummy game");
+        }
+        else
+        {
+            NSLog(@"dummy game creation failed");
+        }
+    }];
+    [self.games addObject:gameObject];
 }
 
 #pragma mark - UITableView Datasource
@@ -66,7 +91,7 @@ static NSString *const CellIdentifier = @"gameCell";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 26;
+    return [self.games count];
 }
 
 #pragma mark - UITableView Delegate
