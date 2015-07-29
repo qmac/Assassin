@@ -14,6 +14,7 @@
 @interface SSNUserViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong, readwrite) UITableView *tableView;
+@property (nonatomic, strong) PFUser *user;
 @property (nonatomic, strong) NSMutableArray *games;
 
 @end
@@ -36,7 +37,9 @@ static NSString *const CellIdentifier = @"gameCell";
     UIBarButtonItem *createGameButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(launchCreateGame:)];
     self.navigationItem.rightBarButtonItem = createGameButton;
     
-    [self performFetch];
+    self.user = [PFUser currentUser];
+    
+    [self fetchGames];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -52,26 +55,47 @@ static NSString *const CellIdentifier = @"gameCell";
 }
 
 #pragma mark - Parse Methods
-- (void) performFetch
+- (void) fetchGames
 {
-    [self.tableView reloadData];
+    
+//    
+//    
+//    PFQuery *query = [PFQuery queryWithClassName:@"Players"];
+//    [query whereKey:@"user" equalTo:currentUser];
+//    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+//        if (!error)
+//        {
+//            self.games = [objects mutableCopy];
+//            [self.tableView reloadData];
+//        }
+//        else
+//        {
+//            // Log details of the failure
+//            NSLog(@"Error: %@ %@", error, [error userInfo]);
+//        }
+//    }];
 }
 
 #pragma mark - Nav Bar Handlers
 - (void) launchCreateGame:(id)sender
 {
-    NSLog(@"creating new game");
-    PFObject *gameObject = [PFObject objectWithClassName:@"Game"];
+    PFObject *gameObject = [PFObject objectWithClassName:@"Games"];
     gameObject[@"active"] = @YES;
-    gameObject[@"users"] = @"Bob the Builder";
+    gameObject[@"last_kill"] = @"Yash kills Jason";
+    
+    NSDictionary *playerAttributes = @{@"target": @"Austin Tsao", @"status": @YES, @"time_remaining": @"654500"};
+    NSDictionary *playerDictionary = @{@"quinnmac": playerAttributes};
+    
+    gameObject[@"player_dict"] = playerDictionary;
+    
     [gameObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded)
         {
-            NSLog(@"created a dummy game");
+            NSLog(@"created new game");
         }
         else
         {
-            NSLog(@"dummy game creation failed");
+            NSLog(@"%@", [error description]);
         }
     }];
     [self.games addObject:gameObject];
@@ -98,7 +122,8 @@ static NSString *const CellIdentifier = @"gameCell";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Handle when user taps on a cell
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
     SSNGameViewController *gameViewController = [[SSNGameViewController alloc] init];
     [self.navigationController presentViewController:gameViewController animated:NO completion:nil];
 }
