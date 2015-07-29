@@ -22,6 +22,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     SSNSignUpViewController *signUpController = [[SSNSignUpViewController alloc] initWithNibName:@"SSNSignUpViewController" bundle:nil];
+    [signUpController setFields:(PFSignUpFieldsDefault | PFSignUpFieldsAdditional)];
     [self setSignUpController:signUpController];
     return self;
 }
