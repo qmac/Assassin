@@ -6,6 +6,6 @@ Player table
 - games_playing
 - games_played
 
-Game table
-- player_dict: {"PFUser": {"target", "status", "time_remaining"}}
+Games table
+- player_dict: {"PFUser.username": {"target", "status", "time_remaining"}}
 - active
