@@ -27,6 +27,7 @@
     [super viewDidLoad];
     self.delegate = self;
     self.logInView.logInButton.enabled = NO;
+    self.logInView.dismissButton.hidden = YES;
 }
 
 - (void)didReceiveMemoryWarning {
