@@ -59,6 +59,8 @@
 		AC649FAA1B691587007C3E88 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		AC649FAC1B691AFB007C3E88 /* ParseCrashReporting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseCrashReporting.framework; sourceTree = "<group>"; };
 		AC649FAD1B691AFB007C3E88 /* ParseUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseUI.framework; sourceTree = "<group>"; };
+		AC649FBB1B6927E1007C3E88 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		AC649FBD1B6927E5007C3E88 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		E5E435521B690F6500A012BA /* AssassinApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AssassinApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5E435561B690F6500A012BA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E5E435571B690F6500A012BA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -79,6 +81,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC649FBE1B6927E5007C3E88 /* Accounts.framework in Frameworks */,
+				AC649FBC1B6927E1007C3E88 /* Social.framework in Frameworks */,
 				AC649FAB1B691587007C3E88 /* libsqlite3.dylib in Frameworks */,
 				AC649FAE1B691AFB007C3E88 /* ParseCrashReporting.framework in Frameworks */,
 				AC649FA91B69157A007C3E88 /* libz.dylib in Frameworks */,
@@ -111,6 +115,8 @@
 		AC649F8F1B691519007C3E88 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AC649FBD1B6927E5007C3E88 /* Accounts.framework */,
+				AC649FBB1B6927E1007C3E88 /* Social.framework */,
 				AC649FAC1B691AFB007C3E88 /* ParseCrashReporting.framework */,
 				AC649FAD1B691AFB007C3E88 /* ParseUI.framework */,
 				AC649FAA1B691587007C3E88 /* libsqlite3.dylib */,
