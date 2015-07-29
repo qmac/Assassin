@@ -34,8 +34,7 @@
 
 - (void)logInViewController:(PFLogInViewController *)logInController didLogInUser:(PFUser *)user {
     SSNUserViewController *userViewController = [[SSNUserViewController alloc] init];
-    [self.navigationController pushViewController:userViewController animated:NO];
-    [self.navigationController presentViewController:userViewController animated:NO completion:nil];
+    [self presentViewController:userViewController animated:NO completion:nil];
 }
 
 - (void)logInViewController:(PFLogInViewController *)logInController didFailToLogInWithError:(PFUI_NULLABLE NSError *)error {
