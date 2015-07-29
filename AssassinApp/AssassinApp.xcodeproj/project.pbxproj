@@ -29,6 +29,7 @@
 		AC649FBE1B6927E5007C3E88 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC649FBD1B6927E5007C3E88 /* Accounts.framework */; };
 		AC649FC21B692CB1007C3E88 /* SSNLogInViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC649FC11B692CB1007C3E88 /* SSNLogInViewController.xib */; };
 		AC649FC61B692F49007C3E88 /* SSNSignUpViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC649FC51B692F49007C3E88 /* SSNSignUpViewController.xib */; };
+		AC649FC91B695581007C3E88 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = AC649FC81B695581007C3E88 /* MBProgressHUD.m */; };
 		E5E435581B690F6500A012BA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E5E435571B690F6500A012BA /* main.m */; };
 		E5E4355B1B690F6500A012BA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E5E4355A1B690F6500A012BA /* AppDelegate.m */; };
 		E5E435631B690F6500A012BA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E5E435621B690F6500A012BA /* Images.xcassets */; };
@@ -75,6 +76,8 @@
 		AC649FBD1B6927E5007C3E88 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		AC649FC11B692CB1007C3E88 /* SSNLogInViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SSNLogInViewController.xib; sourceTree = "<group>"; };
 		AC649FC51B692F49007C3E88 /* SSNSignUpViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SSNSignUpViewController.xib; sourceTree = "<group>"; };
+		AC649FC71B695581007C3E88 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		AC649FC81B695581007C3E88 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		E5E435521B690F6500A012BA /* AssassinApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AssassinApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5E435561B690F6500A012BA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E5E435571B690F6500A012BA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -176,6 +179,8 @@
 		E5E435541B690F6500A012BA /* AssassinApp */ = {
 			isa = PBXGroup;
 			children = (
+				AC649FC71B695581007C3E88 /* MBProgressHUD.h */,
+				AC649FC81B695581007C3E88 /* MBProgressHUD.m */,
 				E5F673321B693678004B7D6A /* SSNGameViewController.h */,
 				E5F673331B693678004B7D6A /* SSNGameViewController.m */,
 				E5F673341B693678004B7D6A /* SSNGameViewController.xib */,
@@ -332,6 +337,7 @@
 				E5F673381B693678004B7D6A /* SSNGameViewController.m in Sources */,
 				E5F6733A1B693678004B7D6A /* SSNUserViewController.m in Sources */,
 				AC649FBA1B692785007C3E88 /* SSNLogInViewController.m in Sources */,
+				AC649FC91B695581007C3E88 /* MBProgressHUD.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
