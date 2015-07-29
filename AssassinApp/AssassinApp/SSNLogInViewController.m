@@ -9,7 +9,6 @@
 #import "SSNLogInViewController.h"
 #import "SSNUserViewController.h"
 #import "SSNGameViewController.h"
-#import "MBProgressHUD.h"
 #import "Reachability.h"
 
 @interface SSNLogInViewController () <PFLogInViewControllerDelegate, UITextFieldDelegate>
@@ -81,15 +80,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (BOOL)logInViewController:(PFLogInViewController * __nonnull)logInController shouldBeginLogInWithUsername:(NSString * __nonnull)username password:(NSString * __nonnull)password
-{
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.mode = MBProgressHUDModeIndeterminate;
-    return YES;
-}
-
 - (void)logInViewController:(PFLogInViewController *)logInController didLogInUser:(PFUser *)user {
-    [MBProgressHUD hideHUDForView:self.view animated:YES];
     // To launch User View
 //    SSNUserViewController *userViewController = [[SSNUserViewController alloc] init];
 //    [self.navigationController presentViewController:userViewController animated:NO completion:nil];
@@ -100,7 +91,6 @@
 }
 
 - (void)logInViewController:(PFLogInViewController *)logInController didFailToLogInWithError:(PFUI_NULLABLE NSError *)error {
-    [MBProgressHUD hideHUDForView:self.view animated:YES];
     if(!self.internetActive)
     {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Network Error" message:@"You are not connected to a network. Please connect and try again." delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
