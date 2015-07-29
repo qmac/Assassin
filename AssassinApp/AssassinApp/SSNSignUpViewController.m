@@ -7,27 +7,30 @@
 //
 
 #import "SSNSignUpViewController.h"
+#import "SSNUserViewController.h"
 
-@interface SSNSignUpViewController ()
+@interface SSNSignUpViewController () <PFSignUpViewControllerDelegate>
 
 @end
 
 @implementation SSNSignUpViewController
 
-- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    return self;
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.delegate = self;
+
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)signUpViewController:(PFSignUpViewController *)signUpController didSignUpUser:(PFUser *)user
+{
+    SSNUserViewController *userViewController = [[SSNUserViewController alloc] initWithNibName:@"SSNUserViewController" bundle:nil];
+    [self presentViewController:userViewController animated:NO completion:nil];
 }
 
 /*
