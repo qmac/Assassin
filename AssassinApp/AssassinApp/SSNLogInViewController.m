@@ -10,9 +10,11 @@
 #import "SSNUserViewController.h"
 #import "SSNGameViewController.h"
 #import "MBProgressHUD.h"
+#import "Reachability.h"
 
 @interface SSNLogInViewController () <PFLogInViewControllerDelegate, UITextFieldDelegate>
 
+@property (nonatomic) BOOL internetActive;
 @end
 
 @implementation SSNLogInViewController
@@ -30,6 +32,50 @@
     self.logInView.dismissButton.hidden = YES;
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    // check for internet connection
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkNetworkStatus:) name:kReachabilityChangedNotification object:nil];
+    
+    self.internetReachable = [Reachability reachabilityForInternetConnection];
+    [self.internetReachable startNotifier];
+
+    // check if a pathway to a random host exists
+    self.hostReachable = [Reachability reachabilityWithHostName:@"www.google.com"];
+    [self.hostReachable startNotifier];
+}
+
+-(void) checkNetworkStatus:(NSNotification *)notice
+{
+    // called after network status changes
+    NetworkStatus internetStatus = [self.internetReachable currentReachabilityStatus];
+    switch (internetStatus)
+    {
+        case NotReachable:
+        {
+            NSLog(@"The internet is down.");
+            self.internetActive = NO;
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Network Error" message:@"You are not connected to a network. Please connect and try again." delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
+            [alert show];
+            break;
+        }
+        case ReachableViaWiFi:
+        {
+            NSLog(@"The internet is working via WIFI.");
+            self.internetActive = YES;
+            
+            break;
+        }
+        case ReachableViaWWAN:
+        {
+            NSLog(@"The internet is working via WWAN.");
+            self.internetActive = YES;
+            
+            break;
+        }
+    }
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -39,7 +85,7 @@
 {
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.mode = MBProgressHUDModeIndeterminate;
-    return YES;//[super logInViewController:logInController shouldBeginLogInWithUsername:username password:password];
+    return YES;
 }
 
 - (void)logInViewController:(PFLogInViewController *)logInController didLogInUser:(PFUser *)user {
@@ -55,10 +101,15 @@
 
 - (void)logInViewController:(PFLogInViewController *)logInController didFailToLogInWithError:(PFUI_NULLABLE NSError *)error {
     [MBProgressHUD hideHUDForView:self.view animated:YES];
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.mode = MBProgressHUDModeText;
-    hud.labelText = @"Login Failed";
-    [hud hide:YES afterDelay:1.5];
+    if(!self.internetActive)
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Network Error" message:@"You are not connected to a network. Please connect and try again." delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
+        [alert show];
+    }
+    else{
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Login Failed" message:@"Username and password was not found." delegate:nil cancelButtonTitle:@"Retry" otherButtonTitles:nil, nil];
+        [alert show];
+    }
     self.logInView.passwordField.text = @"";
     self.logInView.logInButton.enabled = NO;
 }
