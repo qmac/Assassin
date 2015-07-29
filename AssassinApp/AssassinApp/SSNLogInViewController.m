@@ -29,6 +29,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.delegate = self;
+    self.logInView.backgroundColor = [UIColor blackColor];
+    [self.logInView.passwordForgottenButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    [self.logInView.signUpButton setBackgroundImage:nil forState:UIControlStateNormal];
+    [self.logInView.signUpButton setBackgroundColor:[UIColor redColor]];
     self.logInView.logInButton.enabled = NO;
     self.logInView.dismissButton.hidden = YES;
 }

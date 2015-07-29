@@ -20,6 +20,9 @@
     // Do any additional setup after loading the view.
     self.delegate = self;
 
+    self.signUpView.backgroundColor = [UIColor blackColor];
+    [self.signUpView.signUpButton setBackgroundImage:nil forState:UIControlStateNormal];
+    [self.signUpView.signUpButton setBackgroundColor:[UIColor redColor]];
 }
 
 - (void)didReceiveMemoryWarning {
