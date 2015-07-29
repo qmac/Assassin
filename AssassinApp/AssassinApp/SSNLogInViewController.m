@@ -10,9 +10,9 @@
 #import "SSNUserViewController.h"
 #import "SSNGameViewController.h"
 
+@interface SSNLogInViewController () <PFLogInViewControllerDelegate, UITextFieldDelegate>
 
-@interface SSNLogInViewController () <PFLogInViewControllerDelegate>
-
+@property (nonatomic) BOOL internetActive;
 @end
 
 @implementation SSNLogInViewController
@@ -26,7 +26,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.delegate = self;
-    // Do any additional setup after loading the view.
+    self.logInView.logInButton.enabled = NO;
+    self.logInView.dismissButton.hidden = YES;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -45,7 +46,29 @@
 }
 
 - (void)logInViewController:(PFLogInViewController *)logInController didFailToLogInWithError:(PFUI_NULLABLE NSError *)error {
-    NSLog(@"login failed");
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Login Failed" message:@"Username and password was not found." delegate:nil cancelButtonTitle:@"Retry" otherButtonTitles:nil, nil];
+    [alert show];
+    self.logInView.passwordField.text = @"";
+    self.logInView.logInButton.enabled = NO;
+}
+
+#pragma mark - UITextFieldDelegate
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    if(![self.logInView.usernameField.text isEqualToString:@""] && [string isEqualToString:@""] && range.location == 0)
+    {
+        self.logInView.logInButton.enabled = NO;
+    }
+    else if(![self.logInView.usernameField.text isEqualToString:@""] && ![string isEqualToString:@""] && [textField isEqual:self.logInView.passwordField])
+    {
+        self.logInView.logInButton.enabled = YES;
+    }
+    else if(![self.logInView.passwordField.text isEqualToString:@""] && ![string isEqualToString:@""] && [textField isEqual:self.logInView.usernameField])
+    {
+        self.logInView.logInButton.enabled = YES;
+    }
+    return YES;
 }
 
 /*
