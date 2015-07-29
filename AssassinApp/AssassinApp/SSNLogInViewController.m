@@ -35,7 +35,15 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (BOOL)logInViewController:(PFLogInViewController * __nonnull)logInController shouldBeginLogInWithUsername:(NSString * __nonnull)username password:(NSString * __nonnull)password
+{
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.mode = MBProgressHUDModeIndeterminate;
+    return YES;//[super logInViewController:logInController shouldBeginLogInWithUsername:username password:password];
+}
+
 - (void)logInViewController:(PFLogInViewController *)logInController didLogInUser:(PFUser *)user {
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
     // To launch User View
 //    SSNUserViewController *userViewController = [[SSNUserViewController alloc] init];
 //    [self.navigationController presentViewController:userViewController animated:NO completion:nil];
@@ -46,6 +54,7 @@
 }
 
 - (void)logInViewController:(PFLogInViewController *)logInController didFailToLogInWithError:(PFUI_NULLABLE NSError *)error {
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.mode = MBProgressHUDModeText;
     hud.labelText = @"Login Failed";
