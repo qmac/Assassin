@@ -1,18 +1,18 @@
 //
-//  SSNSignUpViewController.m
+//  SSNLogInViewController.m
 //  AssassinApp
 //
 //  Created by Austin Tsao on 7/29/15.
 //  Copyright (c) 2015 Quinn McNamara. All rights reserved.
 //
 
-#import "SSNSignUpViewController.h"
+#import "SSNLogInViewController.h"
 
-@interface SSNSignUpViewController ()
+@interface SSNLogInViewController ()
 
 @end
 
-@implementation SSNSignUpViewController
+@implementation SSNLogInViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
