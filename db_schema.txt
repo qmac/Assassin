@@ -3,9 +3,9 @@ Player table
 - last_seen
 - email_address
 - profile picture
+- games_playing
+- games_played
 
 Game table
-- players
-- targets
-- tatus
-- remaining_time
+- player_dict: {"PFUser": {"target", "status", "time_remaining"}}
+- active
