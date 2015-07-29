@@ -23,10 +23,11 @@
     
     [Parse setApplicationId:@"u9m11ErRytB4i6hNRUNvBMBeROirhXRp93Zj5oKY"
                   clientKey:@"6KeMZ2zHH1wPXW5zv6isZqpyG08jX0TRh3iG3CEG"];
-    SSNLogInViewController *signUpController = [[SSNLogInViewController alloc] initWithNibName:@"SSNLogInViewController" bundle:nil];
-
+    SSNLogInViewController *logInController = [[SSNLogInViewController alloc] initWithNibName:@"SSNLogInViewController" bundle:nil];
+    
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:logInController];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.window.rootViewController = signUpController;
+    self.window.rootViewController = navController;
     [self.window makeKeyAndVisible];
     
     return YES;
