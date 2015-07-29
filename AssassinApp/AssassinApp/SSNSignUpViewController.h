@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ParseUI/PFSignUpViewController.h"
 
-@interface ViewController : UIViewController
+@interface SSNSignUpViewController : PFSignUpViewController
 
 
 @end

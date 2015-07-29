@@ -6,13 +6,13 @@
 //  Copyright (c) 2015 Quinn McNamara. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "SSNSignUpViewController.h"
 
-@interface ViewController ()
+@interface SSNSignUpViewController ()
 
 @end
 
-@implementation ViewController
+@implementation SSNSignUpViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

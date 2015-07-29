@@ -25,11 +25,12 @@
 		AC649FAF1B691AFB007C3E88 /* ParseUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC649FAD1B691AFB007C3E88 /* ParseUI.framework */; };
 		E5E435581B690F6500A012BA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E5E435571B690F6500A012BA /* main.m */; };
 		E5E4355B1B690F6500A012BA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E5E4355A1B690F6500A012BA /* AppDelegate.m */; };
-		E5E4355E1B690F6500A012BA /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5E4355D1B690F6500A012BA /* ViewController.m */; };
+		E5E4355E1B690F6500A012BA /* SSNSignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5E4355D1B690F6500A012BA /* SSNSignUpViewController.m */; };
 		E5E435611B690F6500A012BA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E5E4355F1B690F6500A012BA /* Main.storyboard */; };
 		E5E435631B690F6500A012BA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E5E435621B690F6500A012BA /* Images.xcassets */; };
 		E5E435661B690F6500A012BA /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5E435641B690F6500A012BA /* LaunchScreen.xib */; };
 		E5E435721B690F6500A012BA /* AssassinAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E5E435711B690F6500A012BA /* AssassinAppTests.m */; };
+		E5E4357C1B691EDF00A012BA /* SSNLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5E4357B1B691EDF00A012BA /* SSNLoginViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,14 +65,16 @@
 		E5E435571B690F6500A012BA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		E5E435591B690F6500A012BA /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		E5E4355A1B690F6500A012BA /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		E5E4355C1B690F6500A012BA /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		E5E4355D1B690F6500A012BA /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		E5E4355C1B690F6500A012BA /* SSNSignUpViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSNSignUpViewController.h; sourceTree = "<group>"; };
+		E5E4355D1B690F6500A012BA /* SSNSignUpViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SSNSignUpViewController.m; sourceTree = "<group>"; };
 		E5E435601B690F6500A012BA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E5E435621B690F6500A012BA /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		E5E435651B690F6500A012BA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		E5E4356B1B690F6500A012BA /* AssassinAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AssassinAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5E435701B690F6500A012BA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E5E435711B690F6500A012BA /* AssassinAppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AssassinAppTests.m; sourceTree = "<group>"; };
+		E5E4357B1B691EDF00A012BA /* SSNLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSNLoginViewController.m; sourceTree = "<group>"; };
+		E5E4357D1B691EF200A012BA /* SSNLoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSNLoginViewController.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,8 +158,10 @@
 			children = (
 				E5E435591B690F6500A012BA /* AppDelegate.h */,
 				E5E4355A1B690F6500A012BA /* AppDelegate.m */,
-				E5E4355C1B690F6500A012BA /* ViewController.h */,
-				E5E4355D1B690F6500A012BA /* ViewController.m */,
+				E5E4355C1B690F6500A012BA /* SSNSignUpViewController.h */,
+				E5E4355D1B690F6500A012BA /* SSNSignUpViewController.m */,
+				E5E4357D1B691EF200A012BA /* SSNLoginViewController.h */,
+				E5E4357B1B691EDF00A012BA /* SSNLoginViewController.m */,
 				E5E4355F1B690F6500A012BA /* Main.storyboard */,
 				E5E435621B690F6500A012BA /* Images.xcassets */,
 				E5E435641B690F6500A012BA /* LaunchScreen.xib */,
@@ -291,9 +296,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E5E4355E1B690F6500A012BA /* ViewController.m in Sources */,
+				E5E4355E1B690F6500A012BA /* SSNSignUpViewController.m in Sources */,
 				E5E4355B1B690F6500A012BA /* AppDelegate.m in Sources */,
 				E5E435581B690F6500A012BA /* main.m in Sources */,
+				E5E4357C1B691EDF00A012BA /* SSNLoginViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
