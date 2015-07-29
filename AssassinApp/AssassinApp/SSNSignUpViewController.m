@@ -8,6 +8,7 @@
 
 #import "SSNSignUpViewController.h"
 #import "SSNUserViewController.h"
+#import "SSNUser.h"
 
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
@@ -21,6 +22,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.delegate = self;
+    
+    [self.signUpView.signUpButton addTarget:self action:@selector(signUpCustomUser) forControlEvents:UIControlEventAllTouchEvents];
 
     self.signUpView.backgroundColor = [UIColor blackColor];
     self.signUpView.logo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"assassinlogo.png"]];
@@ -38,7 +41,7 @@
     
     [self.signUpView.logo setFrame:CGRectMake(66.5f, 60.0f, 190.0f, 190.0f)];
     
-    yOffset += self.signUpView.logo.frame.size.height - 30.0f;
+    yOffset += self.signUpView.logo.frame.size.height - 60.0f;
     
     CGRect fieldFrame = self.signUpView.additionalField.frame;
     
@@ -76,6 +79,16 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)signUpCustomUser
+{
+    SSNUser *newUser = (SSNUser*)[SSNUser object];
+    
+    [newUser setUsername:self.signUpView.usernameField.text];
+    [newUser setPassword:self.signUpView.passwordField.text];
+    [newUser setFullName:self.signUpView.additionalField.text];
+    [newUser signUpInBackgroundWithBlock:nil];
 }
 
 - (void)signUpViewController:(PFSignUpViewController *)signUpController didSignUpUser:(PFUser *)user
