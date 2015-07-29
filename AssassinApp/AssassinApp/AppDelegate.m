@@ -11,6 +11,7 @@
 #import "SSNLogInViewController.h"
 #import "SSNSignUpViewController.h"
 #import "SSNUserViewController.h"
+#import "SSNGameViewController.h"
 
 @interface AppDelegate ()
 
@@ -29,7 +30,11 @@
     PFUser *loggedInUser = [PFUser currentUser];
     if(loggedInUser)
     {
-        rootViewController = [[SSNUserViewController alloc] initWithNibName:@"SSNUserViewController" bundle:nil];
+        // To default into Game View
+        rootViewController = [[SSNGameViewController alloc] initWithNibName:@"SSNGameViewController" bundle:nil];
+        
+        // To default into User View
+//        rootViewController = [[SSNUserViewController alloc] initWithNibName:@"SSNUserViewController" bundle:nil];
     }
     else
     {

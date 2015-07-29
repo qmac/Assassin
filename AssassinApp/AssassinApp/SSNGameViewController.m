@@ -7,6 +7,7 @@
 //
 
 #import "SSNGameViewController.h"
+#import "Parse/Parse.h"
 
 @interface SSNGameViewController ()
 
@@ -17,6 +18,22 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    PFQuery *query = [PFQuery queryWithClassName:@"Games"];
+    [query getObjectInBackgroundWithId:@"VAOQ2LvVAQ" block:^(PFObject *gameObject, NSError *error) {
+        NSLog(@"%@", gameObject);
+        NSDictionary *playerDict = gameObject[@"player_dict"];
+        NSDictionary *playerAttributes =[playerDict valueForKeyPath:@"manavm"];
+        
+        NSLog(@"%@", playerDict);
+        NSString *targetPlayer = playerAttributes[@"target"];
+        NSString *timeRemaining = playerAttributes[@"time_remaining"];
+        BOOL status = playerAttributes[@"status"];
+        
+        NSLog(@"%@ %@ %d", targetPlayer, timeRemaining, status);
+    }];
+    
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -34,4 +51,6 @@
 }
 */
 
+- (IBAction)killConfirmButton:(id)sender {
+}
 @end
