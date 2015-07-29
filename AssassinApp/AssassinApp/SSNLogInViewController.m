@@ -38,7 +38,7 @@
 }
 
 - (void)logInViewController:(PFLogInViewController *)logInController didFailToLogInWithError:(PFUI_NULLABLE NSError *)error {
-    NSLog(@"failed");
+    NSLog(@"login failed");
 }
 
 /*
