@@ -11,6 +11,7 @@
 #import "SSNLogInViewController.h"
 #import "SSNSignUpViewController.h"
 #import "SSNUserViewController.h"
+#import "Reachability.h"
 
 @interface AppDelegate ()
 
@@ -24,6 +25,16 @@
     
     [Parse setApplicationId:@"u9m11ErRytB4i6hNRUNvBMBeROirhXRp93Zj5oKY"
                   clientKey:@"6KeMZ2zHH1wPXW5zv6isZqpyG08jX0TRh3iG3CEG"];
+    
+    // check for internet connection
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkNetworkStatus:) name:kReachabilityChangedNotification object:nil];
+    
+    self.internetReachable = [Reachability reachabilityForInternetConnection];
+    [self.internetReachable startNotifier];
+    
+    // check if a pathway to a random host exists
+    self.hostReachable = [Reachability reachabilityWithHostName:@"www.apple.com"];
+    [self.hostReachable startNotifier];
     
     UIViewController *rootViewController;
     PFUser *loggedInUser = [PFUser currentUser];
@@ -67,4 +78,32 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+-(void) checkNetworkStatus:(NSNotification *)notice
+{
+    // called after network status changes
+    NetworkStatus internetStatus = [self.internetReachable currentReachabilityStatus];
+    switch (internetStatus)
+    {
+        case NotReachable:
+        {
+            NSLog(@"The internet is down.");
+            self.isConnectedToInternet = NO;
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Network Error" message:@"You are not connected to a network. Please connect and try again." delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
+            [alert show];
+            break;
+        }
+        case ReachableViaWiFi:
+        {
+            NSLog(@"The internet is working via WIFI.");
+            self.isConnectedToInternet = YES;
+            break;
+        }
+        case ReachableViaWWAN:
+        {
+            NSLog(@"The internet is working via WWAN.");
+            self.isConnectedToInternet = YES;
+            break;
+        }
+    }
+}
 @end
