@@ -9,6 +9,7 @@
 #import "SSNLogInViewController.h"
 #import "SSNUserViewController.h"
 #import "SSNGameViewController.h"
+#import "SSNSignUpViewController.h"
 
 @interface SSNLogInViewController () <PFLogInViewControllerDelegate, UITextFieldDelegate>
 
@@ -20,6 +21,8 @@
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    SSNSignUpViewController *signUpController = [[SSNSignUpViewController alloc] initWithNibName:@"SSNSignUpViewController" bundle:nil];
+    [self setSignUpController:signUpController];
     return self;
 }
 
