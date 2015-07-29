@@ -2,6 +2,7 @@ Player table
 - username
 - last_seen
 - email_address
+- profile picture
 
 Game table
 - players
