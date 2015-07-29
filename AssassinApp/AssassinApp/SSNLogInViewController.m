@@ -59,6 +59,7 @@
     hud.mode = MBProgressHUDModeText;
     hud.labelText = @"Login Failed";
     [hud hide:YES afterDelay:1.5];
+    self.logInView.passwordField.text = @"";
 }
 
 #pragma mark - UITextFieldDelegate
