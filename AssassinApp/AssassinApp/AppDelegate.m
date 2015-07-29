@@ -10,6 +10,7 @@
 #import "Parse/Parse.h"
 #import "SSNLogInViewController.h"
 #import "SSNSignUpViewController.h"
+#import "SSNUserViewController.h"
 
 @interface AppDelegate ()
 
@@ -23,12 +24,20 @@
     
     [Parse setApplicationId:@"u9m11ErRytB4i6hNRUNvBMBeROirhXRp93Zj5oKY"
                   clientKey:@"6KeMZ2zHH1wPXW5zv6isZqpyG08jX0TRh3iG3CEG"];
-
-    SSNLogInViewController *logInController = [[SSNLogInViewController alloc] initWithNibName:@"SSNLogInViewController" bundle:nil];
     
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:logInController];
+    UIViewController *rootViewController;
+    PFUser *loggedInUser = [PFUser currentUser];
+    if(loggedInUser)
+    {
+        rootViewController = [[SSNUserViewController alloc] initWithNibName:@"SSNUserViewController" bundle:nil];
+    }
+    else
+    {
+        rootViewController = [[SSNLogInViewController alloc] initWithNibName:@"SSNLogInViewController" bundle:nil];
+    }
+
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.window.rootViewController = navController;
+    self.window.rootViewController = rootViewController;
     [self.window makeKeyAndVisible];
     
     return YES;
