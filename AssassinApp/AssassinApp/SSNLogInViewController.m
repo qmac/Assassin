@@ -23,10 +23,17 @@
     return self;
 }
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     self.delegate = self;
     // Do any additional setup after loading the view.
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -36,12 +43,12 @@
 
 - (void)logInViewController:(PFLogInViewController *)logInController didLogInUser:(PFUser *)user {
     // To launch User View
-//    SSNUserViewController *userViewController = [[SSNUserViewController alloc] init];
-//    [self.navigationController presentViewController:userViewController animated:NO completion:nil];
+    SSNUserViewController *userViewController = [[SSNUserViewController alloc] init];
+    [self.navigationController presentViewController:userViewController animated:NO completion:nil];
     
     // To launch game view
-    SSNGameViewController *gameViewController = [[SSNGameViewController alloc] init];
-    [self presentViewController:gameViewController animated:NO completion:nil];
+//    SSNGameViewController *gameViewController = [[SSNGameViewController alloc] init];
+//    [self presentViewController:gameViewController animated:NO completion:nil];
 }
 
 - (void)logInViewController:(PFLogInViewController *)logInController didFailToLogInWithError:(PFUI_NULLABLE NSError *)error {
