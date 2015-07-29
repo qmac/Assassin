@@ -1,0 +1,10 @@
+Player table
+- username
+- last_seen
+- email_address
+
+Game table
+- players
+- targets
+- tatus
+- remaining_time
