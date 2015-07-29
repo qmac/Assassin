@@ -9,7 +9,7 @@
 #import "SSNLogInViewController.h"
 #import "SSNUserViewController.h"
 
-@interface SSNLogInViewController () <PFLogInViewControllerDelegate>
+@interface SSNLogInViewController () <PFLogInViewControllerDelegate, UITextFieldDelegate>
 
 @end
 
@@ -44,6 +44,25 @@
 
 - (void)logInViewController:(PFLogInViewController *)logInController didFailToLogInWithError:(PFUI_NULLABLE NSError *)error {
     NSLog(@"failed");
+}
+
+#pragma mark - UITextFieldDelegate
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    if(![self.logInView.usernameField.text isEqualToString:@""] && [string isEqualToString:@""] && range.location == 0)
+    {
+        self.logInView.logInButton.enabled = NO;
+    }
+    else if(![self.logInView.usernameField.text isEqualToString:@""] && ![string isEqualToString:@""] && [textField isEqual:self.logInView.passwordField])
+    {
+        self.logInView.logInButton.enabled = YES;
+    }
+    else if(![self.logInView.passwordField.text isEqualToString:@""] && ![string isEqualToString:@""] && [textField isEqual:self.logInView.usernameField])
+    {
+        self.logInView.logInButton.enabled = YES;
+    }
+    return YES;
 }
 
 /*
