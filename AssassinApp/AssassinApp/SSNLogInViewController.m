@@ -26,11 +26,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.delegate = self;
-    
-    if([self.logInView.usernameField.text isEqualToString:@""] && [self.logInView.passwordField.text isEqualToString:@""])
-    {
-        self.logInView.logInButton.enabled = NO;
-    }
+    self.logInView.logInButton.enabled = NO;
 }
 
 - (void)didReceiveMemoryWarning {
