@@ -9,7 +9,7 @@
 #import "SSNLogInViewController.h"
 #import "SSNUserViewController.h"
 #import "SSNGameViewController.h"
-
+#import "MBProgressHUD.h"
 
 @interface SSNLogInViewController () <PFLogInViewControllerDelegate, UITextFieldDelegate>
 
@@ -46,7 +46,10 @@
 }
 
 - (void)logInViewController:(PFLogInViewController *)logInController didFailToLogInWithError:(PFUI_NULLABLE NSError *)error {
-    NSLog(@"login failed");
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.mode = MBProgressHUDModeText;
+    hud.labelText = @"Login Failed";
+    [hud hide:YES afterDelay:1.5];
 }
 
 #pragma mark - UITextFieldDelegate
