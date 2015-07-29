@@ -8,6 +8,8 @@
 
 #import "SSNLogInViewController.h"
 #import "SSNUserViewController.h"
+#import "SSNGameViewController.h"
+
 
 @interface SSNLogInViewController () <PFLogInViewControllerDelegate>
 
@@ -33,8 +35,13 @@
 }
 
 - (void)logInViewController:(PFLogInViewController *)logInController didLogInUser:(PFUser *)user {
-    SSNUserViewController *userViewController = [[SSNUserViewController alloc] init];
-    [self presentViewController:userViewController animated:NO completion:nil];
+    // To launch User View
+//    SSNUserViewController *userViewController = [[SSNUserViewController alloc] init];
+//    [self.navigationController presentViewController:userViewController animated:NO completion:nil];
+    
+    // To launch game view
+    SSNGameViewController *gameViewController = [[SSNGameViewController alloc] init];
+    [self presentViewController:gameViewController animated:NO completion:nil];
 }
 
 - (void)logInViewController:(PFLogInViewController *)logInController didFailToLogInWithError:(PFUI_NULLABLE NSError *)error {
