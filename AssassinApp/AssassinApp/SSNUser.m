@@ -11,9 +11,10 @@
 
 @implementation SSNUser
 
-@dynamic fullName;
+@dynamic fullName, gamesPlaying, gamesPlayed, profilePicture, lastSeen;
 
-+ (SSNUser *)currentUser {
++ (SSNUser *)currentUser
+{
     return (SSNUser *)[PFUser currentUser];
 }
 
