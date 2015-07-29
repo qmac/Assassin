@@ -7,6 +7,7 @@
 //
 
 #import "SSNUserViewController.h"
+#import "SSNGameViewController.h"
 
 @interface SSNUserViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -28,6 +29,9 @@ static NSString *const CellIdentifier = @"gameCell";
     [self.tableView registerClass:UITableViewCell.class forCellReuseIdentifier:CellIdentifier];
     
     [self.view addSubview:self.tableView];
+    
+    UIBarButtonItem *createGameButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(launchCreateGame:)];
+    self.navigationItem.rightBarButtonItem = createGameButton;
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -42,7 +46,13 @@ static NSString *const CellIdentifier = @"gameCell";
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark UITableView Datasource
+#pragma mark - Nav Bar Handlers
+- (void) launchCreateGame:(id)sender
+{
+    NSLog(@"creating new game");
+}
+
+#pragma mark - UITableView Datasource
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -59,11 +69,13 @@ static NSString *const CellIdentifier = @"gameCell";
     return 26;
 }
 
-#pragma mark UITableView Delegate
+#pragma mark - UITableView Delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Handle when user taps on a cell
+    SSNGameViewController *gameViewController = [[SSNGameViewController alloc] init];
+    [self.navigationController presentViewController:gameViewController animated:NO completion:nil];
 }
 
 
