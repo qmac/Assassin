@@ -21,6 +21,8 @@
 		AC649FA71B691573007C3E88 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC649FA61B691573007C3E88 /* SystemConfiguration.framework */; };
 		AC649FA91B69157A007C3E88 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AC649FA81B69157A007C3E88 /* libz.dylib */; };
 		AC649FAB1B691587007C3E88 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AC649FAA1B691587007C3E88 /* libsqlite3.dylib */; };
+		AC649FAE1B691AFB007C3E88 /* ParseCrashReporting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC649FAC1B691AFB007C3E88 /* ParseCrashReporting.framework */; };
+		AC649FAF1B691AFB007C3E88 /* ParseUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC649FAD1B691AFB007C3E88 /* ParseUI.framework */; };
 		E5E435581B690F6500A012BA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E5E435571B690F6500A012BA /* main.m */; };
 		E5E4355B1B690F6500A012BA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E5E4355A1B690F6500A012BA /* AppDelegate.m */; };
 		E5E4355E1B690F6500A012BA /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5E4355D1B690F6500A012BA /* ViewController.m */; };
@@ -55,6 +57,8 @@
 		AC649FA61B691573007C3E88 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		AC649FA81B69157A007C3E88 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		AC649FAA1B691587007C3E88 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		AC649FAC1B691AFB007C3E88 /* ParseCrashReporting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseCrashReporting.framework; sourceTree = "<group>"; };
+		AC649FAD1B691AFB007C3E88 /* ParseUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseUI.framework; sourceTree = "<group>"; };
 		E5E435521B690F6500A012BA /* AssassinApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AssassinApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5E435561B690F6500A012BA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E5E435571B690F6500A012BA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -76,10 +80,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				AC649FAB1B691587007C3E88 /* libsqlite3.dylib in Frameworks */,
+				AC649FAE1B691AFB007C3E88 /* ParseCrashReporting.framework in Frameworks */,
 				AC649FA91B69157A007C3E88 /* libz.dylib in Frameworks */,
 				AC649FA71B691573007C3E88 /* SystemConfiguration.framework in Frameworks */,
 				AC649FA51B69156B007C3E88 /* StoreKit.framework in Frameworks */,
 				AC649FA31B691563007C3E88 /* Security.framework in Frameworks */,
+				AC649FAF1B691AFB007C3E88 /* ParseUI.framework in Frameworks */,
 				AC649FA11B69155C007C3E88 /* QuartzCore.framework in Frameworks */,
 				AC649F9F1B691552007C3E88 /* CoreLocation.framework in Frameworks */,
 				AC649F9D1B69154B007C3E88 /* CoreGraphics.framework in Frameworks */,
@@ -105,6 +111,8 @@
 		AC649F8F1B691519007C3E88 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AC649FAC1B691AFB007C3E88 /* ParseCrashReporting.framework */,
+				AC649FAD1B691AFB007C3E88 /* ParseUI.framework */,
 				AC649FAA1B691587007C3E88 /* libsqlite3.dylib */,
 				AC649FA81B69157A007C3E88 /* libz.dylib */,
 				AC649FA61B691573007C3E88 /* SystemConfiguration.framework */,
