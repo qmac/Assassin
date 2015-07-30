@@ -9,6 +9,10 @@
 #import "SSNCreateGameViewController.h"
 
 @interface SSNCreateGameViewController ()
+@property (weak, nonatomic) IBOutlet UITableView *invitedPlayersTableView;
+@property (weak, nonatomic) IBOutlet UITextField *gameTitleInput;
+@property (weak, nonatomic) IBOutlet UITextField *addPlayerInput;
+@property (weak, nonatomic) IBOutlet UIButton *addPlayerButton;
 
 @end
 
@@ -22,6 +26,11 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)addPlayerAction:(id)sender
+{
+
 }
 
 /*
