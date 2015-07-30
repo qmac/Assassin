@@ -8,7 +8,7 @@
 
 #import "SSNSignUpViewController.h"
 #import "SSNUserViewController.h"
-#import "SSNUser.h"
+#import <Parse/Parse.h>
 
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
@@ -37,7 +37,7 @@
     // Move all fields down on smaller screen sizes
     float yOffset = [UIScreen mainScreen].bounds.size.height <= 480.0f ? 30.0f : 0.0f;
     
-    [self.signUpView.logo setFrame:CGRectMake(66.5f, 50.0f, 190.0f, 190.0f)];
+    [self.signUpView.logo setFrame:CGRectMake((self.signUpView.frame.size.width / 2) - (190/2), 50.0f, 190.0f, 190.0f)];
     
     yOffset += self.signUpView.logo.frame.size.height - 60.0f;
     
@@ -74,9 +74,9 @@
 
 }
 
-- (void)viewDidAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidAppear:animated];
+    [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES];
 }
 
@@ -87,18 +87,19 @@
 
 - (void)signUpViewController:(PFSignUpViewController *)signUpController didSignUpUser:(PFUser *)user
 {
-    [user setValue:self.signUpView.additionalField.text forKey:@"fullName"];
-    [user setValue:[[NSMutableArray alloc] init] forKey:@"games"];
-//    
-//    NSURL *url = [NSURL URLWithString:@"http://img4.wikia.nocookie.net/__cb20120524204707/gameofthrones/images/4/4d/Joffrey_in_armor2x09.jpg (7KB)"];
-//    NSData *data = [[NSData alloc] initWithContentsOfURL:url];
-//                  
-//    [user setValue:[PFFile fileWithData:data] forKey:@"profilePicture"];
-//    [user setValue:[PFGeoPoint geoPoint] forKey:@"lastSeen"];
-    [user saveInBackground];
+    PFObject *player = [PFObject objectWithClassName:@"Player"];
+    player[@"userId"] = user.objectId;
+    player[@"fullName"] = self.signUpView.additionalField.text;
+    player[@"games"] = [[NSMutableArray alloc] init];
+    NSString *pic = @"hellonsdata";
+    NSData *data = [pic dataUsingEncoding:NSUTF8StringEncoding];
+    player[@"profilePicture"] = [PFFile fileWithData:data];
+    player[@"lastSeen"] = [PFGeoPoint geoPoint];
+
+    [player saveInBackground];
     
     SSNUserViewController *userViewController = [[SSNUserViewController alloc] initWithNibName:@"SSNUserViewController" bundle:nil];
-    [self presentViewController:userViewController animated:NO completion:nil];
+    [self.navigationController pushViewController:userViewController animated:NO];
 }
 
 - (BOOL)signUpViewController:(PFSignUpViewController * __nonnull)signUpController shouldBeginSignUp:(NSDictionary * __nonnull)info

@@ -11,11 +11,11 @@
 #import "SSNUserViewController.h"
 #import "SSNGameViewController.h"
 #import "SSNLogInViewController.h"
+#import "SSNCreateGameViewController.h"
 
 @interface SSNUserViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) NSString *userId;
-@property (nonatomic, strong) NSMutableArray *gameIds;
 @property (nonatomic, strong) NSMutableArray *activeGamesData;
 @property (nonatomic, strong) NSMutableArray *inactiveGamesData;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -41,15 +41,14 @@ static NSString *const CellIdentifier = @"gameCell";
     self.navigationItem.rightBarButtonItem = createGameButton;
     UIBarButtonItem *logoutButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(logoutUser)];
     self.navigationItem.leftBarButtonItem = logoutButton;
-    PFUser *user = [PFUser currentUser];
-    self.gameIds = user[@"games"];
-    NSLog(@"%@", user[@"games"]);
+
     [self fetchGamesData];
 }
 
-- (void)viewDidAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidAppear:animated];
+    [super viewWillAppear:animated];
+    self.navigationItem.hidesBackButton = YES;
     [self.navigationController setNavigationBarHidden:NO];
 }
 
@@ -62,9 +61,15 @@ static NSString *const CellIdentifier = @"gameCell";
 #pragma mark - Parse Methods
 - (void) fetchGamesData
 {
+    PFUser *user = [PFUser currentUser];
+    PFQuery *query = [PFQuery queryWithClassName:@"Player"];
+    [query whereKey:@"userId" equalTo:user.objectId];
+    NSLog(@"%@", user.objectId);
+    NSMutableArray *gameIds = (NSMutableArray *)[query getFirstObject][@"games"];
+    
     NSLog(@"FetchingGames");
     PFQuery *activeQuery = [PFQuery queryWithClassName:@"Games"];
-    [activeQuery whereKey:@"objectId" containedIn:self.gameIds];
+    [activeQuery whereKey:@"objectId" containedIn:gameIds];
     [activeQuery whereKey:@"active" equalTo:@YES];
     [activeQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error)
@@ -81,7 +86,7 @@ static NSString *const CellIdentifier = @"gameCell";
     }];
     
     PFQuery *inactiveQuery = [PFQuery queryWithClassName:@"Games"];
-    [inactiveQuery whereKey:@"objectId" containedIn:self.gameIds];
+    [inactiveQuery whereKey:@"objectId" containedIn:gameIds];
     [inactiveQuery whereKey:@"active" equalTo:@NO];
     [inactiveQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error)
@@ -101,26 +106,8 @@ static NSString *const CellIdentifier = @"gameCell";
 #pragma mark - Nav Bar Handlers
 - (void) launchCreateGame:(id)sender
 {
-//    PFObject *gameObject = [PFObject objectWithClassName:@"Games"];
-//    gameObject[@"active"] = @YES;
-//    gameObject[@"last_kill"] = @"Yash kills Jason";
-//    
-//    NSDictionary *playerAttributes = @{@"target": @"Austin Tsao", @"status": @YES, @"time_remaining": @"654500"};
-//    NSDictionary *playerDictionary = @{@"quinnmac": playerAttributes};
-//    
-//    gameObject[@"player_dict"] = playerDictionary;
-//    
-//    [gameObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-//        if (succeeded)
-//        {
-//            NSLog(@"created new game");
-//        }
-//        else
-//        {
-//            NSLog(@"%@", [error description]);
-//        }
-//    }];
-//    [self.games addObject:gameObject];
+    SSNCreateGameViewController *createGameViewController = [[SSNCreateGameViewController alloc] initWithNibName:@"SSNCreateGameViewController" bundle:nil];
+    [self.navigationController pushViewController:createGameViewController animated:YES];
 }
 -(void) logoutUser
 {
@@ -178,8 +165,10 @@ static NSString *const CellIdentifier = @"gameCell";
     if (indexPath.section == 1){
         return;
     }
-    SSNGameViewController *gameViewController = [[SSNGameViewController alloc] init];
-    [self.navigationController presentViewController:gameViewController animated:NO completion:nil];
+    
+    SSNGameViewController *gameViewController = [[SSNGameViewController alloc] initWithNibName:@"SSNGameViewController" bundle:nil];
+    [gameViewController setGameId:[[self.activeGamesData objectAtIndex:indexPath.row] objectId]];
+    [self presentViewController:gameViewController animated:YES completion:nil];
 }
 
 

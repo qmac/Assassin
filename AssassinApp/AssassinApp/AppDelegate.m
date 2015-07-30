@@ -12,9 +12,8 @@
 #import "SSNSignUpViewController.h"
 #import "SSNUserViewController.h"
 #import "SSNGameViewController.h"
-#import "SSNUser.h"
 #import "Reachability.h"
-
+#import "SSNCreateGameViewController.h"
 @interface AppDelegate ()
 
 @end
@@ -23,8 +22,6 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    [SSNUser registerSubclass];
-    
     [Parse setApplicationId:@"u9m11ErRytB4i6hNRUNvBMBeROirhXRp93Zj5oKY"
                   clientKey:@"6KeMZ2zHH1wPXW5zv6isZqpyG08jX0TRh3iG3CEG"];
     
