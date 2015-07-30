@@ -136,16 +136,25 @@
 - (void)addUserToGame:(NSString *)userName
 {
     NSDictionary *playerAttributes = [[NSDictionary alloc] init];
-
+    
+    NSDate *currentDate = [NSDate date];
+    
+    // Create and initialize date component instance
+    NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
+    [dateComponents setDay:3];
+    
+    // Retrieve date with increased days count
+    NSDate *newDate = [[NSCalendar currentCalendar] dateByAddingComponents:dateComponents toDate:currentDate options:0];
+    
     NSUInteger count = [self.addedUsers count];
     if(count == 1)
     {
-        playerAttributes = @{@"target": userName, @"status": @YES, @"time_remaining": @"654500"};
+        playerAttributes = @{@"target": userName, @"status": @YES, @"time_remaining": @"654500", @"last_date": newDate};
         [self.fullDictionary setObject:playerAttributes forKey:self.creatorUserName];
     }
     else
     {
-        playerAttributes = @{@"target": userName, @"status": @YES, @"time_remaining": @"654500"};
+        playerAttributes = @{@"target": userName, @"status": @YES, @"time_remaining": @"654500", @"last_date": newDate};
         [self.fullDictionary setObject:playerAttributes forKey:[self.addedUsers objectAtIndex:(count - 2)]];
     }
 }
