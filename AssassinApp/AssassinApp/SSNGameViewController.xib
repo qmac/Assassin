@@ -34,7 +34,7 @@
                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Target" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AGg-xU-PcY">
                     <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="IYh-cz-dg2">
@@ -43,13 +43,13 @@
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your Target" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nf2-gz-WGI">
                     <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last Kill" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VRQ-V7-BPT">
                     <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cbv-MO-8Zb">
@@ -58,11 +58,8 @@
                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last kill text" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Si5-xj-ORQ">
                     <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
-                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                        <rect key="frame" x="154" y="715" width="92" height="20.5"/>
-                    </variation>
                 </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -94,6 +91,7 @@
                 <constraint firstAttribute="centerY" secondItem="YEx-g4-Od7" secondAttribute="centerY" constant="-135" id="jqH-uX-sX4"/>
                 <constraint firstItem="cbv-MO-8Zb" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="80" id="n9I-1s-Lsi"/>
                 <constraint firstItem="AGg-xU-PcY" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="282" id="nOu-at-RfS"/>
+                <constraint firstAttribute="bottom" secondItem="Si5-xj-ORQ" secondAttribute="bottom" constant="30" id="oJa-BE-NJi"/>
                 <constraint firstAttribute="centerY" secondItem="YEx-g4-Od7" secondAttribute="centerY" constant="-135" id="oL7-8O-2li"/>
                 <constraint firstAttribute="centerX" secondItem="IYh-cz-dg2" secondAttribute="centerX" id="p1p-JS-9t3"/>
                 <constraint firstAttribute="bottom" secondItem="YEx-g4-Od7" secondAttribute="bottom" constant="100" id="s8c-o1-yXH"/>
@@ -144,6 +142,7 @@
                     <exclude reference="GvL-Sl-X5f"/>
                     <exclude reference="VUw-UP-yek"/>
                     <exclude reference="ZPr-Yj-TZm"/>
+                    <exclude reference="oJa-BE-NJi"/>
                 </mask>
             </variation>
             <variation key="widthClass=compact">
@@ -189,9 +188,10 @@
                     <include reference="TS1-se-bif"/>
                     <include reference="n9I-1s-Lsi"/>
                     <include reference="yfC-2Q-Fm8"/>
-                    <include reference="GvL-Sl-X5f"/>
+                    <exclude reference="GvL-Sl-X5f"/>
                     <include reference="VUw-UP-yek"/>
-                    <include reference="ZPr-Yj-TZm"/>
+                    <exclude reference="ZPr-Yj-TZm"/>
+                    <include reference="oJa-BE-NJi"/>
                 </mask>
             </variation>
             <point key="canvasLocation" x="325" y="209"/>

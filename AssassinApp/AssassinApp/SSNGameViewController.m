@@ -44,16 +44,18 @@
         _targetLabel.hidden = false;
         _targetLabel.text = _targetPlayer;
         
+        _lastKillLabel.hidden = false;
+        _lastKillLabel.text = _lastKill;
+        
         NSURL *url = [NSURL URLWithString:@"http://img4.wikia.nocookie.net/__cb20120524204707/gameofthrones/images/4/4d/Joffrey_in_armor2x09.jpg"];
         NSData *mydata = [[NSData alloc] initWithContentsOfURL:url];
         _targetImage.image = [UIImage imageWithData:mydata];
         
-        NSURL *url2 = [NSURL URLWithString:@"http://img4.wikia.nocookie.net/__cb20120524204707/gameofthrones/images/4/4d/Joffrey_in_armor2x09.jpg"];
+        NSURL *url2 = [NSURL URLWithString:@"http://img3.wikia.nocookie.net/__cb20110626030942/gameofthrones/images/9/9c/EddardStark.jpg"];
         NSData *mydata2 = [[NSData alloc] initWithContentsOfURL:url2];
-        _targetImage.image = [UIImage imageWithData:mydata2];
+        _lastKillImage.image = [UIImage imageWithData:mydata2];
         
-        _lastKillLabel.hidden = false;
-        _lastKillLabel.text = _lastKill;
+        
     }];
     
     NSLog(@"%@", _playerDict);
