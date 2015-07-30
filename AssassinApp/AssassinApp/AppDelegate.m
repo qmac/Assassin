@@ -39,23 +39,24 @@
     [self.hostReachable startNotifier];
     
     UIViewController *rootViewController;
-    /*PFUser *loggedInUser = [PFUser currentUser];
+    PFUser *loggedInUser = [PFUser currentUser];
     if(loggedInUser)
     {
         // To default into Game View
-        rootViewController = [[SSNGameViewController alloc] initWithNibName:@"SSNGameViewController" bundle:nil];
+        //rootViewController = [[SSNGameViewController alloc] initWithNibName:@"SSNGameViewController" bundle:nil];
         
         // To default into User View
-//        rootViewController = [[SSNUserViewController alloc] initWithNibName:@"SSNUserViewController" bundle:nil];
+        rootViewController = [[SSNUserViewController alloc] initWithNibName:@"SSNUserViewController" bundle:nil];
     }
     else
     {
         rootViewController = [[SSNLogInViewController alloc] initWithNibName:@"SSNLogInViewController" bundle:nil];
-    }*/
-    rootViewController = [[SSNCreateGameViewController alloc] initWithNibName:@"SSNCreateGameViewController" bundle:nil];
+    }
+    
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:rootViewController];
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.window.rootViewController = rootViewController;
+    self.window.rootViewController = navController;
     [self.window makeKeyAndVisible];
     
     return YES;
