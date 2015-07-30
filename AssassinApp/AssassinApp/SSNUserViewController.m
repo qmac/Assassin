@@ -13,9 +13,10 @@
 
 @interface SSNUserViewController () <UITableViewDataSource, UITableViewDelegate>
 
-@property (nonatomic, strong, readwrite) UITableView *tableView;
-@property (nonatomic, strong) PFUser *user;
-@property (nonatomic, strong) NSMutableArray *games;
+@property (nonatomic, strong) NSString *userId;
+@property (nonatomic, strong) NSMutableArray *gameIds;
+@property (nonatomic, strong) NSArray *gamesData;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
 
@@ -23,11 +24,11 @@ static NSString *const CellIdentifier = @"gameCell";
 
 @implementation SSNUserViewController
 
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    self.tableView = [[UITableView alloc] initWithFrame:self.view.frame style:UITableViewStylePlain];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     [self.tableView registerClass:UITableViewCell.class forCellReuseIdentifier:CellIdentifier];
@@ -37,9 +38,10 @@ static NSString *const CellIdentifier = @"gameCell";
     UIBarButtonItem *createGameButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(launchCreateGame:)];
     self.navigationItem.rightBarButtonItem = createGameButton;
     
-    self.user = [PFUser currentUser];
-    
-    [self fetchGames];
+    PFUser *user = [PFUser currentUser];
+    self.gameIds = user[@"games"];
+    NSLog(@"%@", user[@"games"]);
+    [self fetchGamesData];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -55,50 +57,50 @@ static NSString *const CellIdentifier = @"gameCell";
 }
 
 #pragma mark - Parse Methods
-- (void) fetchGames
+- (void) fetchGamesData
 {
-    
-//    
-//    
-//    PFQuery *query = [PFQuery queryWithClassName:@"Players"];
-//    [query whereKey:@"user" equalTo:currentUser];
-//    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-//        if (!error)
-//        {
-//            self.games = [objects mutableCopy];
-//            [self.tableView reloadData];
-//        }
-//        else
-//        {
-//            // Log details of the failure
-//            NSLog(@"Error: %@ %@", error, [error userInfo]);
-//        }
-//    }];
+    NSLog(@"FetchingGames");
+    PFQuery *query = [PFQuery queryWithClassName:@"Games"];
+    [query whereKey:@"objectId" containedIn:self.gameIds];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error)
+        {
+            //self.games = [objects mutableCopy];
+            self.gamesData = objects;
+            NSLog(@"%@", self.gamesData);
+            [self.tableView reloadData];
+        }
+        else
+        {
+            // Log details of the failure
+            NSLog(@"Error: %@ %@", error, [error userInfo]);
+        }
+    }];
 }
 
 #pragma mark - Nav Bar Handlers
 - (void) launchCreateGame:(id)sender
 {
-    PFObject *gameObject = [PFObject objectWithClassName:@"Games"];
-    gameObject[@"active"] = @YES;
-    gameObject[@"last_kill"] = @"Yash kills Jason";
-    
-    NSDictionary *playerAttributes = @{@"target": @"Austin Tsao", @"status": @YES, @"time_remaining": @"654500"};
-    NSDictionary *playerDictionary = @{@"quinnmac": playerAttributes};
-    
-    gameObject[@"player_dict"] = playerDictionary;
-    
-    [gameObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        if (succeeded)
-        {
-            NSLog(@"created new game");
-        }
-        else
-        {
-            NSLog(@"%@", [error description]);
-        }
-    }];
-    [self.games addObject:gameObject];
+//    PFObject *gameObject = [PFObject objectWithClassName:@"Games"];
+//    gameObject[@"active"] = @YES;
+//    gameObject[@"last_kill"] = @"Yash kills Jason";
+//    
+//    NSDictionary *playerAttributes = @{@"target": @"Austin Tsao", @"status": @YES, @"time_remaining": @"654500"};
+//    NSDictionary *playerDictionary = @{@"quinnmac": playerAttributes};
+//    
+//    gameObject[@"player_dict"] = playerDictionary;
+//    
+//    [gameObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+//        if (succeeded)
+//        {
+//            NSLog(@"created new game");
+//        }
+//        else
+//        {
+//            NSLog(@"%@", [error description]);
+//        }
+//    }];
+//    [self.games addObject:gameObject];
 }
 
 #pragma mark - UITableView Datasource
@@ -115,7 +117,7 @@ static NSString *const CellIdentifier = @"gameCell";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.games count];
+    return [self.gamesData count];
 }
 
 #pragma mark - UITableView Delegate
