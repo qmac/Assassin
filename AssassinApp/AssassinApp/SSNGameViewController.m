@@ -61,9 +61,8 @@
         PFFile *profilePicture = player[@"profilePicture"];
         self.targetImage.image = [UIImage imageWithData:[profilePicture getData]];
         
-        
         self.timerCountdownLabel.textColor=[UIColor redColor];
-        [self.timerCountdownLabel setText:@"Time remaining to assassinate target:"];
+        [self.timerCountdownLabel setText:@"Time remaining:"];
         self.timerCountdownLabel.backgroundColor=[UIColor clearColor];
         
         [self start];

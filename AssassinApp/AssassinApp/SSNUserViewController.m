@@ -146,14 +146,14 @@ static NSString *const CellIdentifier = @"gameCell";
 - (void) launchCreateGame:(id)sender
 {
     SSNCreateGameViewController *createGameViewController = [[SSNCreateGameViewController alloc] initWithNibName:@"SSNCreateGameViewController" bundle:nil];
-    [self.navigationController popToViewController:createGameViewController animated:YES];
+    [self.navigationController pushViewController:createGameViewController animated:YES];
 }
 -(void) logoutUser
 {
     NSLog(@"loggedout");
     [PFUser logOut];
     SSNLogInViewController *logInViewController = [[SSNLogInViewController alloc] init];
-    [self.navigationController pushViewController:logInViewController animated:NO];
+    [self.navigationController popToViewController:logInViewController animated:NO];
 }
 
 #pragma mark - UITableView Datasource
