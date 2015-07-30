@@ -21,6 +21,7 @@
     NSTimer *timer;
     int currMinute;
     int currSeconds;
+    int currHour;
 }
 @end
 
@@ -44,10 +45,10 @@
         
 //        NSLog(@"%@", _playerDict);
         targetPlayer = playerAttributes[@"target"];
-        timeRemaining = playerAttributes[@"time_remaining"];
+        timeRemaining = playerAttributes[@"last_date_to_kill"];
 //        BOOL status = _playerAttributes[@"status"];
         
-//        NSLog(@"%@ %@ %d", _targetPlayer, _timeRemaining, status);
+        NSLog(@"%@ Time remaining: %@", targetPlayer, timeRemaining);
         
         
         _targetLabel.hidden = false;
@@ -86,11 +87,12 @@
         NSInteger seconds = floor(duration - (minutes * 60) - (hours * 60 * 60));
 
         
-        NSLog(@"%f", duration);
+        NSLog(@"Duration: %f", duration);
         NSLog(@"%zd", hours);
         NSLog(@"%zd", minutes);
         NSLog(@"%zd", seconds);
         
+        currHour = (int) hours;
         currMinute = (int) minutes;
         currSeconds = (int)seconds;
     }];
@@ -158,8 +160,13 @@
         {
             currSeconds-=1;
         }
-        if(currMinute>-1)
-            [_timerCountdownLabel setText:[NSString stringWithFormat:@"%@%d%@%02d",@"Time remaining to assassinate target: ",currMinute,@":",currSeconds]];
+        if(currMinute == 0)
+        {
+            currHour -= 1;
+            currMinute=59;
+        }
+        if(currHour>-1)
+            [_timerCountdownLabel setText:[NSString stringWithFormat:@"%@%d%@%02d",@"Time remaining to assassinate target: ",currHour,@":",currMinute, @":", currSeconds]];
     }
     else
     {
