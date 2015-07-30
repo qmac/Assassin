@@ -121,27 +121,26 @@
 
 - (IBAction)confirmKill:(id)sender {
     PFQuery *query = [PFQuery queryWithClassName:@"Games"];
-    [query getObjectInBackgroundWithId:self.gameId block:^(PFObject *gameObject, NSError *error) {
-        NSLog(@"%@", gameObject[@"player_dict"]);
-        NSString *assassin = loggedInUser.username;
-        NSString *target = gameObject[@"player_dict"][assassin][@"target"];
-        NSString *newTarget = gameObject[@"player_dict"][target][@"target"];
-        NSString *killMessage = [NSString stringWithFormat:@"%@ killed %@", assassin, target];
+    PFObject *gameObject = [query getObjectWithId:self.gameId];
+    NSLog(@"%@", gameObject[@"player_dict"]);
+    NSString *assassin = loggedInUser.username;
+    NSString *target = gameObject[@"player_dict"][assassin][@"target"];
+    NSString *newTarget = gameObject[@"player_dict"][target][@"target"];
+    NSString *killMessage = [NSString stringWithFormat:@"%@ killed %@", assassin, target];
         
-        //updating target's stats
-        gameObject[@"player_dict"][target][@"status"] = @NO;
-        gameObject[@"player_dict"][target][@"time_remaining"] = @"0";
-        gameObject[@"player_dict"][target][@"target"] = @"";
+    //updating target's stats
+    gameObject[@"player_dict"][target][@"status"] = @NO;
+    gameObject[@"player_dict"][target][@"last_date_to_kill"] = @"0";
+    gameObject[@"player_dict"][target][@"target"] = @"";
         
-        //updating assasin's stats
-        gameObject[@"player_dict"][assassin][@"target"] = newTarget;
-        gameObject[@"player_dict"][assassin][@"time_remaining"] = [self updateTime];
+    //updating assasin's stats
+    gameObject[@"player_dict"][assassin][@"target"] = newTarget;
+    gameObject[@"player_dict"][assassin][@"last_date_to_kill"] = [self updateTime];
         
-        //updating game message
-        gameObject[@"last_kill"] = killMessage;
+    //updating game message
+    gameObject[@"last_kill"] = killMessage;
         
-        [gameObject saveInBackground];
-    }];
+    [gameObject saveInBackground];
 }
 
 -(void)suicide
@@ -165,16 +164,18 @@
     
     //updating suicider's stats
     gameObject[@"player_dict"][currentUser][@"status"] = @NO;
-    gameObject[@"player_dict"][currentUser][@"time_remaining"] = @"0";
+    gameObject[@"player_dict"][currentUser][@"last_date_to_kill"] = @"0";
     gameObject[@"player_dict"][currentUser][@"target"] = @"";
     
     //updating assasin's stats
     gameObject[@"player_dict"][yourAssassin][@"target"] = target;
-    gameObject[@"player_dict"][yourAssassin][@"time_remaining"] = [self updateTime];
+    gameObject[@"player_dict"][yourAssassin][@"last_date_to_kill"] = [self updateTime];
     
     //updating game message
     NSString *killMessage = [NSString stringWithFormat:@"%@ committed suicide", currentUser];
     gameObject[@"last_kill"] = killMessage;
+    
+    NSLog(@"%@", gameObject);
     
     [gameObject saveInBackground];
 }
