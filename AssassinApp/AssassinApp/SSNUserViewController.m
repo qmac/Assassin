@@ -104,7 +104,7 @@ static NSString *const CellIdentifier = @"gameCell";
 - (void) launchCreateGame:(id)sender
 {
     SSNCreateGameViewController *createGameViewController = [[SSNCreateGameViewController alloc] initWithNibName:@"SSNCreateGameViewController" bundle:nil];
-    [self presentViewController:createGameViewController animated:YES completion:nil];
+    [self.navigationController pushViewController:createGameViewController animated:YES];
 }
 
 #pragma mark - UITableView Datasource
