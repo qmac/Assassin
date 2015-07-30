@@ -63,6 +63,17 @@
         NSURL *url = [NSURL URLWithString:@"http://img4.wikia.nocookie.net/__cb20120524204707/gameofthrones/images/4/4d/Joffrey_in_armor2x09.jpg"];
         NSData *mydata = [[NSData alloc] initWithContentsOfURL:url];
         _targetImage.image = [UIImage imageWithData:mydata];
+        
+        
+        _timerCountdownLabel.textColor=[UIColor redColor];
+        [_timerCountdownLabel setText:@"Time : 3:00"];
+        _timerCountdownLabel.backgroundColor=[UIColor clearColor];
+//        [self.view addSubview:_timerCountdownLabel];
+        
+        [self start];
+        
+        currMinute=3;
+        currSeconds=00;
     }];
     NSLog(@"%@", playerDict);
 }
@@ -95,6 +106,33 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)start
+{
+    timer=[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timerFired) userInfo:nil repeats:YES];
+    
+}
+-(void)timerFired
+{
+    if((currMinute>0 || currSeconds>=0) && currMinute>=0)
+    {
+        if(currSeconds==0)
+        {
+            currMinute-=1;
+            currSeconds=59;
+        }
+        else if(currSeconds>0)
+        {
+            currSeconds-=1;
+        }
+        if(currMinute>-1)
+            [_timerCountdownLabel setText:[NSString stringWithFormat:@"%@%d%@%02d",@"Time : ",currMinute,@":",currSeconds]];
+    }
+    else
+    {
+        [timer invalidate];
+    }
 }
 
 /*
