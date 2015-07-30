@@ -7,8 +7,8 @@
 //
 
 #import "SSNCreateGameViewController.h"
+#import <Parse/Parse.h>
 #import <Parse/PFObject.h>
-#import "SSNUser.h"
 #import "SSNGameViewController.h"
 
 @interface SSNCreateGameViewController () <UITableViewDataSource, UITableViewDelegate>
@@ -33,7 +33,7 @@
     self.addedUsers = [[NSMutableArray alloc] init];
     self.gameObject = [PFObject objectWithClassName:@"Games"];
     self.fullDictionary = [[NSMutableDictionary alloc] init];
-    self.creatorUserName = [SSNUser currentUser].username;
+    self.creatorUserName = [PFUser currentUser].username;
 }
 
 - (void)didReceiveMemoryWarning {
