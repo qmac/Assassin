@@ -24,14 +24,10 @@
 }
 @end
 
-
 @implementation SSNGameViewController
-
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    
     
     
     // Do any additional setup after loading the view from its nib.
@@ -67,7 +63,8 @@
         
         NSURL *url = [NSURL URLWithString:@"http://img4.wikia.nocookie.net/__cb20120524204707/gameofthrones/images/4/4d/Joffrey_in_armor2x09.jpg"];
         NSData *mydata = [[NSData alloc] initWithContentsOfURL:url];
-        _targetImage.image = [UIImage imageWithData:mydata];
+
+        self.targetImage.image = [UIImage imageWithData:mydata];
         
         
         _timerCountdownLabel.textColor=[UIColor redColor];
@@ -102,7 +99,8 @@
 
 - (IBAction)confirmKill:(id)sender {
     PFQuery *query = [PFQuery queryWithClassName:@"Games"];
-    [query getObjectInBackgroundWithId:@"ZRlsokeDXs" block:^(PFObject *gameObject, NSError *error) {
+    [query getObjectInBackgroundWithId:self.gameId block:^(PFObject *gameObject, NSError *error) {
+        NSLog(@"%@", gameObject[@"player_dict"]);
         NSString *target = gameObject[@"player_dict"][loggedInUser.username][@"target"];
         NSString *newTarget = gameObject[@"player_dict"][target][@"target"];
         NSString *assassin = loggedInUser.username;
@@ -115,7 +113,19 @@
         
         //updating assasin's stats
         gameObject[@"player_dict"][[PFUser currentUser].username][@"target"] = newTarget;
-        gameObject[@"player_dict"][[PFUser currentUser].username][@"time_remaining"] = @"260000";
+        NSDate *currentDate = [NSDate date];
+        
+        // Create and initialize date component instance
+        NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
+        [dateComponents setDay:3];
+        
+        // Retrieve date with increased days count
+        NSDate *newDate = [[NSCalendar currentCalendar] dateByAddingComponents:dateComponents toDate:currentDate options:0];
+        
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss Z"];
+        NSString *dateToKill = [formatter stringFromDate:newDate];
+        gameObject[@"player_dict"][[PFUser currentUser].username][@"time_remaining"] = dateToKill;
         
         //updating game message
         gameObject[@"last_kill"] = killMessage;
@@ -166,7 +176,4 @@
     // Pass the selected object to the new view controller.
 }
 */
-
-- (IBAction)killConfirmButton:(id)sender {
-}
 @end

@@ -7,8 +7,8 @@
 //
 
 #import "SSNCreateGameViewController.h"
+#import <Parse/Parse.h>
 #import <Parse/PFObject.h>
-#import "SSNUser.h"
 #import "SSNGameViewController.h"
 
 @interface SSNCreateGameViewController () <UITableViewDataSource, UITableViewDelegate>
@@ -33,7 +33,7 @@
     self.addedUsers = [[NSMutableArray alloc] init];
     self.gameObject = [PFObject objectWithClassName:@"Games"];
     self.fullDictionary = [[NSMutableDictionary alloc] init];
-    self.creatorUserName = [SSNUser currentUser].username;
+    self.creatorUserName = [PFUser currentUser].username;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -151,15 +151,19 @@
     // Retrieve date with increased days count
     NSDate *newDate = [[NSCalendar currentCalendar] dateByAddingComponents:dateComponents toDate:currentDate options:0];
     
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss Z"];
+    NSString *dateToKill = [formatter stringFromDate:newDate];
+    
     NSUInteger count = [self.addedUsers count];
     if(count == 1)
     {
-        playerAttributes = @{@"target": userName, @"status": @YES, @"time_remaining": @"654500", @"last_date": newDate};
+        playerAttributes = @{@"target": userName, @"status": @YES, @"time_remaining": dateToKill};
         [self.fullDictionary setObject:playerAttributes forKey:self.creatorUserName];
     }
     else
     {
-        playerAttributes = @{@"target": userName, @"status": @YES, @"time_remaining": @"654500", @"last_date": newDate};
+        playerAttributes = @{@"target": userName, @"status": @YES, @"time_remaining": dateToKill};
         [self.fullDictionary setObject:playerAttributes forKey:[self.addedUsers objectAtIndex:(count - 2)]];
     }
 }
