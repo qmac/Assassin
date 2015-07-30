@@ -12,6 +12,7 @@
 #import "SSNSignUpViewController.h"
 #import "SSNUserViewController.h"
 #import "SSNGameViewController.h"
+#import "SSNUser.h"
 #import "Reachability.h"
 
 @interface AppDelegate ()
@@ -22,7 +23,7 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    [SSNUser registerSubclass];
     
     [Parse setApplicationId:@"u9m11ErRytB4i6hNRUNvBMBeROirhXRp93Zj5oKY"
                   clientKey:@"6KeMZ2zHH1wPXW5zv6isZqpyG08jX0TRh3iG3CEG"];
