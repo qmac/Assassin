@@ -28,7 +28,8 @@
     return self;
 }
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     self.delegate = self;
     self.logInView.backgroundColor = [UIColor blackColor];
@@ -38,6 +39,12 @@
     [self.logInView.signUpButton setBackgroundColor:UIColorFromRGB(0xC0392B)];
     self.logInView.logInButton.enabled = NO;
     self.logInView.dismissButton.hidden = YES;
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES];
 }
 
 - (void)viewDidLayoutSubviews {
