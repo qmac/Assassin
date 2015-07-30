@@ -7,6 +7,7 @@
 //
 
 #import "SSNCreateGameViewController.h"
+#import <Parse/PFObject.h>
 
 @interface SSNCreateGameViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -69,4 +70,59 @@
     return cell;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 40;
+}
+
+- (UIView *)createHeaderWithTitle:(NSString *)title
+{
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0.0, self.view.frame.size.width, 45.0)];
+    headerView.backgroundColor = [UIColor clearColor];
+    headerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    if (title)
+    {
+        UILabel *accountLabel =
+        [[UILabel alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 18, 5,
+                                                  self.view.frame.size.width - self.view.frame.size.width / 5,
+                                                  35.0)];
+        
+        accountLabel.textAlignment = NSTextAlignmentLeft;
+        accountLabel.text = title;
+        accountLabel.numberOfLines = 3;
+        accountLabel.opaque = NO;
+        accountLabel.backgroundColor = [UIColor clearColor];
+        [headerView addSubview:accountLabel];
+    }
+    return headerView;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    return [self createHeaderWithTitle:[NSString stringWithFormat:@"Invited Players"]];
+}
+
+- (void)sendToDatabase
+{
+    PFObject *gameObject = [PFObject objectWithClassName:@"Games"];
+    gameObject[@"active"] = @YES;
+    gameObject[@"last_kill"] = @"Yash kills Jason";
+    
+    NSDictionary *playerAttributes = @{@"target": @"Austin Tsao", @"status": @YES, @"time_remaining": @"654500"};
+    NSDictionary *playerDictionary = @{@"quinnmac": playerAttributes};
+    
+    gameObject[@"player_dict"] = playerDictionary;
+    
+    [gameObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (succeeded)
+        {
+            NSLog(@"created new game");
+        }
+        else
+        {
+            NSLog(@"%@", [error description]);
+        }
+    }];
+    [self.games addObject:gameObject];
+}
 @end
