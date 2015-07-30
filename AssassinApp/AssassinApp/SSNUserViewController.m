@@ -18,6 +18,7 @@
 @property (nonatomic, strong) NSMutableArray *activeGamesData;
 @property (nonatomic, strong) NSMutableArray *inactiveGamesData;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (nonatomic, strong) UIRefreshControl *refreshControl;
 
 @end
 
@@ -39,7 +40,22 @@ static NSString *const CellIdentifier = @"gameCell";
     UIBarButtonItem *createGameButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(launchCreateGame:)];
     self.navigationItem.rightBarButtonItem = createGameButton;
     
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    self.refreshControl.backgroundColor = [UIColor purpleColor];
+    self.refreshControl.tintColor = [UIColor whiteColor];
+    [self.refreshControl addTarget:self
+                            action:@selector(fetchGamesData)
+                  forControlEvents:UIControlEventValueChanged];
+    
     [self fetchGamesData];
+}
+
+- (void)stopRefresh
+
+{
+    
+    [self.refreshControl endRefreshing];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -98,6 +114,8 @@ static NSString *const CellIdentifier = @"gameCell";
             NSLog(@"Error: %@ %@", error, [error userInfo]);
         }
     }];
+    
+    [self performSelector:@selector(stopRefresh) withObject:nil afterDelay:2.5];
 }
 
 #pragma mark - Nav Bar Handlers
