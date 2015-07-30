@@ -30,6 +30,8 @@
 		AC649FC21B692CB1007C3E88 /* SSNLogInViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC649FC11B692CB1007C3E88 /* SSNLogInViewController.xib */; };
 		AC649FC61B692F49007C3E88 /* SSNSignUpViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC649FC51B692F49007C3E88 /* SSNSignUpViewController.xib */; };
 		AC649FD21B695B20007C3E88 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = AC649FD01B695B20007C3E88 /* Reachability.m */; };
+		AC649FD91B69ABCC007C3E88 /* SSNCreateGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC649FD71B69ABCC007C3E88 /* SSNCreateGameViewController.m */; };
+		AC649FDA1B69ABCC007C3E88 /* SSNCreateGameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC649FD81B69ABCC007C3E88 /* SSNCreateGameViewController.xib */; };
 		E5E435581B690F6500A012BA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E5E435571B690F6500A012BA /* main.m */; };
 		E5E4355B1B690F6500A012BA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E5E4355A1B690F6500A012BA /* AppDelegate.m */; };
 		E5E435631B690F6500A012BA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E5E435621B690F6500A012BA /* Images.xcassets */; };
@@ -78,6 +80,9 @@
 		AC649FC51B692F49007C3E88 /* SSNSignUpViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SSNSignUpViewController.xib; sourceTree = "<group>"; };
 		AC649FCF1B695B20007C3E88 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		AC649FD01B695B20007C3E88 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		AC649FD61B69ABCC007C3E88 /* SSNCreateGameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSNCreateGameViewController.h; sourceTree = "<group>"; };
+		AC649FD71B69ABCC007C3E88 /* SSNCreateGameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSNCreateGameViewController.m; sourceTree = "<group>"; };
+		AC649FD81B69ABCC007C3E88 /* SSNCreateGameViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SSNCreateGameViewController.xib; sourceTree = "<group>"; };
 		E5E435521B690F6500A012BA /* AssassinApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AssassinApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5E435561B690F6500A012BA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E5E435571B690F6500A012BA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -203,6 +208,9 @@
 				AC649FB91B692785007C3E88 /* SSNLogInViewController.m */,
 				AC649FC11B692CB1007C3E88 /* SSNLogInViewController.xib */,
 				AC649FC51B692F49007C3E88 /* SSNSignUpViewController.xib */,
+				AC649FD61B69ABCC007C3E88 /* SSNCreateGameViewController.h */,
+				AC649FD71B69ABCC007C3E88 /* SSNCreateGameViewController.m */,
+				AC649FD81B69ABCC007C3E88 /* SSNCreateGameViewController.xib */,
 				E5E435621B690F6500A012BA /* Images.xcassets */,
 				E5E435641B690F6500A012BA /* LaunchScreen.xib */,
 				E5E435551B690F6500A012BA /* Supporting Files */,
@@ -322,6 +330,7 @@
 				AC649FC21B692CB1007C3E88 /* SSNLogInViewController.xib in Resources */,
 				E5F673391B693678004B7D6A /* SSNGameViewController.xib in Resources */,
 				E5E435631B690F6500A012BA /* Images.xcassets in Resources */,
+				AC649FDA1B69ABCC007C3E88 /* SSNCreateGameViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -340,6 +349,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AC649FB71B6926FA007C3E88 /* SSNSignUpViewController.m in Sources */,
+				AC649FD91B69ABCC007C3E88 /* SSNCreateGameViewController.m in Sources */,
 				E5E4355B1B690F6500A012BA /* AppDelegate.m in Sources */,
 				AC649FD21B695B20007C3E88 /* Reachability.m in Sources */,
 				E5E435581B690F6500A012BA /* main.m in Sources */,
