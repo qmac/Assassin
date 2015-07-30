@@ -52,7 +52,16 @@
 }
 
 - (IBAction)startGameAction:(id)sender {
-    NSDictionary *playerAttributes = @{@"target": self.creatorUserName, @"status": @YES, @"time_remaining": @"654500"};
+    NSDate *currentDate = [NSDate date];
+    
+    // Create and initialize date component instance
+    NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
+    [dateComponents setDay:3];
+    
+    // Retrieve date with increased days count
+    NSDate *newDate = [[NSCalendar currentCalendar] dateByAddingComponents:dateComponents toDate:currentDate options:0];
+    
+    NSDictionary *playerAttributes = @{@"target": self.creatorUserName, @"status": @YES, @"time_remaining": @"654500", @"last_date": newDate};
     [self.fullDictionary setObject:playerAttributes forKey:[self.addedUsers lastObject]];
     
     self.gameObject[@"active"] = @YES;
