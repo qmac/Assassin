@@ -15,7 +15,6 @@
 @interface SSNUserViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) NSString *userId;
-@property (nonatomic, strong) NSMutableArray *gameIds;
 @property (nonatomic, strong) NSMutableArray *activeGamesData;
 @property (nonatomic, strong) NSMutableArray *inactiveGamesData;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -40,9 +39,6 @@ static NSString *const CellIdentifier = @"gameCell";
     UIBarButtonItem *createGameButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(launchCreateGame:)];
     self.navigationItem.rightBarButtonItem = createGameButton;
     
-    PFUser *user = [PFUser currentUser];
-    self.gameIds = user[@"games"];
-    NSLog(@"%@", user[@"games"]);
     [self fetchGamesData];
 }
 
@@ -62,9 +58,15 @@ static NSString *const CellIdentifier = @"gameCell";
 #pragma mark - Parse Methods
 - (void) fetchGamesData
 {
+    PFUser *user = [PFUser currentUser];
+    PFQuery *query = [PFQuery queryWithClassName:@"Player"];
+    [query whereKey:@"userId" equalTo:user.objectId];
+    NSLog(@"%@", user.objectId);
+    NSMutableArray *gameIds = (NSMutableArray *)[query getFirstObject][@"games"];
+    
     NSLog(@"FetchingGames");
     PFQuery *activeQuery = [PFQuery queryWithClassName:@"Games"];
-    [activeQuery whereKey:@"objectId" containedIn:self.gameIds];
+    [activeQuery whereKey:@"objectId" containedIn:gameIds];
     [activeQuery whereKey:@"active" equalTo:@YES];
     [activeQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error)
@@ -81,7 +83,7 @@ static NSString *const CellIdentifier = @"gameCell";
     }];
     
     PFQuery *inactiveQuery = [PFQuery queryWithClassName:@"Games"];
-    [inactiveQuery whereKey:@"objectId" containedIn:self.gameIds];
+    [inactiveQuery whereKey:@"objectId" containedIn:gameIds];
     [inactiveQuery whereKey:@"active" equalTo:@NO];
     [inactiveQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error)
@@ -153,8 +155,10 @@ static NSString *const CellIdentifier = @"gameCell";
     if (indexPath.section == 1){
         return;
     }
-    SSNGameViewController *gameViewController = [[SSNGameViewController alloc] init];
-    [self.navigationController pushViewController:gameViewController animated:YES];
+    
+    SSNGameViewController *gameViewController = [[SSNGameViewController alloc] initWithNibName:@"SSNGameViewController" bundle:nil];
+    [gameViewController setGameId:[[self.activeGamesData objectAtIndex:indexPath.row] objectId]];
+    [self presentViewController:gameViewController animated:YES completion:nil];
 }
 
 

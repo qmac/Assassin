@@ -8,7 +8,6 @@
 
 #import "SSNCreateGameViewController.h"
 #import <Parse/PFObject.h>
-#import "SSNUser.h"
 #import "SSNGameViewController.h"
 #import <Parse/PFQuery.h>
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
@@ -35,7 +34,7 @@
     self.addedUsers = [[NSMutableArray alloc] init];
     self.gameObject = [PFObject objectWithClassName:@"Games"];
     self.fullDictionary = [[NSMutableDictionary alloc] init];
-    self.creatorUserName = [SSNUser currentUser].username;
+    self.creatorUserName = [PFUser currentUser].username;
     [self.addPlayerButton setTitleColor:UIColorFromRGB(0xC0392B) forState:UIControlStateNormal];
     [self.startGameButton setTitleColor:UIColorFromRGB(0xC0392B) forState:UIControlStateNormal];
     UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonAction)];
