@@ -41,10 +41,10 @@ static NSString *const CellIdentifier = @"gameCell";
     UIBarButtonItem *createGameButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(launchCreateGame:)];
     self.navigationItem.rightBarButtonItem = createGameButton;
     
-    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-    self.navigationController.navigationBar.barTintColor = UIColorFromRGB(0xC0392B);
+    self.navigationController.navigationBar.tintColor = UIColorFromRGB(0xC0392B);
+    self.navigationController.navigationBar.barTintColor = [UIColor blackColor];
     self.navigationItem.title = @"My Games";
-    [[UINavigationBar appearance] setTitleTextAttributes: @{NSForegroundColorAttributeName: UIColorFromRGB(0xC0392B)}];
+    [self.navigationController.navigationBar setTitleTextAttributes: @{NSForegroundColorAttributeName: UIColorFromRGB(0xC0392B)}];
     
     [self fetchGamesData];
 }
@@ -135,7 +135,6 @@ static NSString *const CellIdentifier = @"gameCell";
     {
         cell.textLabel.text = [self.inactiveGamesData objectAtIndex:indexPath.row][@"game_title"];
     }
-    cell.textLabel.text = [cell.textLabel.text uppercaseString];
     cell.textLabel.textColor =[UIColor whiteColor];
     cell.backgroundColor = [UIColor blackColor];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -176,7 +175,7 @@ static NSString *const CellIdentifier = @"gameCell";
     
     SSNGameViewController *gameViewController = [[SSNGameViewController alloc] initWithNibName:@"SSNGameViewController" bundle:nil];
     [gameViewController setGameId:[[self.activeGamesData objectAtIndex:indexPath.row] objectId]];
-    [self presentViewController:gameViewController animated:YES completion:nil];
+    [self.navigationController pushViewController:gameViewController animated:YES];
 }
 
 
