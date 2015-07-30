@@ -66,7 +66,7 @@
         
         
         _timerCountdownLabel.textColor=[UIColor redColor];
-        [_timerCountdownLabel setText:@"Time : 3:00"];
+        [_timerCountdownLabel setText:@"Time remaining to assassinate target: 3:00"];
         _timerCountdownLabel.backgroundColor=[UIColor clearColor];
 //        [self.view addSubview:_timerCountdownLabel];
         
@@ -127,7 +127,7 @@
             currSeconds-=1;
         }
         if(currMinute>-1)
-            [_timerCountdownLabel setText:[NSString stringWithFormat:@"%@%d%@%02d",@"Time : ",currMinute,@":",currSeconds]];
+            [_timerCountdownLabel setText:[NSString stringWithFormat:@"%@%d%@%02d",@"Time remaining to assassinate target: ",currMinute,@":",currSeconds]];
     }
     else
     {
