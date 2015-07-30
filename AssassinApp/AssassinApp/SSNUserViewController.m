@@ -11,6 +11,9 @@
 #import "SSNUserViewController.h"
 #import "SSNGameViewController.h"
 #import "SSNCreateGameViewController.h"
+#import "YALSunnyRefreshControl.h"
+
+#define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 @interface SSNUserViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -19,6 +22,8 @@
 @property (nonatomic, strong) NSMutableArray *inactiveGamesData;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
+@property (nonatomic,strong) YALSunnyRefreshControl *sunnyRefreshControl;
+
 
 @end
 
@@ -40,14 +45,33 @@ static NSString *const CellIdentifier = @"gameCell";
     UIBarButtonItem *createGameButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(launchCreateGame:)];
     self.navigationItem.rightBarButtonItem = createGameButton;
     
+
+//    [self setupRefreshControl];
     self.refreshControl = [[UIRefreshControl alloc] init];
-    self.refreshControl.backgroundColor = [UIColor purpleColor];
+    self.refreshControl.backgroundColor = [UIColor colorWithRed:0.753 green:0.224 blue:0.169 alpha:1];
     self.refreshControl.tintColor = [UIColor whiteColor];
     [self.refreshControl addTarget:self
                             action:@selector(fetchGamesData)
                   forControlEvents:UIControlEventValueChanged];
     
+    [self.tableView addSubview:self.refreshControl];
+    
     [self fetchGamesData];
+}
+
+//- (void)viewDidAppear:(BOOL)animated {
+//    
+//    [super viewDidAppear:animated];
+//    [self.sunnyRefreshControl startRefreshing];
+//}
+
+-(void)setupRefreshControl{
+    
+    self.sunnyRefreshControl = [YALSunnyRefreshControl attachToScrollView:self.tableView
+                                                                   target:self
+                                                            refreshAction:@selector(fetchGamesData)];
+    [self fetchGamesData];
+    
 }
 
 - (void)stopRefresh
