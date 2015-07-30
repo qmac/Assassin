@@ -58,8 +58,6 @@
         NSURL *url2 = [NSURL URLWithString:@"http://img3.wikia.nocookie.net/__cb20110626030942/gameofthrones/images/9/9c/EddardStark.jpg"];
         NSData *mydata2 = [[NSData alloc] initWithContentsOfURL:url2];
         _lastKillImage.image = [UIImage imageWithData:mydata2];
-        
-        
     }];
     
     NSLog(@"%@", _playerDict);
@@ -67,7 +65,7 @@
 
 - (IBAction)confirmKill:(id)sender {
     PFQuery *query = [PFQuery queryWithClassName:@"Games"];
-    [query getObjectInBackgroundWithId:@"j5KvQKhcI3" block:^(PFObject *gameObject, NSError *error) {
+    [query getObjectInBackgroundWithId:@"X8ubTiUwUF" block:^(PFObject *gameObject, NSError *error) {
         NSString *target = gameObject[@"player_dict"][_loggedInUser.username][@"target"];
         NSString *newTarget = gameObject[@"player_dict"][target][@"target"];
         NSString *assassin = _loggedInUser.username;
@@ -81,6 +79,9 @@
         //updating assasin's stats
         gameObject[@"player_dict"][[PFUser currentUser].username][@"target"] = newTarget;
         gameObject[@"player_dict"][[PFUser currentUser].username][@"time_remaining"] = @"260000";
+        
+        //updating game message
+        gameObject[@"last_kill"] = killMessage;
         
         [gameObject saveInBackground];
     }];
