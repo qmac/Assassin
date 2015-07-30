@@ -88,6 +88,11 @@
     [newUser setUsername:self.signUpView.usernameField.text];
     [newUser setPassword:self.signUpView.passwordField.text];
     [newUser setFullName:self.signUpView.additionalField.text];
+    [newUser setGamesPlaying:[[NSMutableArray alloc] init]];
+    [newUser setGamesPlayed:[[NSMutableArray alloc] init]];
+    [newUser setProfilePicture:[[PFFile alloc] init]];
+    [newUser setLastSeen:[PFGeoPoint geoPoint]];
+    
     [newUser signUpInBackgroundWithBlock:nil];
 }
 

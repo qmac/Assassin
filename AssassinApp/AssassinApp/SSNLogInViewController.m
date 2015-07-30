@@ -82,13 +82,8 @@
 }
 
 - (void)logInViewController:(PFLogInViewController *)logInController didLogInUser:(PFUser *)user {
-    // To launch User View
-//    SSNUserViewController *userViewController = [[SSNUserViewController alloc] init];
-//    [self.navigationController presentViewController:userViewController animated:NO completion:nil];
-    
-    // To launch game view
-    SSNGameViewController *gameViewController = [[SSNGameViewController alloc] init];
-    [self presentViewController:gameViewController animated:NO completion:nil];
+    SSNUserViewController *userViewController = [[SSNUserViewController alloc] init];
+    [self.navigationController presentViewController:userViewController animated:NO completion:nil];
 }
 
 - (void)logInViewController:(PFLogInViewController *)logInController didFailToLogInWithError:(PFUI_NULLABLE NSError *)error {
@@ -116,15 +111,5 @@
     }
     return YES;
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
