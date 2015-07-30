@@ -11,8 +11,6 @@
 
 @interface SSNGameViewController ()
 
-@property (nonatomic, strong) NSDictionary *playerDict;
-
 @end
 
 
@@ -20,24 +18,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-    PFQuery *query = [PFQuery queryWithClassName:@"Games"];
-    [query getObjectInBackgroundWithId:@"VAOQ2LvVAQ" block:^(PFObject *gameObject, NSError *error) {
-        NSLog(@"%@", gameObject);
-        _playerDict = gameObject[@"player_dict"];
-        NSDictionary *playerAttributes =[_playerDict valueForKeyPath:@"manavm"]; // Hard code to my username
-        
-        NSLog(@"%@", _playerDict);
-        NSString *targetPlayer = playerAttributes[@"target"];
-        NSString *timeRemaining = playerAttributes[@"time_remaining"];
-        BOOL status = playerAttributes[@"status"];
-        
-        NSLog(@"%@ %@ %d", targetPlayer, timeRemaining, status);
-    }];
     
 }
 - (IBAction)confirmKill:(id)sender {
-    NSLog(@"%@", @"Die mothafucka");
+    PFQuery *query = [PFQuery queryWithClassName:@"Games"];
+    [query getObjectInBackgroundWithId:@"j5KvQKhcI3" block:^(PFObject *gameObject, NSError *error) {
+        NSLog(@"%@", gameObject);
+        [[gameObject[@"player_dict"] valueForKey:@"manavm"] setObject:(@"quinn") forKey:(@"target")];
+        NSLog(@"%@", [gameObject[@"player_dict"] valueForKey:@"manavm"]);
+        [gameObject saveInBackground];
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
