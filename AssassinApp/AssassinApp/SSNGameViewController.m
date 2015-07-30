@@ -29,10 +29,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    
+    
+    
     // Do any additional setup after loading the view from its nib.
     PFQuery *query = [PFQuery queryWithClassName:@"Games"];
     [query getObjectInBackgroundWithId:@"ZRlsokeDXs" block:^(PFObject *gameObject, NSError *error) {
-        
         NSLog(@"%@", gameObject);
         lastKill = gameObject[@"last_kill"];
         playerDict = gameObject[@"player_dict"];
@@ -66,14 +69,27 @@
         
         
         _timerCountdownLabel.textColor=[UIColor redColor];
-        [_timerCountdownLabel setText:@"Time remaining to assassinate target: 3:00"];
+        [_timerCountdownLabel setText:@"Time remaining to assassinate target:"];
         _timerCountdownLabel.backgroundColor=[UIColor clearColor];
 //        [self.view addSubview:_timerCountdownLabel];
         
         [self start];
         
-        currMinute=3;
-        currSeconds=00;
+//        NSDate* start = [NSDate date];
+//        
+//        NSTimeInterval secondsInEightHours = 8 * 60 * 60;
+//        NSDate *end = [start dateByAddingTimeInterval:secondsInEightHours];
+        NSTimeInterval duration = [end timeIntervalSinceDate:start];
+
+        double minutes = floor(duration/60.0);
+        double seconds = round(duration - minutes * 60.0);
+
+        NSLog(@"%f", duration);
+        NSLog(@"%f", minutes);
+        NSLog(@"%f", seconds);
+        
+        currMinute=minutes;
+        currSeconds=seconds;
     }];
     NSLog(@"%@", playerDict);
 }
