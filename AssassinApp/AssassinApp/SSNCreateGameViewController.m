@@ -10,6 +10,7 @@
 #import <Parse/PFObject.h>
 #import "SSNUser.h"
 #import "SSNGameViewController.h"
+#import <Parse/PFQuery.h>
 
 @interface SSNCreateGameViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -65,6 +66,20 @@
             [games addObject:[self.gameObject objectId]];
             [[PFUser currentUser] setObject:games forKey:@"games"];
             [[PFUser currentUser] saveInBackground];
+            for(int i = 0; i < self.addedUsers.count; i++)
+            {
+                PFQuery *query = [PFQuery queryWithClassName:@"_User"];
+                [query whereKey:@"username" equalTo:self.addedUsers[i]];
+                [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+                    if (!error) {
+                        PFUser *user = (PFUser *)[objects firstObject];
+                        NSMutableArray *games = [user objectForKey:@"games"];
+                        [games addObject:[self.gameObject objectId]];
+                        [user setObject:games forKey:@"games"];
+                        [user saveInBackground];
+                    }
+                }];
+            }
             SSNGameViewController *gameViewController = [[SSNGameViewController alloc] initWithNibName:@"SSNGameViewController" bundle:nil];
             [gameViewController setGameId:[self.gameObject objectId]];
             [self presentViewController:gameViewController animated:YES completion:nil];
