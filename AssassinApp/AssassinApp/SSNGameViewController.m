@@ -65,18 +65,24 @@
     NSLog(@"%@", _playerDict);
 }
 
-
 - (IBAction)confirmKill:(id)sender {
     PFQuery *query = [PFQuery queryWithClassName:@"Games"];
     [query getObjectInBackgroundWithId:@"j5KvQKhcI3" block:^(PFObject *gameObject, NSError *error) {
-//        NSLog(@"%@", gameObject);
-//        [[gameObject[@"player_dict"] valueForKey:@"manavm"] setObject:(@"quinn") forKey:(@"target")];
-//        NSLog(@"%@", [gameObject[@"player_dict"] valueForKey:@"manavm"]);
-//        [gameObject saveInBackground];
+        NSString *target = gameObject[@"player_dict"][_loggedInUser.username][@"target"];
+        NSString *newTarget = gameObject[@"player_dict"][target][@"target"];
         NSString *assassin = _loggedInUser.username;
-        NSString *target = gameObject[@"player_dict"][[PFUser currentUser].username][@"target"];
         NSString *killMessage = [NSString stringWithFormat:@"%@ killed %@", assassin, target];
-        NSLog(@"%@", killMessage);
+        
+        //updating target's stats
+        gameObject[@"player_dict"][target][@"status"] = @NO;
+        gameObject[@"player_dict"][target][@"time_remaining"] = @"0";
+        gameObject[@"player_dict"][target][@"target"] = @"";
+        
+        //updating assasin's stats
+        gameObject[@"player_dict"][[PFUser currentUser].username][@"target"] = newTarget;
+        gameObject[@"player_dict"][[PFUser currentUser].username][@"time_remaining"] = @"260000";
+        
+        [gameObject saveInBackground];
     }];
     
 }
