@@ -81,19 +81,16 @@
 
 - (void)signUpViewController:(PFSignUpViewController *)signUpController didSignUpUser:(PFUser *)user
 {
-    //[user setValue:self.signUpView.additionalField.text forKey:@"fullName"];
-    SSNUser *newUser = (SSNUser*)user;
+    [user setValue:self.signUpView.additionalField.text forKey:@"fullName"];
+//    [user setValue:[[NSMutableArray alloc] init] forKey:@"games"];
+//    
+//    NSURL *url = [NSURL URLWithString:@"http://img4.wikia.nocookie.net/__cb20120524204707/gameofthrones/images/4/4d/Joffrey_in_armor2x09.jpg (7KB)"];
+//    NSData *data = [[NSData alloc] initWithContentsOfURL:url];
+//                  
+//    [user setValue:[PFFile fileWithData:data] forKey:@"profilePicture"];
+//    [user setValue:[PFGeoPoint geoPoint] forKey:@"lastSeen"];
+    [user saveInBackground];
     
-    [newUser setUsername:self.signUpView.usernameField.text];
-    [newUser setPassword:self.signUpView.passwordField.text];
-    [newUser setFullName:self.signUpView.additionalField.text];
-    [newUser setGamesPlaying:[[NSMutableArray alloc] init]];
-    [newUser setGamesPlayed:[[NSMutableArray alloc] init]];
-    [newUser setProfilePicture:[[PFFile alloc] init]];
-    [newUser setLastSeen:[PFGeoPoint geoPoint]];
-    
-    //[newUser signUpInBackgroundWithBlock:nil];
-    [newUser saveInBackground];
     SSNUserViewController *userViewController = [[SSNUserViewController alloc] initWithNibName:@"SSNUserViewController" bundle:nil];
     [self presentViewController:userViewController animated:NO completion:nil];
 }
