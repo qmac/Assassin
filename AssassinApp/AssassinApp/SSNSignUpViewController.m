@@ -23,7 +23,7 @@
     // Do any additional setup after loading the view.
     self.delegate = self;
     
-    [self.signUpView.signUpButton addTarget:self action:@selector(signUpCustomUser) forControlEvents:UIControlEventAllTouchEvents];
+    [self.signUpView.signUpButton addTarget:self action:@selector(signUpCustomUser) forControlEvents:UIControlEventTouchUpInside];
 
     self.signUpView.backgroundColor = [UIColor blackColor];
     self.signUpView.logo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"assassinlogo.png"]];
@@ -83,12 +83,35 @@
 
 - (void)signUpCustomUser
 {
-    SSNUser *newUser = (SSNUser*)[SSNUser object];
-    
-    [newUser setUsername:self.signUpView.usernameField.text];
-    [newUser setPassword:self.signUpView.passwordField.text];
-    [newUser setFullName:self.signUpView.additionalField.text];
-    [newUser signUpInBackgroundWithBlock:nil];
+    if([self.signUpView.additionalField.text isEqualToString:@""])
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sign Up Failed" message:@"Please enter your full name" delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
+        [alert show];
+    }
+    else if([self.signUpView.usernameField.text isEqualToString:@""])
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sign Up Failed" message:@"Please enter a username" delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
+        [alert show];
+    }
+    else if([self.signUpView.passwordField.text isEqualToString:@""])
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sign Up Failed" message:@"Please enter a password" delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
+        [alert show];
+    }
+    else if([self.signUpView.emailField.text isEqualToString:@""])
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sign Up Failed" message:@"Please enter your email" delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
+        [alert show];
+    }
+    else
+    {
+        SSNUser *newUser = (SSNUser*)[SSNUser object];
+        
+        [newUser setUsername:self.signUpView.usernameField.text];
+        [newUser setPassword:self.signUpView.passwordField.text];
+        [newUser setFullName:self.signUpView.additionalField.text];
+        [newUser signUpInBackgroundWithBlock:nil];
+    }
 }
 
 - (void)signUpViewController:(PFSignUpViewController *)signUpController didSignUpUser:(PFUser *)user
@@ -97,6 +120,28 @@
     [self presentViewController:userViewController animated:NO completion:nil];
 }
 
+- (BOOL)signUpViewController:(PFSignUpViewController * __nonnull)signUpController shouldBeginSignUp:(NSDictionary * __nonnull)info
+{
+    if([self.signUpView.additionalField.text isEqualToString:@""])
+    {
+        return NO;
+    }
+    else if([self.signUpView.usernameField.text isEqualToString:@""])
+    {
+        return NO;
+
+    }
+    else if([self.signUpView.passwordField.text isEqualToString:@""])
+    {
+        return NO;
+
+    }
+    else if([self.signUpView.emailField.text isEqualToString:@""])
+    {
+        return NO;
+    }
+    return YES;
+}
 #pragma mark - UITextFieldDelegate
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
