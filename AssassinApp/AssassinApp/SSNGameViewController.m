@@ -97,8 +97,6 @@
         currSeconds = (int)seconds;
     }];
     NSLog(@"%@", playerDict);
-    
-    [self suicide];
 }
 
 -(NSString *)updateTime
@@ -122,7 +120,6 @@
 - (IBAction)confirmKill:(id)sender {
     PFQuery *query = [PFQuery queryWithClassName:@"Games"];
     PFObject *gameObject = [query getObjectWithId:self.gameId];
-    NSLog(@"%@", gameObject[@"player_dict"]);
     NSString *assassin = loggedInUser.username;
     NSString *target = gameObject[@"player_dict"][assassin][@"target"];
     NSString *newTarget = gameObject[@"player_dict"][target][@"target"];
@@ -152,7 +149,6 @@
     
     //find your assassin
     NSString *yourAssassin;
-    NSLog(@"%@", currentUser);
     for (NSString *key in gameObject[@"player_dict"])
     {
         NSLog(@"%@", gameObject[@"player_dict"][key][@"target"]);
@@ -174,8 +170,6 @@
     //updating game message
     NSString *killMessage = [NSString stringWithFormat:@"%@ committed suicide", currentUser];
     gameObject[@"last_kill"] = killMessage;
-    
-    NSLog(@"%@", gameObject);
     
     [gameObject saveInBackground];
 }
