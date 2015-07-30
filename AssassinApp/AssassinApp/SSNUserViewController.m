@@ -15,12 +15,16 @@
 
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
+#define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
+
 @interface SSNUserViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) NSString *userId;
 @property (nonatomic, strong) NSMutableArray *activeGamesData;
 @property (nonatomic, strong) NSMutableArray *inactiveGamesData;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (nonatomic, strong) UIRefreshControl *refreshControl;
+
 
 @end
 
@@ -42,6 +46,16 @@ static NSString *const CellIdentifier = @"gameCell";
     UIBarButtonItem *createGameButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(launchCreateGame:)];
     self.navigationItem.rightBarButtonItem = createGameButton;
     
+
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    self.refreshControl.backgroundColor = [UIColor colorWithRed:0.753 green:0.224 blue:0.169 alpha:1];
+    self.refreshControl.tintColor = [UIColor whiteColor];
+    [self.refreshControl addTarget:self
+                            action:@selector(fetchGamesData)
+                  forControlEvents:UIControlEventValueChanged];
+    
+    [self.tableView addSubview:self.refreshControl];
+    
     self.navigationController.navigationBar.tintColor = UIColorFromRGB(0xC0392B);
     self.navigationController.navigationBar.barTintColor = UIColorFromRGB(0x0A0A0A);
     self.navigationItem.title = @"My Games";
@@ -57,6 +71,15 @@ static NSString *const CellIdentifier = @"gameCell";
     self.navigationItem.leftBarButtonItem = logoutItem;
 
     [self fetchGamesData];
+}
+
+
+- (void)stopRefresh
+
+{
+    
+    [self.refreshControl endRefreshing];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -115,6 +138,8 @@ static NSString *const CellIdentifier = @"gameCell";
             NSLog(@"Error: %@ %@", error, [error userInfo]);
         }
     }];
+    
+    [self performSelector:@selector(stopRefresh) withObject:nil afterDelay:2.5];
 }
 
 #pragma mark - Nav Bar Handlers
