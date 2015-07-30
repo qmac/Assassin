@@ -74,9 +74,9 @@
 
 }
 
-- (void)viewDidAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidAppear:animated];
+    [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES];
 }
 
@@ -98,7 +98,7 @@
     [customUser saveInBackground];
     
     SSNUserViewController *userViewController = [[SSNUserViewController alloc] initWithNibName:@"SSNUserViewController" bundle:nil];
-    [self presentViewController:userViewController animated:NO completion:nil];
+    [self.navigationController pushViewController:userViewController animated:NO];
 }
 
 - (BOOL)signUpViewController:(PFSignUpViewController * __nonnull)signUpController shouldBeginSignUp:(NSDictionary * __nonnull)info
