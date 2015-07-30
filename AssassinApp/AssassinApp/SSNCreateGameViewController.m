@@ -9,6 +9,7 @@
 #import "SSNCreateGameViewController.h"
 #import <Parse/PFObject.h>
 #import "SSNUser.h"
+#import "SSNGameViewController.h"
 
 @interface SSNCreateGameViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -19,6 +20,7 @@
 @property (nonatomic, strong) NSMutableArray *addedUsers;
 @property (nonatomic, strong) PFObject *gameObject;
 @property (strong, nonatomic) IBOutlet UIButton *startGameButton;
+@property (nonatomic, strong) NSMutableDictionary *fullDictionary;
 
 @end
 
@@ -58,6 +60,8 @@
             NSLog(@"%@", [error description]);
         }
     }];
+    SSNGameViewController *gameViewController = [[SSNGameViewController alloc] initWithNibName:@"SSNGameViewController" bundle:nil];
+    [self presentViewController:gameViewController animated:YES completion:nil];
 }
 
 #pragma mark - tableView
