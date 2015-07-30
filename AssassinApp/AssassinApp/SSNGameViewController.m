@@ -31,14 +31,17 @@
         NSLog(@"%@", gameObject);
         _lastKill = gameObject[@"last_kill"];
         _playerDict = gameObject[@"player_dict"];
-        _playerAttributes =[_playerDict valueForKeyPath:@"manavm"]; // Hard code to my username
         
-        NSLog(@"%@", _playerDict);
+        PFUser *loggedInUser = [PFUser currentUser];
+        NSLog(@"%@", loggedInUser.username);
+        _playerAttributes =[_playerDict valueForKeyPath:loggedInUser.username]; // Hard code to my username
+        
+//        NSLog(@"%@", _playerDict);
         _targetPlayer = _playerAttributes[@"target"];
         _timeRemaining = _playerAttributes[@"time_remaining"];
         BOOL status = _playerAttributes[@"status"];
         
-        NSLog(@"%@ %@ %d", _targetPlayer, _timeRemaining, status);
+//        NSLog(@"%@ %@ %d", _targetPlayer, _timeRemaining, status);
         
         
         _targetLabel.hidden = false;
