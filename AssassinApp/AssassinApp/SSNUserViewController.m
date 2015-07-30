@@ -15,7 +15,8 @@
 
 @property (nonatomic, strong) NSString *userId;
 @property (nonatomic, strong) NSMutableArray *gameIds;
-@property (nonatomic, strong) NSArray *gamesData;
+@property (nonatomic, strong) NSMutableArray *activeGamesData;
+@property (nonatomic, strong) NSMutableArray *inactiveGamesData;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
@@ -60,14 +61,31 @@ static NSString *const CellIdentifier = @"gameCell";
 - (void) fetchGamesData
 {
     NSLog(@"FetchingGames");
-    PFQuery *query = [PFQuery queryWithClassName:@"Games"];
-    [query whereKey:@"objectId" containedIn:self.gameIds];
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+    PFQuery *activeQuery = [PFQuery queryWithClassName:@"Games"];
+    [activeQuery whereKey:@"objectId" containedIn:self.gameIds];
+    [activeQuery whereKey:@"active" equalTo:@YES];
+    [activeQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error)
         {
-            //self.games = [objects mutableCopy];
-            self.gamesData = objects;
-            NSLog(@"%@", self.gamesData);
+            self.activeGamesData = [objects mutableCopy];
+            NSLog(@"%@", self.activeGamesData);
+            [self.tableView reloadData];
+        }
+        else
+        {
+            // Log details of the failure
+            NSLog(@"Error: %@ %@", error, [error userInfo]);
+        }
+    }];
+    
+    PFQuery *inactiveQuery = [PFQuery queryWithClassName:@"Games"];
+    [inactiveQuery whereKey:@"objectId" containedIn:self.gameIds];
+    [inactiveQuery whereKey:@"active" equalTo:@NO];
+    [inactiveQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error)
+        {
+            self.inactiveGamesData = [objects mutableCopy];
+            NSLog(@"%@", self.inactiveGamesData);
             [self.tableView reloadData];
         }
         else
@@ -105,6 +123,10 @@ static NSString *const CellIdentifier = @"gameCell";
 
 #pragma mark - UITableView Datasource
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 2;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -112,20 +134,41 @@ static NSString *const CellIdentifier = @"gameCell";
     {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
+    if(indexPath.section == 0)
+    {
+        cell.textLabel.text = [self.activeGamesData objectAtIndex:indexPath.row][@"game_title"];
+    }
+    else
+    {
+        cell.textLabel.text = [self.inactiveGamesData objectAtIndex:indexPath.row][@"game_title"];
+    }
+    cell.backgroundColor = [UIColor blackColor];
+    cell.textLabel.textColor =[UIColor whiteColor];
+    
     return cell;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.gamesData count];
+    if (section == 0) return [self.activeGamesData count];
+    return [self.inactiveGamesData count];
 }
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    // The header for the section is the region name -- get this from the region at the section index.
+    if (section == 0) return @"Active Games";
+    return @"Inactive Games";
+}
+
 
 #pragma mark - UITableView Delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
+    if (indexPath.section == 1){
+        return;
+    }
     SSNGameViewController *gameViewController = [[SSNGameViewController alloc] init];
     [self.navigationController presentViewController:gameViewController animated:NO completion:nil];
 }

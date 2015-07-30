@@ -16,13 +16,21 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="C4d-JE-oRW">
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="C4d-JE-oRW">
                     <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="sectionIndexColor" red="1" green="0.99631341173521226" blue="0.98514258811385824" alpha="1" colorSpace="calibratedRGB"/>
                 </tableView>
             </subviews>
             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
             <color key="tintColor" red="0.70202020200000004" green="0.70202020200000004" blue="0.70202020200000004" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="C4d-JE-oRW" secondAttribute="trailing" id="MF9-gX-nNQ"/>
+                <constraint firstItem="C4d-JE-oRW" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="dvE-qb-Vgn"/>
+                <constraint firstItem="C4d-JE-oRW" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="ipP-Cl-Jl8"/>
+                <constraint firstAttribute="bottom" secondItem="C4d-JE-oRW" secondAttribute="bottom" id="lIn-wm-ssd"/>
+            </constraints>
         </view>
     </objects>
 </document>
