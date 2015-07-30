@@ -42,9 +42,10 @@ static NSString *const CellIdentifier = @"gameCell";
     UIBarButtonItem *createGameButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(launchCreateGame:)];
     self.navigationItem.rightBarButtonItem = createGameButton;
     
-    self.navigationController.navigationBar.tintColor = UIColorFromRGB(0xC0392B);
-    self.navigationController.navigationBar.barTintColor = [UIColor greenColor];
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    self.navigationController.navigationBar.barTintColor = UIColorFromRGB(0xC0392B);
     self.navigationItem.title = @"My Games";
+    [[UINavigationBar appearance] setTitleTextAttributes: @{NSForegroundColorAttributeName: UIColorFromRGB(0xC0392B)}];
     
     PFUser *user = [PFUser currentUser];
     self.gameIds = user[@"games"];
@@ -157,6 +158,10 @@ static NSString *const CellIdentifier = @"gameCell";
     return 55;
 }
 
+- (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 35;
+}
 
 #pragma mark - UITableView Delegate
 
