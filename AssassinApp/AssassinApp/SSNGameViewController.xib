@@ -10,7 +10,6 @@
                 <outlet property="lastKillLabel" destination="Si5-xj-ORQ" id="jbf-iw-gEo"/>
                 <outlet property="targetImage" destination="IYh-cz-dg2" id="1N7-X5-vRx"/>
                 <outlet property="targetLabel" destination="AGg-xU-PcY" id="xx2-Iv-VRF"/>
-                <outlet property="timeRemainingLabel" destination="2MM-UY-dWX" id="cih-D1-P4u"/>
                 <outlet property="timerCountdownLabel" destination="b2e-GC-Vjt" id="dib-UL-EdK"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -59,12 +58,6 @@
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2MM-UY-dWX">
-                    <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Timer" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b2e-GC-Vjt">
                     <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -88,7 +81,6 @@
                 </constraint>
                 <constraint firstAttribute="centerX" secondItem="b2e-GC-Vjt" secondAttribute="centerX" constant="-0.25" id="MgT-g1-7cn"/>
                 <constraint firstAttribute="centerX" secondItem="AGg-xU-PcY" secondAttribute="centerX" id="N9m-QS-qqR"/>
-                <constraint firstAttribute="bottom" secondItem="2MM-UY-dWX" secondAttribute="bottom" constant="82" id="QXb-yu-eLn"/>
                 <constraint firstAttribute="centerX" secondItem="Si5-xj-ORQ" secondAttribute="centerX" id="VUw-UP-yek"/>
                 <constraint firstAttribute="trailing" secondItem="YEx-g4-Od7" secondAttribute="trailing" constant="150" id="X2v-hG-juN">
                     <variation key="heightClass=regular-widthClass=compact" constant="140"/>
@@ -96,14 +88,15 @@
                 <constraint firstAttribute="centerY" secondItem="Si5-xj-ORQ" secondAttribute="centerY" constant="-272.5" id="ZPr-Yj-TZm"/>
                 <constraint firstItem="IYh-cz-dg2" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="102" id="Zf6-gz-Ce9"/>
                 <constraint firstItem="AGg-xU-PcY" firstAttribute="top" secondItem="IYh-cz-dg2" secondAttribute="bottom" constant="40" id="fn6-Qz-jQo"/>
-                <constraint firstAttribute="bottom" secondItem="b2e-GC-Vjt" secondAttribute="bottom" constant="33" id="i5j-NB-Lpj"/>
+                <constraint firstAttribute="bottom" secondItem="b2e-GC-Vjt" secondAttribute="bottom" constant="33" id="i5j-NB-Lpj">
+                    <variation key="heightClass=regular-widthClass=compact" constant="50"/>
+                </constraint>
                 <constraint firstItem="Si5-xj-ORQ" firstAttribute="top" secondItem="VRQ-V7-BPT" secondAttribute="bottom" constant="99.5" id="iuC-Gu-lO3"/>
                 <constraint firstAttribute="centerY" secondItem="YEx-g4-Od7" secondAttribute="centerY" constant="-135" id="jqH-uX-sX4"/>
                 <constraint firstAttribute="bottom" secondItem="VRQ-V7-BPT" secondAttribute="bottom" constant="318.5" id="nMr-GR-jCS"/>
                 <constraint firstItem="AGg-xU-PcY" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="282" id="nOu-at-RfS"/>
                 <constraint firstAttribute="bottom" secondItem="Si5-xj-ORQ" secondAttribute="bottom" constant="30" id="oJa-BE-NJi"/>
                 <constraint firstAttribute="centerY" secondItem="YEx-g4-Od7" secondAttribute="centerY" constant="-135" id="oL7-8O-2li"/>
-                <constraint firstAttribute="centerX" secondItem="2MM-UY-dWX" secondAttribute="centerX" id="oih-R2-xrB"/>
                 <constraint firstAttribute="centerX" secondItem="IYh-cz-dg2" secondAttribute="centerX" id="p1p-JS-9t3"/>
                 <constraint firstAttribute="bottom" secondItem="YEx-g4-Od7" secondAttribute="bottom" constant="100" id="s8c-o1-yXH"/>
                 <constraint firstAttribute="centerY" secondItem="AGg-xU-PcY" secondAttribute="centerY" constant="107.5" id="tFy-uF-ly3"/>
@@ -119,7 +112,6 @@
                     <exclude reference="Nf2-gz-WGI"/>
                     <exclude reference="VRQ-V7-BPT"/>
                     <exclude reference="Si5-xj-ORQ"/>
-                    <exclude reference="2MM-UY-dWX"/>
                     <exclude reference="b2e-GC-Vjt"/>
                 </mask>
                 <mask key="constraints">
@@ -150,8 +142,6 @@
                     <exclude reference="ZPr-Yj-TZm"/>
                     <exclude reference="iuC-Gu-lO3"/>
                     <exclude reference="oJa-BE-NJi"/>
-                    <exclude reference="QXb-yu-eLn"/>
-                    <exclude reference="oih-R2-xrB"/>
                     <exclude reference="MgT-g1-7cn"/>
                     <exclude reference="i5j-NB-Lpj"/>
                 </mask>
@@ -171,7 +161,6 @@
                     <include reference="Nf2-gz-WGI"/>
                     <include reference="VRQ-V7-BPT"/>
                     <include reference="Si5-xj-ORQ"/>
-                    <include reference="2MM-UY-dWX"/>
                     <include reference="b2e-GC-Vjt"/>
                 </mask>
                 <mask key="constraints">
@@ -200,8 +189,6 @@
                     <exclude reference="ZPr-Yj-TZm"/>
                     <include reference="iuC-Gu-lO3"/>
                     <exclude reference="oJa-BE-NJi"/>
-                    <include reference="QXb-yu-eLn"/>
-                    <include reference="oih-R2-xrB"/>
                     <include reference="MgT-g1-7cn"/>
                     <include reference="i5j-NB-Lpj"/>
                 </mask>
