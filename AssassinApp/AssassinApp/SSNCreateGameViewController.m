@@ -61,14 +61,15 @@
         if (succeeded)
         {
             NSLog(@"created new game");
+            SSNGameViewController *gameViewController = [[SSNGameViewController alloc] initWithNibName:@"SSNGameViewController" bundle:nil];
+            [gameViewController setGameId:[self.gameObject objectId]];
+            [self presentViewController:gameViewController animated:YES completion:nil];
         }
         else
         {
             NSLog(@"%@", [error description]);
         }
     }];
-    SSNGameViewController *gameViewController = [[SSNGameViewController alloc] initWithNibName:@"SSNGameViewController" bundle:nil];
-    [self presentViewController:gameViewController animated:YES completion:nil];
 }
 
 #pragma mark - tableView

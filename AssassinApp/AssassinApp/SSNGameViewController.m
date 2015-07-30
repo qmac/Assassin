@@ -23,11 +23,12 @@
 
 @implementation SSNGameViewController
 
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     PFQuery *query = [PFQuery queryWithClassName:@"Games"];
-    [query getObjectInBackgroundWithId:@"j5KvQKhcI3" block:^(PFObject *gameObject, NSError *error) {
+    [query getObjectInBackgroundWithId:self.gameId block:^(PFObject *gameObject, NSError *error) {
         
         NSLog(@"%@", gameObject);
         _lastKill = gameObject[@"last_kill"];
