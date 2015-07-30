@@ -97,15 +97,35 @@
         currSeconds = (int)seconds;
     }];
     NSLog(@"%@", playerDict);
+    
+    [self suicide];
 }
+
+-(NSString *)updateTime
+{
+    NSDate *currentDate = [NSDate date];
+    
+    // Create and initialize date component instance
+    NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
+    [dateComponents setDay:3];
+    
+    // Retrieve date with increased days count
+    NSDate *newDate = [[NSCalendar currentCalendar] dateByAddingComponents:dateComponents toDate:currentDate options:0];
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss Z"];
+    return [formatter stringFromDate:newDate];
+}
+
+#pragma kills/suicide
 
 - (IBAction)confirmKill:(id)sender {
     PFQuery *query = [PFQuery queryWithClassName:@"Games"];
     [query getObjectInBackgroundWithId:self.gameId block:^(PFObject *gameObject, NSError *error) {
         NSLog(@"%@", gameObject[@"player_dict"]);
-        NSString *target = gameObject[@"player_dict"][loggedInUser.username][@"target"];
-        NSString *newTarget = gameObject[@"player_dict"][target][@"target"];
         NSString *assassin = loggedInUser.username;
+        NSString *target = gameObject[@"player_dict"][assassin][@"target"];
+        NSString *newTarget = gameObject[@"player_dict"][target][@"target"];
         NSString *killMessage = [NSString stringWithFormat:@"%@ killed %@", assassin, target];
         
         //updating target's stats
@@ -114,27 +134,49 @@
         gameObject[@"player_dict"][target][@"target"] = @"";
         
         //updating assasin's stats
-        gameObject[@"player_dict"][[PFUser currentUser].username][@"target"] = newTarget;
-        NSDate *currentDate = [NSDate date];
-        
-        // Create and initialize date component instance
-        NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
-        [dateComponents setDay:3];
-        
-        // Retrieve date with increased days count
-        NSDate *newDate = [[NSCalendar currentCalendar] dateByAddingComponents:dateComponents toDate:currentDate options:0];
-        
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss Z"];
-        NSString *dateToKill = [formatter stringFromDate:newDate];
-        gameObject[@"player_dict"][[PFUser currentUser].username][@"time_remaining"] = dateToKill;
+        gameObject[@"player_dict"][assassin][@"target"] = newTarget;
+        gameObject[@"player_dict"][assassin][@"time_remaining"] = [self updateTime];
         
         //updating game message
         gameObject[@"last_kill"] = killMessage;
         
         [gameObject saveInBackground];
     }];
+}
+
+-(void)suicide
+{
+    PFQuery *query = [PFQuery queryWithClassName:@"Games"];
+    PFObject *gameObject = [query getObjectWithId:self.gameId];
+    NSString *currentUser = [PFUser currentUser].username;
+    NSString *target = gameObject[@"player_dict"][currentUser][@"target"];
     
+    //find your assassin
+    NSString *yourAssassin;
+    NSLog(@"%@", currentUser);
+    for (NSString *key in gameObject[@"player_dict"])
+    {
+        NSLog(@"%@", gameObject[@"player_dict"][key][@"target"]);
+        if ([gameObject[@"player_dict"][key][@"target"] isEqualToString: currentUser])
+        {
+            yourAssassin = key;
+        }
+    }
+    
+    //updating suicider's stats
+    gameObject[@"player_dict"][currentUser][@"status"] = @NO;
+    gameObject[@"player_dict"][currentUser][@"time_remaining"] = @"0";
+    gameObject[@"player_dict"][currentUser][@"target"] = @"";
+    
+    //updating assasin's stats
+    gameObject[@"player_dict"][yourAssassin][@"target"] = target;
+    gameObject[@"player_dict"][yourAssassin][@"time_remaining"] = [self updateTime];
+    
+    //updating game message
+    NSString *killMessage = [NSString stringWithFormat:@"%@ committed suicide", currentUser];
+    gameObject[@"last_kill"] = killMessage;
+    
+    [gameObject saveInBackground];
 }
 
 - (void)didReceiveMemoryWarning {
