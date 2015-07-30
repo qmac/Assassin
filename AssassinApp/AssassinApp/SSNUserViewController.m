@@ -10,6 +10,7 @@
 
 #import "SSNUserViewController.h"
 #import "SSNGameViewController.h"
+#import "SSNLogInViewController.h"
 
 @interface SSNUserViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -38,7 +39,8 @@ static NSString *const CellIdentifier = @"gameCell";
     
     UIBarButtonItem *createGameButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(launchCreateGame:)];
     self.navigationItem.rightBarButtonItem = createGameButton;
-    
+    UIBarButtonItem *logoutButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(logoutUser)];
+    self.navigationItem.leftBarButtonItem = logoutButton;
     PFUser *user = [PFUser currentUser];
     self.gameIds = user[@"games"];
     NSLog(@"%@", user[@"games"]);
@@ -119,6 +121,13 @@ static NSString *const CellIdentifier = @"gameCell";
 //        }
 //    }];
 //    [self.games addObject:gameObject];
+}
+-(void) logoutUser
+{
+    NSLog(@"loggedout");
+    [PFUser logOut];
+    SSNLogInViewController *logInViewController = [[SSNLogInViewController alloc] init];
+    [self.navigationController presentViewController:logInViewController animated:NO completion:nil];
 }
 
 #pragma mark - UITableView Datasource

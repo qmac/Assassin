@@ -88,7 +88,7 @@
 - (void)signUpViewController:(PFSignUpViewController *)signUpController didSignUpUser:(PFUser *)user
 {
     [user setValue:self.signUpView.additionalField.text forKey:@"fullName"];
-//    [user setValue:[[NSMutableArray alloc] init] forKey:@"games"];
+    [user setValue:[[NSMutableArray alloc] init] forKey:@"games"];
 //    
 //    NSURL *url = [NSURL URLWithString:@"http://img4.wikia.nocookie.net/__cb20120524204707/gameofthrones/images/4/4d/Joffrey_in_armor2x09.jpg (7KB)"];
 //    NSData *data = [[NSData alloc] initWithContentsOfURL:url];
