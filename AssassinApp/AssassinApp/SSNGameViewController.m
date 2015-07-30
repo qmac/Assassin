@@ -29,8 +29,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
-    // Do any additional setup after loading the view from its nib.
     PFQuery *query = [PFQuery queryWithClassName:@"Games"];
     [query getObjectInBackgroundWithId:self.gameId block:^(PFObject *gameObject, NSError *error) {
 
@@ -40,37 +38,35 @@
         
         self.loggedInUser = [PFUser currentUser];
         NSLog(@"%@", self.loggedInUser.username);
-        self.playerAttributes =[self.playerDict valueForKeyPath:self.loggedInUser.username]; // Hard code to my username
+        self.playerAttributes = [self.playerDict valueForKeyPath:self.loggedInUser.username];
         
-//        NSLog(@"%@", _playerDict);
         self.targetPlayer = self.playerAttributes[@"target"];
-        self.timeRemaining = self.playerAttributes[@"last_date_to_kill"];
-//        BOOL status = _playerAttributes[@"status"];
-        
-        NSLog(@"%@ Time remaining: %@", self.targetPlayer, self.timeRemaining);
-        
+        NSLog(@"%@", self.targetPlayer);
+        PFQuery *userQuery = [PFQuery queryWithClassName:@"_User"];
+        [userQuery whereKey:@"username" equalTo:self.targetPlayer];
+        PFObject *targetUser = [userQuery getFirstObject];
+        PFQuery *playerQuery = [PFQuery queryWithClassName:@"Player"];
+        [playerQuery whereKey:@"userId" equalTo:targetUser.objectId];
+        PFObject *player = [playerQuery getFirstObject];
         
         self.targetLabel.hidden = false;
-        self.targetLabel.text = self.targetPlayer;
+        self.targetLabel.text = player[@"fullName"];
+        
+        self.timeRemaining = self.playerAttributes[@"last_date_to_kill"];
+        NSLog(@"%@ Time remaining: %@", self.targetPlayer, self.timeRemaining);
         
         self.lastKillLabel.hidden = false;
         self.lastKillLabel.text = self.lastKill;
         
-        //NSString *timeRemainingMessage = [NSString stringWithFormat:@"Time remaining to kill target: %@", self.timeRemaining];
-        
-        NSURL *url = [NSURL URLWithString:@"http://img4.wikia.nocookie.net/__cb20120524204707/gameofthrones/images/4/4d/Joffrey_in_armor2x09.jpg"];
-        NSData *mydata = [[NSData alloc] initWithContentsOfURL:url];
-
-        self.targetImage.image = [UIImage imageWithData:mydata];
+        PFFile *profilePicture = player[@"profilePicture"];
+        self.targetImage.image = [UIImage imageWithData:[profilePicture getData]];
         
         
         self.timerCountdownLabel.textColor=[UIColor redColor];
         [self.timerCountdownLabel setText:@"Time remaining to assassinate target:"];
         self.timerCountdownLabel.backgroundColor=[UIColor clearColor];
-//        [self.view addSubview:_timerCountdownLabel];
         
         [self start];
-        
         
         NSDate* start = [NSDate date];
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -183,8 +179,8 @@
 -(void)start
 {
     self.timer=[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timerFired) userInfo:nil repeats:YES];
-    
 }
+
 -(void)timerFired
 {
     if((self.currMinute>0 || self.currSeconds>=0) && self.currMinute>=0)
