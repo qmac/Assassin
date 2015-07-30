@@ -166,7 +166,7 @@
             currMinute=59;
         }
         if(currHour>-1)
-            [_timerCountdownLabel setText:[NSString stringWithFormat:@"%@%d%@%02d",@"Time remaining to assassinate target: ",currHour,@":",currMinute, @":", currSeconds]];
+            [_timerCountdownLabel setText:[NSString stringWithFormat:@"%@%d%@%02d%@%02d",@"Time remaining: ",currHour,@":",currMinute, @":", currSeconds]];
     }
     else
     {
