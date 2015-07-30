@@ -27,34 +27,34 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="IYh-cz-dg2">
-                    <rect key="frame" x="80" y="102" width="440" height="140"/>
+                    <rect key="frame" x="80" y="115.5" width="440" height="146.5"/>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your Target" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nf2-gz-WGI">
-                    <rect key="frame" x="257" y="42" width="86" height="20.5"/>
+                    <rect key="frame" x="257" y="75" width="86" height="20.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last Kill" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VRQ-V7-BPT">
-                    <rect key="frame" x="270" y="429.5" width="60.5" height="20.5"/>
+                    <rect key="frame" x="270" y="445" width="60.5" height="20.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last kill text" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Si5-xj-ORQ">
-                    <rect key="frame" x="254" y="479.5" width="92" height="20.5"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last kill text" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Si5-xj-ORQ">
+                    <rect key="frame" x="254" y="485.5" width="92" height="20.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Timer" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b2e-GC-Vjt">
-                    <rect key="frame" x="278.5" y="546.5" width="43.5" height="20.5"/>
+                    <rect key="frame" x="278.5" y="526" width="43.5" height="20.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YEx-g4-Od7">
-                    <rect key="frame" x="260" y="342" width="80" height="30"/>
+                    <rect key="frame" x="260" y="357.5" width="80" height="30"/>
                     <state key="normal" title="Kill Confirm">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -68,12 +68,14 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstItem="VRQ-V7-BPT" firstAttribute="top" secondItem="YEx-g4-Od7" secondAttribute="bottom" constant="57.5" id="0Ec-Jo-e4k"/>
                 <constraint firstAttribute="trailing" secondItem="IYh-cz-dg2" secondAttribute="trailing" constant="80" id="18F-e7-qCg"/>
                 <constraint firstAttribute="centerX" secondItem="VRQ-V7-BPT" secondAttribute="centerX" id="1dn-OC-NVj"/>
                 <constraint firstAttribute="bottom" secondItem="Si5-xj-ORQ" secondAttribute="bottom" constant="100" id="2ro-70-hBO"/>
                 <constraint firstAttribute="centerX" secondItem="Nf2-gz-WGI" secondAttribute="centerX" id="2st-BW-ZQ9"/>
                 <constraint firstItem="IYh-cz-dg2" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="80" id="4EG-20-5sg"/>
-                <constraint firstItem="Nf2-gz-WGI" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="42" id="8zh-LD-BkR"/>
+                <constraint firstItem="Si5-xj-ORQ" firstAttribute="top" secondItem="VRQ-V7-BPT" secondAttribute="bottom" constant="20" id="7JR-VA-XfN"/>
+                <constraint firstItem="Nf2-gz-WGI" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="75" id="8zh-LD-BkR"/>
                 <constraint firstItem="VRQ-V7-BPT" firstAttribute="top" secondItem="YEx-g4-Od7" secondAttribute="bottom" constant="36" id="ICV-cg-9HZ">
                     <variation key="heightClass=regular-widthClass=compact" constant="40"/>
                 </constraint>
@@ -84,14 +86,16 @@
                 <constraint firstAttribute="centerX" secondItem="b2e-GC-Vjt" secondAttribute="centerX" constant="-0.25" id="MgT-g1-7cn"/>
                 <constraint firstAttribute="centerX" secondItem="AGg-xU-PcY" secondAttribute="centerX" id="N9m-QS-qqR"/>
                 <constraint firstAttribute="centerX" secondItem="Si5-xj-ORQ" secondAttribute="centerX" id="VUw-UP-yek"/>
+                <constraint firstItem="IYh-cz-dg2" firstAttribute="top" secondItem="Nf2-gz-WGI" secondAttribute="bottom" constant="20" id="X3k-lJ-eBd"/>
                 <constraint firstAttribute="bottom" secondItem="VRQ-V7-BPT" secondAttribute="bottom" constant="150" id="XNK-yN-6qS"/>
                 <constraint firstItem="IYh-cz-dg2" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="102" id="Zf6-gz-Ce9"/>
                 <constraint firstAttribute="centerX" secondItem="YEx-g4-Od7" secondAttribute="centerX" id="d7d-qm-7Ng"/>
-                <constraint firstItem="AGg-xU-PcY" firstAttribute="top" secondItem="IYh-cz-dg2" secondAttribute="bottom" constant="40" id="f66-rw-W8R"/>
+                <constraint firstItem="AGg-xU-PcY" firstAttribute="top" secondItem="IYh-cz-dg2" secondAttribute="bottom" constant="20" id="f66-rw-W8R"/>
                 <constraint firstItem="AGg-xU-PcY" firstAttribute="top" secondItem="IYh-cz-dg2" secondAttribute="bottom" constant="40" id="fn6-Qz-jQo"/>
                 <constraint firstAttribute="bottom" secondItem="b2e-GC-Vjt" secondAttribute="bottom" constant="33" id="i5j-NB-Lpj">
                     <variation key="heightClass=regular-widthClass=compact" constant="50"/>
                 </constraint>
+                <constraint firstItem="b2e-GC-Vjt" firstAttribute="top" secondItem="Si5-xj-ORQ" secondAttribute="bottom" constant="20" id="ik5-5L-EuF"/>
                 <constraint firstAttribute="centerY" secondItem="YEx-g4-Od7" secondAttribute="centerY" constant="-135" id="jqH-uX-sX4"/>
                 <constraint firstItem="AGg-xU-PcY" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="282" id="nOu-at-RfS"/>
                 <constraint firstAttribute="centerY" secondItem="YEx-g4-Od7" secondAttribute="centerY" constant="-135" id="oL7-8O-2li"/>
@@ -99,11 +103,13 @@
                 <constraint firstAttribute="bottom" secondItem="YEx-g4-Od7" secondAttribute="bottom" constant="100" id="s8c-o1-yXH"/>
                 <constraint firstAttribute="centerY" secondItem="AGg-xU-PcY" secondAttribute="centerY" constant="107.5" id="tFy-uF-ly3"/>
                 <constraint firstAttribute="bottom" secondItem="YEx-g4-Od7" secondAttribute="bottom" constant="30" id="xMM-GT-KaY"/>
-                <constraint firstItem="YEx-g4-Od7" firstAttribute="top" secondItem="AGg-xU-PcY" secondAttribute="bottom" constant="40" id="yXO-h4-ZMR"/>
+                <constraint firstItem="Si5-xj-ORQ" firstAttribute="top" secondItem="VRQ-V7-BPT" secondAttribute="bottom" constant="29.5" id="xTU-EQ-QG2"/>
+                <constraint firstItem="YEx-g4-Od7" firstAttribute="top" secondItem="AGg-xU-PcY" secondAttribute="bottom" constant="55" id="yXO-h4-ZMR"/>
             </constraints>
             <variation key="default">
                 <mask key="constraints">
                     <exclude reference="Iha-g6-XbK"/>
+                    <exclude reference="Zf6-gz-Ce9"/>
                     <exclude reference="fn6-Qz-jQo"/>
                     <exclude reference="tFy-uF-ly3"/>
                     <exclude reference="JfU-2b-Ru5"/>
@@ -112,6 +118,10 @@
                     <exclude reference="s8c-o1-yXH"/>
                     <exclude reference="xMM-GT-KaY"/>
                     <exclude reference="ICV-cg-9HZ"/>
+                    <exclude reference="XNK-yN-6qS"/>
+                    <exclude reference="2ro-70-hBO"/>
+                    <exclude reference="xTU-EQ-QG2"/>
+                    <exclude reference="i5j-NB-Lpj"/>
                 </mask>
             </variation>
             <variation key="heightClass=regular-widthClass=compact">
