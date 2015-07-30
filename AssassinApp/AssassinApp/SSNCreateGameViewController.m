@@ -36,10 +36,15 @@
     self.gameObject = [PFObject objectWithClassName:@"Games"];
     self.fullDictionary = [[NSMutableDictionary alloc] init];
     self.creatorUserName = [PFUser currentUser].username;
-    [self.addPlayerButton setTitleColor:UIColorFromRGB(0xC0392B) forState:UIControlStateNormal];
-    [self.startGameButton setTitleColor:UIColorFromRGB(0xC0392B) forState:UIControlStateNormal];
+    [self.addPlayerButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [self.startGameButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [self.addPlayerButton setBackgroundColor:UIColorFromRGB(0xC0392B)];
+    [self.startGameButton setBackgroundColor:UIColorFromRGB(0xC0392B)];
     UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonAction)];
+    UIBarButtonItem *startButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(startGameAction:)];
     [cancelButton setTintColor:UIColorFromRGB(0xC0392B)];
+    [startButton setTintColor:UIColorFromRGB(0xC0392B)];
+    self.navigationItem.rightBarButtonItem = startButton;
     self.navigationItem.leftBarButtonItem = cancelButton;
 }
 
