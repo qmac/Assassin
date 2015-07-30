@@ -61,6 +61,10 @@
         if (succeeded)
         {
             NSLog(@"created new game");
+            NSMutableArray *games = [[PFUser currentUser] objectForKey:@"games"];
+            [games addObject:[self.gameObject objectId]];
+            [[PFUser currentUser] setObject:games forKey:@"games"];
+            [[PFUser currentUser] saveInBackground];
             SSNGameViewController *gameViewController = [[SSNGameViewController alloc] initWithNibName:@"SSNGameViewController" bundle:nil];
             [gameViewController setGameId:[self.gameObject objectId]];
             [self presentViewController:gameViewController animated:YES completion:nil];
