@@ -10,7 +10,12 @@
 
 #import "SSNUserViewController.h"
 #import "SSNGameViewController.h"
+#import "SSNLogInViewController.h"
 #import "SSNCreateGameViewController.h"
+
+#define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
+
+#define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 @interface SSNUserViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -18,6 +23,8 @@
 @property (nonatomic, strong) NSMutableArray *activeGamesData;
 @property (nonatomic, strong) NSMutableArray *inactiveGamesData;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (nonatomic, strong) UIRefreshControl *refreshControl;
+
 
 @end
 
@@ -39,7 +46,40 @@ static NSString *const CellIdentifier = @"gameCell";
     UIBarButtonItem *createGameButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(launchCreateGame:)];
     self.navigationItem.rightBarButtonItem = createGameButton;
     
+
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    self.refreshControl.backgroundColor = [UIColor colorWithRed:0.753 green:0.224 blue:0.169 alpha:1];
+    self.refreshControl.tintColor = [UIColor whiteColor];
+    [self.refreshControl addTarget:self
+                            action:@selector(fetchGamesData)
+                  forControlEvents:UIControlEventValueChanged];
+    
+    [self.tableView addSubview:self.refreshControl];
+    
+    self.navigationController.navigationBar.tintColor = UIColorFromRGB(0xC0392B);
+    self.navigationController.navigationBar.barTintColor = UIColorFromRGB(0x0A0A0A);
+    self.navigationItem.title = @"My Games";
+    [self.navigationController.navigationBar setTitleTextAttributes: @{NSForegroundColorAttributeName: UIColorFromRGB(0xC0392B)}];
+
+    UIButton *logoutButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [logoutButton setFrame:CGRectMake(0, 0, 70, 50)];
+    [logoutButton setTitle:@"Logout" forState:UIControlStateNormal];
+    logoutButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    [logoutButton setTitleColor:UIColorFromRGB(0xC0392B) forState:UIControlStateNormal];
+    [logoutButton addTarget:self action:@selector(logoutUser) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *logoutItem = [[UIBarButtonItem alloc] initWithCustomView:logoutButton];
+    self.navigationItem.leftBarButtonItem = logoutItem;
+
     [self fetchGamesData];
+}
+
+
+- (void)stopRefresh
+
+{
+    
+    [self.refreshControl endRefreshing];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -98,6 +138,8 @@ static NSString *const CellIdentifier = @"gameCell";
             NSLog(@"Error: %@ %@", error, [error userInfo]);
         }
     }];
+    
+    [self performSelector:@selector(stopRefresh) withObject:nil afterDelay:2.5];
 }
 
 #pragma mark - Nav Bar Handlers
@@ -105,6 +147,13 @@ static NSString *const CellIdentifier = @"gameCell";
 {
     SSNCreateGameViewController *createGameViewController = [[SSNCreateGameViewController alloc] initWithNibName:@"SSNCreateGameViewController" bundle:nil];
     [self.navigationController pushViewController:createGameViewController animated:YES];
+}
+-(void) logoutUser
+{
+    NSLog(@"loggedout");
+    [PFUser logOut];
+    SSNLogInViewController *logInViewController = [[SSNLogInViewController alloc] init];
+    [self.navigationController pushViewController:logInViewController animated:YES];
 }
 
 #pragma mark - UITableView Datasource
@@ -128,8 +177,9 @@ static NSString *const CellIdentifier = @"gameCell";
     {
         cell.textLabel.text = [self.inactiveGamesData objectAtIndex:indexPath.row][@"game_title"];
     }
-    cell.backgroundColor = [UIColor blackColor];
     cell.textLabel.textColor =[UIColor whiteColor];
+    cell.backgroundColor = [UIColor blackColor];
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     
     return cell;
 }
@@ -142,10 +192,33 @@ static NSString *const CellIdentifier = @"gameCell";
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     // The header for the section is the region name -- get this from the region at the section index.
-    if (section == 0) return @"Active Games";
-    return @"Inactive Games";
+    if (section == 0) return @"ACTIVE GAMES";
+    return @"INACTIVE GAMES";
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 55;
+}
+
+- (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 35;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    
+    UILabel *myLabel = [[UILabel alloc] init];
+    myLabel.frame = CGRectMake(15, 8, 320, 20);
+    myLabel.font = [UIFont boldSystemFontOfSize:12];
+    myLabel.textColor = UIColorFromRGB(0x818A8A);
+    myLabel.text = [self tableView:tableView titleForHeaderInSection:section];
+    
+    UIView *headerView = [[UIView alloc] init];
+    [headerView addSubview:myLabel];
+    
+    return headerView;
+}
 
 #pragma mark - UITableView Delegate
 
@@ -158,7 +231,7 @@ static NSString *const CellIdentifier = @"gameCell";
     
     SSNGameViewController *gameViewController = [[SSNGameViewController alloc] initWithNibName:@"SSNGameViewController" bundle:nil];
     [gameViewController setGameId:[[self.activeGamesData objectAtIndex:indexPath.row] objectId]];
-    [self presentViewController:gameViewController animated:YES completion:nil];
+    [self.navigationController pushViewController:gameViewController animated:YES];
 }
 
 
