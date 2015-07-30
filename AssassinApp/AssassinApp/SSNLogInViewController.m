@@ -41,9 +41,9 @@
     self.logInView.dismissButton.hidden = YES;
 }
 
-- (void)viewDidAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidAppear:animated];
+    [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES];
 }
 
@@ -90,7 +90,7 @@
 
 - (void)logInViewController:(PFLogInViewController *)logInController didLogInUser:(PFUser *)user {
     SSNUserViewController *userViewController = [[SSNUserViewController alloc] init];
-    [self.navigationController presentViewController:userViewController animated:NO completion:nil];
+    [self.navigationController pushViewController:userViewController animated:NO];
 }
 
 - (void)logInViewController:(PFLogInViewController *)logInController didFailToLogInWithError:(PFUI_NULLABLE NSError *)error {
