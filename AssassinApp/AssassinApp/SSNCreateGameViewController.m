@@ -8,6 +8,7 @@
 
 #import "SSNCreateGameViewController.h"
 #import <Parse/PFObject.h>
+#import "SSNUser.h"
 
 @interface SSNCreateGameViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -16,6 +17,8 @@
 @property (nonatomic, strong) IBOutlet UITextField *addPlayerInput;
 @property (nonatomic, strong) IBOutlet UIButton *addPlayerButton;
 @property (nonatomic, strong) NSMutableArray *addedUsers;
+@property (nonatomic, strong) PFObject *gameObject;
+@property (strong, nonatomic) IBOutlet UIButton *startGameButton;
 
 @end
 
@@ -25,6 +28,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.addedUsers = [[NSMutableArray alloc] init];
+    self.gameObject = [PFObject objectWithClassName:@"Games"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -35,9 +39,25 @@
 - (IBAction)addPlayerAction:(id)sender
 {
     [self.addedUsers addObject:self.addPlayerInput.text];
+    [self addUserToGame:self.addPlayerInput.text];
     self.addPlayerInput.text = @"";
     [self.view endEditing:YES];
     [self arrayDidUpdate];
+}
+
+- (IBAction)startGameAction:(id)sender {
+    self.gameObject[@"active"] = @YES;
+    self.gameObject[@"game_title"] = self.gameTitleInput.text;
+    [self.gameObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (succeeded)
+        {
+            NSLog(@"created new game");
+        }
+        else
+        {
+            NSLog(@"%@", [error description]);
+        }
+    }];
 }
 
 #pragma mark - tableView
@@ -102,27 +122,24 @@
     return [self createHeaderWithTitle:[NSString stringWithFormat:@"Invited Players"]];
 }
 
-- (void)sendToDatabase
+- (void)addUserToGame:(NSString *)userName
 {
-    PFObject *gameObject = [PFObject objectWithClassName:@"Games"];
-    gameObject[@"active"] = @YES;
-    gameObject[@"last_kill"] = @"Yash kills Jason";
+    NSDictionary *playerAttributes = [[NSDictionary alloc] init];
+    NSDictionary *playerDictionary = [[NSDictionary alloc] init];
+
+    NSUInteger count = [self.addedUsers count];
+    if(count == 1)
+    {
+        playerAttributes = @{@"target": userName, @"status": @YES, @"time_remaining": @"654500"};
+        playerDictionary = @{[SSNUser currentUser].username: playerAttributes};
+    }
+    else
+    {
+        playerAttributes = @{@"target": userName, @"status": @YES, @"time_remaining": @"654500"};
+        playerDictionary = @{[self.addedUsers objectAtIndex:count - 1]: playerAttributes};
+    }
     
-    NSDictionary *playerAttributes = @{@"target": @"Austin Tsao", @"status": @YES, @"time_remaining": @"654500"};
-    NSDictionary *playerDictionary = @{@"quinnmac": playerAttributes};
+    self.gameObject[@"player_dict"] = playerDictionary;
     
-    gameObject[@"player_dict"] = playerDictionary;
-    
-    [gameObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        if (succeeded)
-        {
-            NSLog(@"created new game");
-        }
-        else
-        {
-            NSLog(@"%@", [error description]);
-        }
-    }];
-    [self.games addObject:gameObject];
 }
 @end
