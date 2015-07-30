@@ -31,7 +31,7 @@
         self.playerDict = gameObject[@"player_dict"];
         
         self.loggedInUser = [PFUser currentUser];
-        self.playerAttributes =[_playerDict valueForKeyPath:_loggedInUser.username]; // Hard code to my username
+        self.playerAttributes =[_playerDict valueForKeyPath:_loggedInUser.username];
         
         self.targetPlayer = _playerAttributes[@"target"];
         self.timeRemaining = _playerAttributes[@"time_remaining"];
