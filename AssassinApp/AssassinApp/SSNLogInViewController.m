@@ -48,9 +48,9 @@
 
     CGRect fieldFrame = self.logInView.usernameField.frame;
     
-    [self.logInView.logo setFrame:CGRectMake(66.5f, 60.0f, 190.0f, 190.0f)];
+    [self.logInView.logo setFrame:CGRectMake(66.5f, 50.0f, 190.0f, 190.0f)];
 
-    yOffset += self.logInView.logo.frame.size.height + 60.0f;
+    yOffset += self.logInView.logo.frame.size.height + 45.0f;
 
     [self.logInView.usernameField setFrame:CGRectMake(fieldFrame.origin.x,
                                                        fieldFrame.origin.y + yOffset,
