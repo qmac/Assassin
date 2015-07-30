@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
@@ -11,7 +11,6 @@
                 <outlet property="addPlayerInput" destination="ijh-dR-2WH" id="cOq-qI-jDh"/>
                 <outlet property="gameTitleInput" destination="gCN-rp-peF" id="rju-xx-ecG"/>
                 <outlet property="invitedPlayersTableView" destination="EdV-0b-20M" id="oFZ-yr-uBN"/>
-                <outlet property="startGameButton" destination="DU3-y5-06f" id="w63-J7-mTj"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -20,71 +19,76 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Game Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gCN-rp-peF">
-                    <rect key="frame" x="8" y="113" width="584" height="30"/>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Game Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gCN-rp-peF">
+                    <rect key="frame" x="10" y="113" width="580" height="30"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
                 </textField>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Add Players" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" highlighted="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0IN-h8-fYn">
-                    <rect key="frame" x="18" y="151" width="150" height="21"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add Players" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" highlighted="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0IN-h8-fYn">
+                    <rect key="frame" x="10" y="158" width="93" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5ut-Lc-ojH">
-                    <rect key="frame" x="486" y="180" width="106" height="30"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                    <state key="normal" title="Add Player"/>
-                    <connections>
-                        <action selector="addPlayerAction:" destination="-1" eventType="touchUpInside" id="jv7-Rt-h7o"/>
-                    </connections>
-                </button>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Username" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ijh-dR-2WH">
-                    <rect key="frame" x="8" y="180" width="470" height="30"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits"/>
-                </textField>
-                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DU3-y5-06f">
-                    <rect key="frame" x="222" y="554" width="156" height="30"/>
-                    <state key="normal" title="Create Game">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="startGameAction:" destination="-1" eventType="touchUpInside" id="xiW-v6-xls"/>
-                    </connections>
-                </button>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" alwaysBounceVertical="YES" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="EdV-0b-20M">
-                    <rect key="frame" x="8" y="218" width="584" height="328"/>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="EdV-0b-20M">
+                    <rect key="frame" x="10" y="227" width="580" height="365"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="U0r-zI-vcT"/>
                         <outlet property="delegate" destination="-1" id="VTm-4V-scS"/>
                     </connections>
                 </tableView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Create a Game" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MaL-e4-ZPv">
-                    <rect key="frame" x="8" y="84" width="126" height="21"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create a Game" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MaL-e4-ZPv">
+                    <rect key="frame" x="10" y="84" width="116" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5ut-Lc-ojH">
+                    <rect key="frame" x="515" y="189" width="75" height="30"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <state key="normal" title="Add Player"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="4"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="addPlayerAction:" destination="-1" eventType="touchUpInside" id="jv7-Rt-h7o"/>
+                    </connections>
+                </button>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Username" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ijh-dR-2WH">
+                    <rect key="frame" x="10" y="189" width="495" height="30"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="centerX" secondItem="gCN-rp-peF" secondAttribute="centerX" id="4h9-8Q-eoi"/>
                 <constraint firstItem="gCN-rp-peF" firstAttribute="top" secondItem="MaL-e4-ZPv" secondAttribute="bottom" constant="8" id="BiS-j3-uGJ"/>
-                <constraint firstAttribute="bottom" secondItem="DU3-y5-06f" secondAttribute="bottom" constant="16" id="Bzt-pX-qhn"/>
-                <constraint firstItem="gCN-rp-peF" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="C1f-LU-u4B"/>
-                <constraint firstAttribute="trailing" secondItem="EdV-0b-20M" secondAttribute="trailing" constant="8" id="CGk-AB-lNG"/>
-                <constraint firstItem="5ut-Lc-ojH" firstAttribute="leading" secondItem="ijh-dR-2WH" secondAttribute="trailing" constant="8" id="Ey4-8x-cFD"/>
+                <constraint firstItem="gCN-rp-peF" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="10" id="C1f-LU-u4B"/>
+                <constraint firstAttribute="trailing" secondItem="EdV-0b-20M" secondAttribute="trailing" constant="10" id="CGk-AB-lNG"/>
+                <constraint firstItem="5ut-Lc-ojH" firstAttribute="leading" secondItem="ijh-dR-2WH" secondAttribute="trailing" constant="10" id="Ey4-8x-cFD"/>
+                <constraint firstAttribute="bottom" secondItem="EdV-0b-20M" secondAttribute="bottom" constant="8" id="FwV-ZR-Ye9"/>
                 <constraint firstItem="ijh-dR-2WH" firstAttribute="top" secondItem="gCN-rp-peF" secondAttribute="bottom" constant="43" id="Gu7-dK-WkO"/>
-                <constraint firstItem="DU3-y5-06f" firstAttribute="top" secondItem="EdV-0b-20M" secondAttribute="bottom" constant="26" id="Nd2-Qh-lQI"/>
-                <constraint firstAttribute="centerX" secondItem="DU3-y5-06f" secondAttribute="centerX" id="gxg-zK-96d"/>
+                <constraint firstItem="MaL-e4-ZPv" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="10" id="R6e-hA-Pl7"/>
+                <constraint firstItem="0IN-h8-fYn" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="10" id="awn-XW-KI6"/>
                 <constraint firstItem="MaL-e4-ZPv" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="84" id="hxm-fa-jtn"/>
-                <constraint firstAttribute="trailing" secondItem="5ut-Lc-ojH" secondAttribute="trailing" id="iMm-cf-Gm3"/>
-                <constraint firstItem="EdV-0b-20M" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="liq-tb-iz7"/>
+                <constraint firstAttribute="trailing" secondItem="5ut-Lc-ojH" secondAttribute="trailing" constant="10" id="iMm-cf-Gm3"/>
+                <constraint firstItem="EdV-0b-20M" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="10" id="liq-tb-iz7"/>
+                <constraint firstItem="ijh-dR-2WH" firstAttribute="top" secondItem="0IN-h8-fYn" secondAttribute="bottom" constant="10" id="niJ-l2-MpQ"/>
+                <constraint firstItem="0IN-h8-fYn" firstAttribute="top" secondItem="gCN-rp-peF" secondAttribute="bottom" constant="15" id="oXS-gr-tX0"/>
+                <constraint firstItem="ijh-dR-2WH" firstAttribute="bottom" secondItem="5ut-Lc-ojH" secondAttribute="bottom" id="q29-1p-j7d"/>
                 <constraint firstItem="EdV-0b-20M" firstAttribute="top" secondItem="5ut-Lc-ojH" secondAttribute="bottom" constant="8" id="rV9-jv-IKg"/>
-                <constraint firstItem="ijh-dR-2WH" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="x0v-FT-zRA"/>
+                <constraint firstItem="ijh-dR-2WH" firstAttribute="top" secondItem="5ut-Lc-ojH" secondAttribute="top" id="rY4-ab-EKF"/>
+                <constraint firstItem="ijh-dR-2WH" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="10" id="x0v-FT-zRA"/>
             </constraints>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="Gu7-dK-WkO"/>
+                </mask>
+            </variation>
         </view>
     </objects>
 </document>

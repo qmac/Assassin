@@ -58,9 +58,6 @@
         _lastKillLabel.text = lastKill;
         
         NSString *timeRemainingMessage = [NSString stringWithFormat:@"Time remaining to kill target: %@", timeRemaining];
-        _timeRemainingLabel.hidden = false;
-        _timeRemainingLabel.text = timeRemainingMessage;
-        
         
         NSURL *url = [NSURL URLWithString:@"http://img4.wikia.nocookie.net/__cb20120524204707/gameofthrones/images/4/4d/Joffrey_in_armor2x09.jpg"];
         NSData *mydata = [[NSData alloc] initWithContentsOfURL:url];
@@ -69,7 +66,7 @@
         
         
         _timerCountdownLabel.textColor=[UIColor redColor];
-        [_timerCountdownLabel setText:@"Time remaining to assassinate target:"];
+        [_timerCountdownLabel setText:@"Time remaining:"];
         _timerCountdownLabel.backgroundColor=[UIColor clearColor];
 //        [self.view addSubview:_timerCountdownLabel];
         
@@ -95,46 +92,88 @@
         currHour = (int) hours;
         currMinute = (int) minutes;
         currSeconds = (int)seconds;
+        
+        if ([gameObject[@"player_dict"][[PFUser currentUser].username][@"status"]  isEqual: @NO]) {
+            self.timerCountdownLabel.hidden = true;
+            self.killConfirmButton.hidden = true;
+        }
     }];
     NSLog(@"%@", playerDict);
 }
 
+-(NSString *)updateTime
+{
+    NSDate *currentDate = [NSDate date];
+    
+    // Create and initialize date component instance
+    NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
+    [dateComponents setDay:3];
+    
+    // Retrieve date with increased days count
+    NSDate *newDate = [[NSCalendar currentCalendar] dateByAddingComponents:dateComponents toDate:currentDate options:0];
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss Z"];
+    return [formatter stringFromDate:newDate];
+}
+
+#pragma kills/suicide
+
 - (IBAction)confirmKill:(id)sender {
     PFQuery *query = [PFQuery queryWithClassName:@"Games"];
-    [query getObjectInBackgroundWithId:self.gameId block:^(PFObject *gameObject, NSError *error) {
-        NSLog(@"%@", gameObject[@"player_dict"]);
-        NSString *target = gameObject[@"player_dict"][loggedInUser.username][@"target"];
-        NSString *newTarget = gameObject[@"player_dict"][target][@"target"];
-        NSString *assassin = loggedInUser.username;
-        NSString *killMessage = [NSString stringWithFormat:@"%@ killed %@", assassin, target];
+    PFObject *gameObject = [query getObjectWithId:self.gameId];
+    NSString *assassin = loggedInUser.username;
+    NSString *target = gameObject[@"player_dict"][assassin][@"target"];
+    NSString *newTarget = gameObject[@"player_dict"][target][@"target"];
+    NSString *killMessage = [NSString stringWithFormat:@"%@ killed %@", assassin, target];
         
-        //updating target's stats
-        gameObject[@"player_dict"][target][@"status"] = @NO;
-        gameObject[@"player_dict"][target][@"time_remaining"] = @"0";
-        gameObject[@"player_dict"][target][@"target"] = @"";
+    //updating target's stats
+    gameObject[@"player_dict"][target][@"status"] = @NO;
+    gameObject[@"player_dict"][target][@"last_date_to_kill"] = @"0";
+    gameObject[@"player_dict"][target][@"target"] = @"";
         
-        //updating assasin's stats
-        gameObject[@"player_dict"][[PFUser currentUser].username][@"target"] = newTarget;
-        NSDate *currentDate = [NSDate date];
+    //updating assasin's stats
+    gameObject[@"player_dict"][assassin][@"target"] = newTarget;
+    gameObject[@"player_dict"][assassin][@"last_date_to_kill"] = [self updateTime];
         
-        // Create and initialize date component instance
-        NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
-        [dateComponents setDay:3];
+    //updating game message
+    gameObject[@"last_kill"] = killMessage;
         
-        // Retrieve date with increased days count
-        NSDate *newDate = [[NSCalendar currentCalendar] dateByAddingComponents:dateComponents toDate:currentDate options:0];
-        
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss Z"];
-        NSString *dateToKill = [formatter stringFromDate:newDate];
-        gameObject[@"player_dict"][[PFUser currentUser].username][@"time_remaining"] = dateToKill;
-        
-        //updating game message
-        gameObject[@"last_kill"] = killMessage;
-        
-        [gameObject saveInBackground];
-    }];
+    [gameObject saveInBackground];
+}
+
+-(void)suicide
+{
+    PFQuery *query = [PFQuery queryWithClassName:@"Games"];
+    PFObject *gameObject = [query getObjectWithId:self.gameId];
+    NSString *currentUser = [PFUser currentUser].username;
+    NSString *target = gameObject[@"player_dict"][currentUser][@"target"];
     
+    //find your assassin
+    NSString *yourAssassin;
+    for (NSString *key in gameObject[@"player_dict"])
+    {
+        NSLog(@"%@", gameObject[@"player_dict"][key][@"target"]);
+        if ([gameObject[@"player_dict"][key][@"target"] isEqualToString: currentUser])
+        {
+            yourAssassin = key;
+        }
+    }
+    
+    //updating suicider's stats
+    gameObject[@"player_dict"][currentUser][@"status"] = @NO;
+    gameObject[@"player_dict"][currentUser][@"last_date_to_kill"] = @"0";
+    gameObject[@"player_dict"][currentUser][@"target"] = @"";
+    
+    //updating assasin's stats
+    gameObject[@"player_dict"][yourAssassin][@"target"] = target;
+    gameObject[@"player_dict"][yourAssassin][@"last_date_to_kill"] = [self updateTime];
+    
+    //updating game message
+    NSString *killMessage = [NSString stringWithFormat:@"%@ committed suicide", currentUser];
+    gameObject[@"last_kill"] = killMessage;
+    
+    [gameObject saveInBackground];
 }
 
 - (void)didReceiveMemoryWarning {

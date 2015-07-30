@@ -7,6 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SSNGameViewController">
             <connections>
+                <outlet property="killConfirmButton" destination="YEx-g4-Od7" id="dy2-9L-GS4"/>
                 <outlet property="lastKillLabel" destination="Si5-xj-ORQ" id="jbf-iw-gEo"/>
                 <outlet property="targetImage" destination="IYh-cz-dg2" id="1N7-X5-vRx"/>
                 <outlet property="targetLabel" destination="AGg-xU-PcY" id="xx2-Iv-VRF"/>
