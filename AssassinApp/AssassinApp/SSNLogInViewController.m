@@ -28,7 +28,8 @@
     return self;
 }
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     self.delegate = self;
     self.logInView.backgroundColor = [UIColor blackColor];
@@ -40,6 +41,12 @@
     self.logInView.dismissButton.hidden = YES;
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES];
+}
+
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     
@@ -48,8 +55,8 @@
 
     CGRect fieldFrame = self.logInView.usernameField.frame;
     
-    [self.logInView.logo setFrame:CGRectMake(66.5f, 50.0f, 190.0f, 190.0f)];
-
+    [self.logInView.logo setFrame:CGRectMake((self.logInView.frame.size.width / 2) - (190/2), 50.0f, 190.0f, 190.0f)];
+    
     yOffset += self.logInView.logo.frame.size.height + 45.0f;
 
     [self.logInView.usernameField setFrame:CGRectMake(fieldFrame.origin.x,
@@ -82,13 +89,8 @@
 }
 
 - (void)logInViewController:(PFLogInViewController *)logInController didLogInUser:(PFUser *)user {
-    // To launch User View
-//    SSNUserViewController *userViewController = [[SSNUserViewController alloc] init];
-//    [self.navigationController presentViewController:userViewController animated:NO completion:nil];
-    
-    // To launch game view
-    SSNGameViewController *gameViewController = [[SSNGameViewController alloc] init];
-    [self presentViewController:gameViewController animated:NO completion:nil];
+    SSNUserViewController *userViewController = [[SSNUserViewController alloc] init];
+    [self.navigationController pushViewController:userViewController animated:NO];
 }
 
 - (void)logInViewController:(PFLogInViewController *)logInController didFailToLogInWithError:(PFUI_NULLABLE NSError *)error {
@@ -116,15 +118,5 @@
     }
     return YES;
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

@@ -11,9 +11,9 @@
 #import "SSNLogInViewController.h"
 #import "SSNSignUpViewController.h"
 #import "SSNUserViewController.h"
-#import "SSNUser.h"
+#import "SSNGameViewController.h"
 #import "Reachability.h"
-
+#import "SSNCreateGameViewController.h"
 @interface AppDelegate ()
 
 @end
@@ -22,8 +22,6 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    [SSNUser registerSubclass];
-    
     [Parse setApplicationId:@"u9m11ErRytB4i6hNRUNvBMBeROirhXRp93Zj5oKY"
                   clientKey:@"6KeMZ2zHH1wPXW5zv6isZqpyG08jX0TRh3iG3CEG"];
     
@@ -41,15 +39,21 @@
     PFUser *loggedInUser = [PFUser currentUser];
     if(loggedInUser)
     {
+        // To default into Game View
+        //rootViewController = [[SSNGameViewController alloc] initWithNibName:@"SSNGameViewController" bundle:nil];
+        
+        // To default into User View
         rootViewController = [[SSNUserViewController alloc] initWithNibName:@"SSNUserViewController" bundle:nil];
     }
     else
     {
         rootViewController = [[SSNLogInViewController alloc] initWithNibName:@"SSNLogInViewController" bundle:nil];
     }
+    
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:rootViewController];
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.window.rootViewController = rootViewController;
+    self.window.rootViewController = navController;
     [self.window makeKeyAndVisible];
     
     return YES;

@@ -1,11 +1,10 @@
 Player table
-- username
-- last_seen
-- email_address
-- profile picture
-- games_playing
-- games_played
+- userId
+- fullName
+- lastSeen
+- profilePicture
+- games
 
 Games table
-- player_dict: {"PFUser.username": {"target", "status", "time_remaining"}}
+- player_dict: {"PFUser.username": {"target", "status", "time_remaining", "time_of_death"}}
 - active
