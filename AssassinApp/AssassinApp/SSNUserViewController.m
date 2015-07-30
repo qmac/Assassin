@@ -45,9 +45,10 @@ static NSString *const CellIdentifier = @"gameCell";
     [self fetchGamesData];
 }
 
-- (void)viewDidAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidAppear:animated];
+    [super viewWillAppear:animated];
+    self.navigationItem.hidesBackButton = YES;
     [self.navigationController setNavigationBarHidden:NO];
 }
 
@@ -170,7 +171,7 @@ static NSString *const CellIdentifier = @"gameCell";
         return;
     }
     SSNGameViewController *gameViewController = [[SSNGameViewController alloc] init];
-    [self.navigationController presentViewController:gameViewController animated:NO completion:nil];
+    [self.navigationController pushViewController:gameViewController animated:YES];
 }
 
 
