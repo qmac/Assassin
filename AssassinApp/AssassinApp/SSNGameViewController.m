@@ -69,7 +69,7 @@
         
         
         _timerCountdownLabel.textColor=[UIColor redColor];
-        [_timerCountdownLabel setText:@"Time remaining to assassinate target:"];
+        [_timerCountdownLabel setText:@"Time remaining:"];
         _timerCountdownLabel.backgroundColor=[UIColor clearColor];
 //        [self.view addSubview:_timerCountdownLabel];
         
