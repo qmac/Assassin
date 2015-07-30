@@ -11,7 +11,7 @@
 
 @implementation SSNUser
 
-@dynamic fullName, gamesPlaying, gamesPlayed, profilePicture, lastSeen;
+@dynamic fullName, games, profilePicture, lastSeen;
 
 + (SSNUser *)currentUser
 {
