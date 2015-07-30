@@ -82,15 +82,18 @@
         NSDate *end = [formatter dateFromString:timeRemaining];
         NSTimeInterval duration = [end timeIntervalSinceDate:start];
 
-        double minutes = floor(duration/60.0);
-        double seconds = round(duration - minutes * 60.0);
+        NSInteger hours = floor(duration/(60*60));
+        NSInteger minutes = floor((duration/60) - hours * 60);
+        NSInteger seconds = floor(duration - (minutes * 60) - (hours * 60 * 60));
 
-        NSLog(@"%f", duration);
-        NSLog(@"%f", minutes);
-        NSLog(@"%f", seconds);
         
-        currMinute=minutes;
-        currSeconds=seconds;
+        NSLog(@"%f", duration);
+        NSLog(@"%zd", hours);
+        NSLog(@"%zd", minutes);
+        NSLog(@"%zd", seconds);
+        
+        currMinute = (int) minutes;
+        currSeconds = (int)seconds;
     }];
     NSLog(@"%@", playerDict);
 }
