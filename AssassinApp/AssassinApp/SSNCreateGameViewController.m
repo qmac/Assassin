@@ -38,13 +38,19 @@
     self.creatorUserName = [SSNUser currentUser].username;
     [self.addPlayerButton setTitleColor:UIColorFromRGB(0xC0392B) forState:UIControlStateNormal];
     [self.startGameButton setTitleColor:UIColorFromRGB(0xC0392B) forState:UIControlStateNormal];
-    UIBarButtonItem *createGameButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:nil];
-    self.navigationItem.leftBarButtonItem = createGameButton;
+    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonAction)];
+    [cancelButton setTintColor:UIColorFromRGB(0xC0392B)];
+    self.navigationItem.leftBarButtonItem = cancelButton;
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)cancelButtonAction
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (IBAction)addPlayerAction:(id)sender
