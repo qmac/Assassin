@@ -11,6 +11,7 @@
 #import "SSNUser.h"
 #import "SSNGameViewController.h"
 #import <Parse/PFQuery.h>
+#define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 @interface SSNCreateGameViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -35,6 +36,10 @@
     self.gameObject = [PFObject objectWithClassName:@"Games"];
     self.fullDictionary = [[NSMutableDictionary alloc] init];
     self.creatorUserName = [SSNUser currentUser].username;
+    [self.addPlayerButton setTitleColor:UIColorFromRGB(0xC0392B) forState:UIControlStateNormal];
+    [self.startGameButton setTitleColor:UIColorFromRGB(0xC0392B) forState:UIControlStateNormal];
+    UIBarButtonItem *createGameButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:nil];
+    self.navigationItem.leftBarButtonItem = createGameButton;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -124,7 +129,8 @@
     {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
     }
-    
+    cell.backgroundColor = [UIColor blackColor];
+    cell.textLabel.textColor = [UIColor lightGrayColor];
     cell.textLabel.text = [self.addedUsers objectAtIndex:[indexPath row]];
     
     return cell;
@@ -149,6 +155,7 @@
         
         accountLabel.textAlignment = NSTextAlignmentLeft;
         accountLabel.text = title;
+        accountLabel.textColor = [UIColor lightGrayColor];
         accountLabel.numberOfLines = 3;
         accountLabel.opaque = NO;
         accountLabel.backgroundColor = [UIColor clearColor];
