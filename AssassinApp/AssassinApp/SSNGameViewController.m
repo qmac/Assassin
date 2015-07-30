@@ -16,6 +16,7 @@
 @property (nonatomic, strong) NSString *timeRemaining;
 @property (nonatomic, strong) NSString *targetPlayer;
 @property (nonatomic, strong) NSString *lastKill;
+@property (nonatomic, strong) PFUser *loggedInUser;
 
 @end
 
@@ -32,9 +33,9 @@
         _lastKill = gameObject[@"last_kill"];
         _playerDict = gameObject[@"player_dict"];
         
-        PFUser *loggedInUser = [PFUser currentUser];
-        NSLog(@"%@", loggedInUser.username);
-        _playerAttributes =[_playerDict valueForKeyPath:loggedInUser.username]; // Hard code to my username
+        _loggedInUser = [PFUser currentUser];
+        NSLog(@"%@", _loggedInUser.username);
+        _playerAttributes =[_playerDict valueForKeyPath:_loggedInUser.username]; // Hard code to my username
         
 //        NSLog(@"%@", _playerDict);
         _targetPlayer = _playerAttributes[@"target"];
@@ -68,11 +69,16 @@
 - (IBAction)confirmKill:(id)sender {
     PFQuery *query = [PFQuery queryWithClassName:@"Games"];
     [query getObjectInBackgroundWithId:@"j5KvQKhcI3" block:^(PFObject *gameObject, NSError *error) {
-        NSLog(@"%@", gameObject);
-        [[gameObject[@"player_dict"] valueForKey:@"manavm"] setObject:(@"quinn") forKey:(@"target")];
-        NSLog(@"%@", [gameObject[@"player_dict"] valueForKey:@"manavm"]);
-        [gameObject saveInBackground];
+//        NSLog(@"%@", gameObject);
+//        [[gameObject[@"player_dict"] valueForKey:@"manavm"] setObject:(@"quinn") forKey:(@"target")];
+//        NSLog(@"%@", [gameObject[@"player_dict"] valueForKey:@"manavm"]);
+//        [gameObject saveInBackground];
+        NSString *assassin = _loggedInUser.username;
+        NSString *target = gameObject[@"player_dict"][[PFUser currentUser].username][@"target"];
+        NSString *killMessage = [NSString stringWithFormat:@"%@ killed %@", assassin, target];
+        NSLog(@"%@", killMessage);
     }];
+    
 }
 
 - (void)didReceiveMemoryWarning {
