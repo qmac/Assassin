@@ -121,7 +121,7 @@ static NSString *const CellIdentifier = @"gameCell";
 - (void) launchCreateGame:(id)sender
 {
     SSNCreateGameViewController *createGameViewController = [[SSNCreateGameViewController alloc] initWithNibName:@"SSNCreateGameViewController" bundle:nil];
-    [self.navigationController pushViewController:createGameViewController animated:YES];
+    [self.navigationController popToViewController:createGameViewController animated:YES];
 }
 -(void) logoutUser
 {
