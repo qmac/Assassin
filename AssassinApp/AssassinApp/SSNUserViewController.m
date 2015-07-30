@@ -153,7 +153,15 @@ static NSString *const CellIdentifier = @"gameCell";
     NSLog(@"loggedout");
     [PFUser logOut];
     SSNLogInViewController *logInViewController = [[SSNLogInViewController alloc] init];
-    [self.navigationController popToViewController:logInViewController animated:NO];
+    NSArray *viewStack = [self.navigationController viewControllers];
+    if([viewStack containsObject:logInViewController])
+    {
+        [self.navigationController popToViewController:logInViewController animated:NO];
+    }
+    else
+    {
+        [self.navigationController pushViewController:logInViewController animated:NO];
+    }
 }
 
 #pragma mark - UITableView Datasource
