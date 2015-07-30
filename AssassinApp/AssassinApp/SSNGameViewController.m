@@ -60,13 +60,12 @@
         NSData *mydata = [[NSData alloc] initWithContentsOfURL:url];
         _targetImage.image = [UIImage imageWithData:mydata];
     }];
-    
     NSLog(@"%@", _playerDict);
 }
 
 - (IBAction)confirmKill:(id)sender {
     PFQuery *query = [PFQuery queryWithClassName:@"Games"];
-    [query getObjectInBackgroundWithId:@"X8ubTiUwUF" block:^(PFObject *gameObject, NSError *error) {
+    [query getObjectInBackgroundWithId:@"ZRlsokeDXs" block:^(PFObject *gameObject, NSError *error) {
         NSString *target = gameObject[@"player_dict"][_loggedInUser.username][@"target"];
         NSString *newTarget = gameObject[@"player_dict"][target][@"target"];
         NSString *assassin = _loggedInUser.username;
