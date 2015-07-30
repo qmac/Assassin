@@ -153,8 +153,10 @@ static NSString *const CellIdentifier = @"gameCell";
     if (indexPath.section == 1){
         return;
     }
-    SSNGameViewController *gameViewController = [[SSNGameViewController alloc] init];
-    [self.navigationController pushViewController:gameViewController animated:YES];
+    
+    SSNGameViewController *gameViewController = [[SSNGameViewController alloc] initWithNibName:@"SSNGameViewController" bundle:nil];
+    [gameViewController setGameId:[[self.activeGamesData objectAtIndex:indexPath.row] objectId]];
+    [self presentViewController:gameViewController animated:YES completion:nil];
 }
 
 
