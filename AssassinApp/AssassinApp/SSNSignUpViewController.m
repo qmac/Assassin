@@ -37,7 +37,7 @@
     // Move all fields down on smaller screen sizes
     float yOffset = [UIScreen mainScreen].bounds.size.height <= 480.0f ? 30.0f : 0.0f;
     
-    [self.signUpView.logo setFrame:CGRectMake(66.5f, 50.0f, 190.0f, 190.0f)];
+    [self.signUpView.logo setFrame:CGRectMake((self.signUpView.frame.size.width / 2) - (190/2), 50.0f, 190.0f, 190.0f)];
     
     yOffset += self.signUpView.logo.frame.size.height - 60.0f;
     
@@ -87,15 +87,15 @@
 
 - (void)signUpViewController:(PFSignUpViewController *)signUpController didSignUpUser:(PFUser *)user
 {
-    [user setValue:self.signUpView.additionalField.text forKey:@"fullName"];
-    [user setValue:[[NSMutableArray alloc] init] forKey:@"games"];
+    SSNUser *customUser = (SSNUser *)user;
+    [customUser setFullName:self.signUpView.additionalField.text];
+    [customUser setGames:[[NSMutableArray alloc] init]];
+    NSString *pic = @"hellonsdata";
+    NSData *data = [pic dataUsingEncoding:NSUTF8StringEncoding];
+    [customUser setProfilePicture:[PFFile fileWithData:data]];
+    [customUser setLastSeen:[PFGeoPoint geoPoint]];
     
-    NSURL *url = [NSURL URLWithString:@"http://img4.wikia.nocookie.net/__cb20120524204707/gameofthrones/images/4/4d/Joffrey_in_armor2x09.jpg (7KB)"];
-    NSData *data = [[NSData alloc] initWithContentsOfURL:url];
-                  
-    [user setValue:[PFFile fileWithData:data] forKey:@"profilePicture"];
-    [user setValue:[PFGeoPoint geoPoint] forKey:@"lastSeen"];
-    [user saveInBackground];
+    [customUser saveInBackground];
     
     SSNUserViewController *userViewController = [[SSNUserViewController alloc] initWithNibName:@"SSNUserViewController" bundle:nil];
     [self presentViewController:userViewController animated:NO completion:nil];
