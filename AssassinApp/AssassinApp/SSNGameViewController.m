@@ -18,8 +18,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
 }
+
+
 - (IBAction)confirmKill:(id)sender {
     PFQuery *query = [PFQuery queryWithClassName:@"Games"];
     [query getObjectInBackgroundWithId:@"j5KvQKhcI3" block:^(PFObject *gameObject, NSError *error) {
