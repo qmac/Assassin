@@ -12,6 +12,8 @@
 #import "SSNGameViewController.h"
 #import "SSNCreateGameViewController.h"
 
+#define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
+
 @interface SSNUserViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) NSString *userId;
@@ -39,6 +41,10 @@ static NSString *const CellIdentifier = @"gameCell";
     
     UIBarButtonItem *createGameButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(launchCreateGame:)];
     self.navigationItem.rightBarButtonItem = createGameButton;
+    
+    self.navigationController.navigationBar.tintColor = UIColorFromRGB(0xC0392B);
+    self.navigationController.navigationBar.barTintColor = [UIColor greenColor];
+    self.navigationItem.title = @"My Games";
     
     PFUser *user = [PFUser currentUser];
     self.gameIds = user[@"games"];
@@ -126,8 +132,10 @@ static NSString *const CellIdentifier = @"gameCell";
     {
         cell.textLabel.text = [self.inactiveGamesData objectAtIndex:indexPath.row][@"game_title"];
     }
-    cell.backgroundColor = [UIColor blackColor];
+    cell.textLabel.text = [cell.textLabel.text uppercaseString];
     cell.textLabel.textColor =[UIColor whiteColor];
+    cell.backgroundColor = [UIColor blackColor];
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     
     return cell;
 }
@@ -142,6 +150,11 @@ static NSString *const CellIdentifier = @"gameCell";
     // The header for the section is the region name -- get this from the region at the section index.
     if (section == 0) return @"Active Games";
     return @"Inactive Games";
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 55;
 }
 
 
