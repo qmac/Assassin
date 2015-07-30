@@ -16,5 +16,6 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *targetImage;
 
+@property (nonatomic, strong) NSString *gameId;
 
 @end

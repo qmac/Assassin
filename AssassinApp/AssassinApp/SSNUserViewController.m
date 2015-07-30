@@ -10,6 +10,7 @@
 
 #import "SSNUserViewController.h"
 #import "SSNGameViewController.h"
+#import "SSNCreateGameViewController.h"
 
 @interface SSNUserViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -99,26 +100,8 @@ static NSString *const CellIdentifier = @"gameCell";
 #pragma mark - Nav Bar Handlers
 - (void) launchCreateGame:(id)sender
 {
-//    PFObject *gameObject = [PFObject objectWithClassName:@"Games"];
-//    gameObject[@"active"] = @YES;
-//    gameObject[@"last_kill"] = @"Yash kills Jason";
-//    
-//    NSDictionary *playerAttributes = @{@"target": @"Austin Tsao", @"status": @YES, @"time_remaining": @"654500"};
-//    NSDictionary *playerDictionary = @{@"quinnmac": playerAttributes};
-//    
-//    gameObject[@"player_dict"] = playerDictionary;
-//    
-//    [gameObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-//        if (succeeded)
-//        {
-//            NSLog(@"created new game");
-//        }
-//        else
-//        {
-//            NSLog(@"%@", [error description]);
-//        }
-//    }];
-//    [self.games addObject:gameObject];
+    SSNCreateGameViewController *createGameViewController = [[SSNCreateGameViewController alloc] initWithNibName:@"SSNCreateGameViewController" bundle:nil];
+    [self presentViewController:createGameViewController animated:YES completion:nil];
 }
 
 #pragma mark - UITableView Datasource

@@ -14,7 +14,7 @@
 #import "SSNGameViewController.h"
 #import "SSNUser.h"
 #import "Reachability.h"
-
+#import "SSNCreateGameViewController.h"
 @interface AppDelegate ()
 
 @end
