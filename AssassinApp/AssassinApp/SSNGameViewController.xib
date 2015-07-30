@@ -7,6 +7,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SSNGameViewController">
             <connections>
+                <outlet property="lastKillImage" destination="cbv-MO-8Zb" id="nl0-oK-FWc"/>
+                <outlet property="lastKillLabel" destination="Si5-xj-ORQ" id="jbf-iw-gEo"/>
+                <outlet property="targetImage" destination="IYh-cz-dg2" id="1N7-X5-vRx"/>
                 <outlet property="targetLabel" destination="AGg-xU-PcY" id="xx2-Iv-VRF"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -16,6 +19,18 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YEx-g4-Od7">
+                    <rect key="frame" x="260" y="408" width="80" height="30"/>
+                    <state key="normal" title="Kill Confirm">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <variation key="widthClass=compact" ambiguous="YES" misplaced="YES">
+                        <rect key="frame" x="160" y="420" width="80" height="30"/>
+                    </variation>
+                    <connections>
+                        <action selector="confirmKill:" destination="-1" eventType="touchUpInside" id="y48-0y-80H"/>
+                    </connections>
+                </button>
                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Target" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AGg-xU-PcY">
                     <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -45,19 +60,10 @@
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
-                </label>
-                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YEx-g4-Od7">
-                    <rect key="frame" x="260" y="408" width="80" height="30"/>
-                    <state key="normal" title="Kill Confirm">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <variation key="widthClass=compact" ambiguous="YES" misplaced="YES">
-                        <rect key="frame" x="160" y="420" width="80" height="30"/>
+                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                        <rect key="frame" x="154" y="715" width="92" height="20.5"/>
                     </variation>
-                    <connections>
-                        <action selector="confirmKill:" destination="-1" eventType="touchUpInside" id="y48-0y-80H"/>
-                    </connections>
-                </button>
+                </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
@@ -76,6 +82,7 @@
                     <variation key="heightClass=regular-widthClass=compact" constant="140"/>
                 </constraint>
                 <constraint firstAttribute="centerX" secondItem="AGg-xU-PcY" secondAttribute="centerX" id="N9m-QS-qqR"/>
+                <constraint firstAttribute="bottom" secondItem="cbv-MO-8Zb" secondAttribute="bottom" constant="138.5" id="NL2-fI-1QC"/>
                 <constraint firstAttribute="trailing" secondItem="cbv-MO-8Zb" secondAttribute="trailing" constant="80" id="TS1-se-bif"/>
                 <constraint firstAttribute="centerX" secondItem="Si5-xj-ORQ" secondAttribute="centerX" id="VUw-UP-yek"/>
                 <constraint firstAttribute="trailing" secondItem="YEx-g4-Od7" secondAttribute="trailing" constant="150" id="X2v-hG-juN">
@@ -130,6 +137,7 @@
                     <exclude reference="1dn-OC-NVj"/>
                     <exclude reference="ICV-cg-9HZ"/>
                     <exclude reference="Bxp-Dq-D15"/>
+                    <exclude reference="NL2-fI-1QC"/>
                     <exclude reference="TS1-se-bif"/>
                     <exclude reference="n9I-1s-Lsi"/>
                     <exclude reference="yfC-2Q-Fm8"/>
@@ -177,6 +185,7 @@
                     <include reference="1dn-OC-NVj"/>
                     <include reference="ICV-cg-9HZ"/>
                     <exclude reference="Bxp-Dq-D15"/>
+                    <include reference="NL2-fI-1QC"/>
                     <include reference="TS1-se-bif"/>
                     <include reference="n9I-1s-Lsi"/>
                     <include reference="yfC-2Q-Fm8"/>
