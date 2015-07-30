@@ -35,7 +35,7 @@
     
     // Do any additional setup after loading the view from its nib.
     PFQuery *query = [PFQuery queryWithClassName:@"Games"];
-    [query getObjectInBackgroundWithId:@"ZRlsokeDXs" block:^(PFObject *gameObject, NSError *error) {
+    [query getObjectInBackgroundWithId:@"OhqGuvcma9" block:^(PFObject *gameObject, NSError *error) {
         NSLog(@"%@", gameObject);
         lastKill = gameObject[@"last_kill"];
         playerDict = gameObject[@"player_dict"];
@@ -75,10 +75,11 @@
         
         [self start];
         
-//        NSDate* start = [NSDate date];
-//        
-//        NSTimeInterval secondsInEightHours = 8 * 60 * 60;
-//        NSDate *end = [start dateByAddingTimeInterval:secondsInEightHours];
+        
+        NSDate* start = [NSDate date];
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss Z"];
+        NSDate *end = [formatter dateFromString:timeRemaining];
         NSTimeInterval duration = [end timeIntervalSinceDate:start];
 
         double minutes = floor(duration/60.0);
