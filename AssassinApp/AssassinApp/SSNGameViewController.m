@@ -58,9 +58,6 @@
         _lastKillLabel.text = lastKill;
         
         NSString *timeRemainingMessage = [NSString stringWithFormat:@"Time remaining to kill target: %@", timeRemaining];
-        _timeRemainingLabel.hidden = false;
-        _timeRemainingLabel.text = timeRemainingMessage;
-        
         
         NSURL *url = [NSURL URLWithString:@"http://img4.wikia.nocookie.net/__cb20120524204707/gameofthrones/images/4/4d/Joffrey_in_armor2x09.jpg"];
         NSData *mydata = [[NSData alloc] initWithContentsOfURL:url];
@@ -95,6 +92,11 @@
         currHour = (int) hours;
         currMinute = (int) minutes;
         currSeconds = (int)seconds;
+        
+        if ([gameObject[@"player_dict"][[PFUser currentUser].username][@"status"]  isEqual: @NO]) {
+            self.timerCountdownLabel.hidden = true;
+            self.killConfirmButton.hidden = true;
+        }
     }];
     NSLog(@"%@", playerDict);
 }
