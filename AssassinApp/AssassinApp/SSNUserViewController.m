@@ -46,7 +46,6 @@ static NSString *const CellIdentifier = @"gameCell";
     self.navigationItem.rightBarButtonItem = createGameButton;
     
 
-//    [self setupRefreshControl];
     self.refreshControl = [[UIRefreshControl alloc] init];
     self.refreshControl.backgroundColor = [UIColor colorWithRed:0.753 green:0.224 blue:0.169 alpha:1];
     self.refreshControl.tintColor = [UIColor whiteColor];
@@ -59,20 +58,6 @@ static NSString *const CellIdentifier = @"gameCell";
     [self fetchGamesData];
 }
 
-//- (void)viewDidAppear:(BOOL)animated {
-//    
-//    [super viewDidAppear:animated];
-//    [self.sunnyRefreshControl startRefreshing];
-//}
-
--(void)setupRefreshControl{
-    
-    self.sunnyRefreshControl = [YALSunnyRefreshControl attachToScrollView:self.tableView
-                                                                   target:self
-                                                            refreshAction:@selector(fetchGamesData)];
-    [self fetchGamesData];
-    
-}
 
 - (void)stopRefresh
 
