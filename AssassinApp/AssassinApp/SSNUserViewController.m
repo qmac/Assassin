@@ -10,6 +10,7 @@
 
 #import "SSNUserViewController.h"
 #import "SSNGameViewController.h"
+#import "SSNLogInViewController.h"
 #import "SSNCreateGameViewController.h"
 
 @interface SSNUserViewController () <UITableViewDataSource, UITableViewDelegate>
@@ -38,7 +39,15 @@ static NSString *const CellIdentifier = @"gameCell";
     
     UIBarButtonItem *createGameButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(launchCreateGame:)];
     self.navigationItem.rightBarButtonItem = createGameButton;
-    
+    UIButton *logoutButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [logoutButton setFrame:CGRectMake(0, 0, 70, 50)];
+    [logoutButton setTitle:@"Logout" forState:UIControlStateNormal];
+    logoutButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    [logoutButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [logoutButton addTarget:self action:@selector(logoutUser) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *logoutItem = [[UIBarButtonItem alloc] initWithCustomView:logoutButton];
+    self.navigationItem.leftBarButtonItem = logoutItem;
+
     [self fetchGamesData];
 }
 
@@ -105,6 +114,13 @@ static NSString *const CellIdentifier = @"gameCell";
 {
     SSNCreateGameViewController *createGameViewController = [[SSNCreateGameViewController alloc] initWithNibName:@"SSNCreateGameViewController" bundle:nil];
     [self.navigationController pushViewController:createGameViewController animated:YES];
+}
+-(void) logoutUser
+{
+    NSLog(@"loggedout");
+    [PFUser logOut];
+    SSNLogInViewController *logInViewController = [[SSNLogInViewController alloc] init];
+    [self.navigationController pushViewController:logInViewController animated:YES];
 }
 
 #pragma mark - UITableView Datasource
