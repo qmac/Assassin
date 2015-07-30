@@ -13,6 +13,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *targetLabel;
 @property (weak, nonatomic) IBOutlet UILabel *lastKillLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timeRemainingLabel;
+@property (weak, nonatomic) IBOutlet UILabel *timerCountdownLabel;
+
+
 
 @property (weak, nonatomic) IBOutlet UIImageView *targetImage;
 
