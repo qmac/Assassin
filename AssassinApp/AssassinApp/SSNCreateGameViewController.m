@@ -8,11 +8,13 @@
 
 #import "SSNCreateGameViewController.h"
 
-@interface SSNCreateGameViewController ()
-@property (weak, nonatomic) IBOutlet UITableView *invitedPlayersTableView;
-@property (weak, nonatomic) IBOutlet UITextField *gameTitleInput;
-@property (weak, nonatomic) IBOutlet UITextField *addPlayerInput;
-@property (weak, nonatomic) IBOutlet UIButton *addPlayerButton;
+@interface SSNCreateGameViewController () <UITableViewDataSource, UITableViewDelegate>
+
+@property (nonatomic, strong) IBOutlet UITableView *invitedPlayersTableView;
+@property (nonatomic, strong) IBOutlet UITextField *gameTitleInput;
+@property (nonatomic, strong) IBOutlet UITextField *addPlayerInput;
+@property (nonatomic, strong) IBOutlet UIButton *addPlayerButton;
+@property (nonatomic, strong) NSMutableArray *addedUsers;
 
 @end
 
@@ -21,6 +23,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    self.addedUsers = [[NSMutableArray alloc] init];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -30,17 +33,40 @@
 
 - (IBAction)addPlayerAction:(id)sender
 {
-
+    [self.addedUsers addObject:self.addPlayerInput.text];
+    self.addPlayerInput.text = @"";
+    [self.view endEditing:YES];
+    [self arrayDidUpdate];
 }
 
-/*
-#pragma mark - Navigation
+#pragma mark - tableView
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)arrayDidUpdate
+{
+    [self.invitedPlayersTableView reloadData];
 }
-*/
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [self.addedUsers count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
+    if (cell == nil)
+    {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
+    }
+    
+    cell.textLabel.text = [self.addedUsers objectAtIndex:[indexPath row]];
+    
+    return cell;
+}
 
 @end
