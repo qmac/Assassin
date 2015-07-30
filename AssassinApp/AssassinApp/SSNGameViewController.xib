@@ -7,6 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SSNGameViewController">
             <connections>
+                <outlet property="targetLabel" destination="AGg-xU-PcY" id="xx2-Iv-VRF"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -27,23 +28,40 @@
                         <action selector="confirmKill:" destination="-1" eventType="touchUpInside" id="y48-0y-80H"/>
                     </connections>
                 </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Testing label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AGg-xU-PcY">
+                    <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="YEx-g4-Od7" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="150" id="JfU-2b-Ru5">
                     <variation key="heightClass=regular-widthClass=compact" constant="140"/>
                 </constraint>
+                <constraint firstAttribute="centerX" secondItem="AGg-xU-PcY" secondAttribute="centerX" id="N9m-QS-qqR"/>
                 <constraint firstAttribute="trailing" secondItem="YEx-g4-Od7" secondAttribute="trailing" constant="150" id="X2v-hG-juN">
                     <variation key="heightClass=regular-widthClass=compact" constant="140"/>
                 </constraint>
                 <constraint firstAttribute="centerY" secondItem="YEx-g4-Od7" secondAttribute="centerY" constant="-135" id="jqH-uX-sX4"/>
+                <constraint firstItem="AGg-xU-PcY" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="282" id="nOu-at-RfS"/>
                 <constraint firstAttribute="centerY" secondItem="YEx-g4-Od7" secondAttribute="centerY" constant="-135" id="oL7-8O-2li"/>
                 <constraint firstAttribute="bottom" secondItem="YEx-g4-Od7" secondAttribute="bottom" constant="100" id="s8c-o1-yXH"/>
+                <constraint firstAttribute="centerY" secondItem="AGg-xU-PcY" secondAttribute="centerY" constant="107.5" id="tFy-uF-ly3"/>
+                <constraint firstAttribute="trailing" secondItem="AGg-xU-PcY" secondAttribute="trailing" constant="140" id="tfO-XR-bVb"/>
                 <constraint firstAttribute="bottom" secondItem="YEx-g4-Od7" secondAttribute="bottom" constant="30" id="xMM-GT-KaY"/>
                 <constraint firstAttribute="trailing" secondItem="YEx-g4-Od7" secondAttribute="trailing" constant="160" id="xN8-W1-95G"/>
             </constraints>
             <variation key="default">
+                <mask key="subviews">
+                    <exclude reference="AGg-xU-PcY"/>
+                </mask>
                 <mask key="constraints">
+                    <exclude reference="N9m-QS-qqR"/>
+                    <exclude reference="nOu-at-RfS"/>
+                    <exclude reference="tFy-uF-ly3"/>
+                    <exclude reference="tfO-XR-bVb"/>
                     <exclude reference="JfU-2b-Ru5"/>
                     <exclude reference="X2v-hG-juN"/>
                     <exclude reference="jqH-uX-sX4"/>
@@ -62,7 +80,14 @@
                 </mask>
             </variation>
             <variation key="heightClass=regular-widthClass=compact">
+                <mask key="subviews">
+                    <include reference="AGg-xU-PcY"/>
+                </mask>
                 <mask key="constraints">
+                    <include reference="N9m-QS-qqR"/>
+                    <exclude reference="nOu-at-RfS"/>
+                    <include reference="tFy-uF-ly3"/>
+                    <exclude reference="tfO-XR-bVb"/>
                     <include reference="JfU-2b-Ru5"/>
                     <include reference="X2v-hG-juN"/>
                     <exclude reference="oL7-8O-2li"/>

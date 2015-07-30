@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface SSNGameViewController : UIViewController
+@property (weak, nonatomic) IBOutlet UILabel *targetLabel;
 
 @end
