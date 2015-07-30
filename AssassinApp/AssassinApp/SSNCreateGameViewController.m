@@ -154,12 +154,12 @@
     NSUInteger count = [self.addedUsers count];
     if(count == 1)
     {
-        playerAttributes = @{@"target": userName, @"status": @YES, @"time_remaining": @"654500", @"last_date": newDate};
+        playerAttributes = @{@"target": userName, @"status": @YES, @"time_remaining": newDate};
         [self.fullDictionary setObject:playerAttributes forKey:self.creatorUserName];
     }
     else
     {
-        playerAttributes = @{@"target": userName, @"status": @YES, @"time_remaining": @"654500", @"last_date": newDate};
+        playerAttributes = @{@"target": userName, @"status": @YES, @"time_remaining": newDate};
         [self.fullDictionary setObject:playerAttributes forKey:[self.addedUsers objectAtIndex:(count - 2)]];
     }
 }

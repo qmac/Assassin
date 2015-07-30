@@ -62,25 +62,6 @@
         _targetImage.image = [UIImage imageWithData:mydata];
     }];
     NSLog(@"%@", _playerDict);
-    
-//    PFObject *game = [PFObject objectWithClassName:@"Games"];
-//    game[@"active"] = @YES;
-//    game[@"last_kill"] = @"Manav kills Jason with MSMutableDictionaries";
-//    game[@"game_title"] = @"Game 1";
-//    
-//    NSMutableDictionary *player_attr_dict = [NSMutableDictionary dictionaryWithDictionary:@{@"target": @"Jasoniful", @"status": @YES, @"time_remaining": @"259500"}];
-//    NSMutableDictionary *player2_attr_dict = [NSMutableDictionary dictionaryWithDictionary: @{@"target": @"quinn", @"status": @YES, @"time_remaining": @"259500"}];
-//    NSMutableDictionary *player_dict = [NSMutableDictionary dictionaryWithDictionary: @{@"ssnuser": player_attr_dict, @"Jasoniful": player2_attr_dict}];
-//    
-//    game[@"player_dict"] = player_dict;
-//    
-//    [game saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-//        if (succeeded) {
-//            NSLog(@"Yay it worked");
-//        } else {
-//            NSLog(error.description);
-//        }
-//    }];
 }
 
 - (IBAction)confirmKill:(id)sender {
@@ -99,13 +80,18 @@
         
         //updating assasin's stats
         gameObject[@"player_dict"][[PFUser currentUser].username][@"target"] = newTarget;
-        NSDate* start = [NSDate date];
-        NSTimeInterval secondsInSeventyTwoHours = 72 * 60 * 60;
-        NSDate *end = [start dateByAddingTimeInterval:secondsInSeventyTwoHours];
+        NSDate *currentDate = [NSDate date];
+        
+        // Create and initialize date component instance
+        NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
+        [dateComponents setDay:3];
+        
+        // Retrieve date with increased days count
+        NSDate *newDate = [[NSCalendar currentCalendar] dateByAddingComponents:dateComponents toDate:currentDate options:0];
         
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss Z"];
-        NSString *dateToKill = [formatter stringFromDate:end];
+        NSString *dateToKill = [formatter stringFromDate:newDate];
         gameObject[@"player_dict"][[PFUser currentUser].username][@"time_remaining"] = dateToKill;
         
         //updating game message
