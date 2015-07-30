@@ -11,6 +11,9 @@
 
 @interface SSNGameViewController ()
 @property (nonatomic, strong) NSDictionary *playerDict;
+@property (nonatomic, strong) NSDictionary *playerAttributes;
+@property (nonatomic, strong) NSString *timeRemaining;
+@property (nonatomic, strong) NSString *targetPlayer;
 
 @end
 
@@ -21,25 +24,28 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     PFQuery *query = [PFQuery queryWithClassName:@"Games"];
-    [query getObjectInBackgroundWithId:@"VAOQ2LvVAQ" block:^(PFObject *gameObject, NSError *error) {
+    [query getObjectInBackgroundWithId:@"j5KvQKhcI3" block:^(PFObject *gameObject, NSError *error) {
         
 //        NSLog(@"%@", gameObject);
         _playerDict = gameObject[@"player_dict"];
-        NSDictionary *playerAttributes =[_playerDict valueForKeyPath:@"manavm"]; // Hard code to my username
+        _playerAttributes =[_playerDict valueForKeyPath:@"manavm"]; // Hard code to my username
         
 //        NSLog(@"%@", _playerDict);
-        NSString *targetPlayer = playerAttributes[@"target"];
-        NSString *timeRemaining = playerAttributes[@"time_remaining"];
-        BOOL status = playerAttributes[@"status"];
+        _targetPlayer = _playerAttributes[@"target"];
+        _timeRemaining = _playerAttributes[@"time_remaining"];
+        BOOL status = _playerAttributes[@"status"];
         
-        NSLog(@"%@ %@ %d", targetPlayer, timeRemaining, status);
+        NSLog(@"%@ %@ %d", _targetPlayer, _timeRemaining, status);
         
-        _targetLabel.text = targetPlayer;
         
+        _targetLabel.hidden = false;
+        _targetLabel.text = _targetPlayer;
     }];
     
     NSLog(@"%@", _playerDict);
 }
+
+
 - (IBAction)confirmKill:(id)sender {
     NSLog(@"%@", @"Die mothafucka");
 }
