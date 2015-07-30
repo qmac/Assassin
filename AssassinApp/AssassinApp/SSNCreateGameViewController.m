@@ -7,6 +7,7 @@
 //
 
 #import "SSNCreateGameViewController.h"
+#import <Parse/Parse.h>
 #import <Parse/PFObject.h>
 #import "SSNGameViewController.h"
 #import <Parse/PFQuery.h>
@@ -71,7 +72,11 @@
     // Retrieve date with increased days count
     NSDate *newDate = [[NSCalendar currentCalendar] dateByAddingComponents:dateComponents toDate:currentDate options:0];
     
-    NSDictionary *playerAttributes = @{@"target": self.creatorUserName, @"status": @YES, @"time_remaining": @"654500", @"last_date": newDate};
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss Z"];
+    NSString *dateToKill = [formatter stringFromDate:newDate];
+    
+    NSDictionary *playerAttributes = @{@"target": self.creatorUserName, @"status": @YES, @"last_date_to_kill": dateToKill};
     [self.fullDictionary setObject:playerAttributes forKey:[self.addedUsers lastObject]];
     
     self.gameObject[@"active"] = @YES;
@@ -187,15 +192,19 @@
     // Retrieve date with increased days count
     NSDate *newDate = [[NSCalendar currentCalendar] dateByAddingComponents:dateComponents toDate:currentDate options:0];
     
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss Z"];
+    NSString *dateToKill = [formatter stringFromDate:newDate];
+    
     NSUInteger count = [self.addedUsers count];
     if(count == 1)
     {
-        playerAttributes = @{@"target": userName, @"status": @YES, @"time_remaining": @"654500", @"last_date": newDate};
+        playerAttributes = @{@"target": userName, @"status": @YES, @"last_date_to_kill": dateToKill};
         [self.fullDictionary setObject:playerAttributes forKey:self.creatorUserName];
     }
     else
     {
-        playerAttributes = @{@"target": userName, @"status": @YES, @"time_remaining": @"654500", @"last_date": newDate};
+        playerAttributes = @{@"target": userName, @"status": @YES, @"last_date_to_kill": dateToKill};
         [self.fullDictionary setObject:playerAttributes forKey:[self.addedUsers objectAtIndex:(count - 2)]];
     }
 }
