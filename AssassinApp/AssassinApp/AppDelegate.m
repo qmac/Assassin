@@ -12,7 +12,7 @@
 #import "SSNSignUpViewController.h"
 #import "SSNUserViewController.h"
 #import "Reachability.h"
-
+#import "SSNCreateGameViewController.h"
 @interface AppDelegate ()
 
 @end
@@ -37,7 +37,7 @@
     [self.hostReachable startNotifier];
     
     UIViewController *rootViewController;
-    PFUser *loggedInUser = [PFUser currentUser];
+    /*PFUser *loggedInUser = [PFUser currentUser];
     if(loggedInUser)
     {
         rootViewController = [[SSNUserViewController alloc] initWithNibName:@"SSNUserViewController" bundle:nil];
@@ -45,7 +45,8 @@
     else
     {
         rootViewController = [[SSNLogInViewController alloc] initWithNibName:@"SSNLogInViewController" bundle:nil];
-    }
+    }*/
+    rootViewController = [[SSNCreateGameViewController alloc] initWithNibName:@"SSNCreateGameViewController" bundle:nil];
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.rootViewController = rootViewController;
