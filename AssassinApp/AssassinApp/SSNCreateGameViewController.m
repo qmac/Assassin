@@ -10,6 +10,8 @@
 #import <Parse/Parse.h>
 #import <Parse/PFObject.h>
 #import "SSNGameViewController.h"
+#import <Parse/PFQuery.h>
+#define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 @interface SSNCreateGameViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -34,11 +36,21 @@
     self.gameObject = [PFObject objectWithClassName:@"Games"];
     self.fullDictionary = [[NSMutableDictionary alloc] init];
     self.creatorUserName = [PFUser currentUser].username;
+    [self.addPlayerButton setTitleColor:UIColorFromRGB(0xC0392B) forState:UIControlStateNormal];
+    [self.startGameButton setTitleColor:UIColorFromRGB(0xC0392B) forState:UIControlStateNormal];
+    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonAction)];
+    [cancelButton setTintColor:UIColorFromRGB(0xC0392B)];
+    self.navigationItem.leftBarButtonItem = cancelButton;
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)cancelButtonAction
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (IBAction)addPlayerAction:(id)sender
@@ -51,7 +63,20 @@
 }
 
 - (IBAction)startGameAction:(id)sender {
-    NSDictionary *playerAttributes = @{@"target": self.creatorUserName, @"status": @YES, @"time_remaining": @"654500"};
+    NSDate *currentDate = [NSDate date];
+    
+    // Create and initialize date component instance
+    NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
+    [dateComponents setDay:3];
+    
+    // Retrieve date with increased days count
+    NSDate *newDate = [[NSCalendar currentCalendar] dateByAddingComponents:dateComponents toDate:currentDate options:0];
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss Z"];
+    NSString *dateToKill = [formatter stringFromDate:newDate];
+    
+    NSDictionary *playerAttributes = @{@"target": self.creatorUserName, @"status": @YES, @"last_date_to_kill": dateToKill};
     [self.fullDictionary setObject:playerAttributes forKey:[self.addedUsers lastObject]];
     
     self.gameObject[@"active"] = @YES;
@@ -61,10 +86,30 @@
         if (succeeded)
         {
             NSLog(@"created new game");
-            NSMutableArray *games = [[PFUser currentUser] objectForKey:@"games"];
-            [games addObject:[self.gameObject objectId]];
-            [[PFUser currentUser] setObject:games forKey:@"games"];
-            [[PFUser currentUser] saveInBackground];
+            PFQuery *query = [PFQuery queryWithClassName:@"Player"];
+            [query whereKey:@"userId" equalTo:[PFUser currentUser].objectId];
+            PFObject *player = [query getFirstObject];
+            NSMutableArray *gameIds = player[@"games"];
+            [gameIds addObject:self.gameObject.objectId];
+            [player setObject:gameIds forKey:@"games"];
+            [player saveInBackground];
+            for(int i = 0; i < self.addedUsers.count; i++)
+            {
+                PFQuery *query = [PFQuery queryWithClassName:@"_User"];
+                [query whereKey:@"username" equalTo:self.addedUsers[i]];
+                [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+                    if (!error) {
+                        NSString *objectId = [objects[0] objectId];
+                        PFQuery *query = [PFQuery queryWithClassName:@"Player"];
+                        [query whereKey:@"userId" equalTo:objectId];
+                        PFObject *currPlayer = [query getFirstObject];
+                        NSMutableArray *tempGames = currPlayer[@"games"];
+                        [tempGames addObject:self.gameObject.objectId];
+                        [currPlayer setObject:tempGames forKey:@"games"];
+                        [currPlayer saveInBackground];
+                    }
+                }];
+            }
             SSNGameViewController *gameViewController = [[SSNGameViewController alloc] initWithNibName:@"SSNGameViewController" bundle:nil];
             [gameViewController setGameId:[self.gameObject objectId]];
             [self presentViewController:gameViewController animated:YES completion:nil];
@@ -100,7 +145,8 @@
     {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
     }
-    
+    cell.backgroundColor = [UIColor blackColor];
+    cell.textLabel.textColor = [UIColor lightGrayColor];
     cell.textLabel.text = [self.addedUsers objectAtIndex:[indexPath row]];
     
     return cell;
@@ -125,6 +171,7 @@
         
         accountLabel.textAlignment = NSTextAlignmentLeft;
         accountLabel.text = title;
+        accountLabel.textColor = [UIColor lightGrayColor];
         accountLabel.numberOfLines = 3;
         accountLabel.opaque = NO;
         accountLabel.backgroundColor = [UIColor clearColor];
@@ -158,12 +205,12 @@
     NSUInteger count = [self.addedUsers count];
     if(count == 1)
     {
-        playerAttributes = @{@"target": userName, @"status": @YES, @"time_remaining": dateToKill};
+        playerAttributes = @{@"target": userName, @"status": @YES, @"last_date_to_kill": dateToKill};
         [self.fullDictionary setObject:playerAttributes forKey:self.creatorUserName];
     }
     else
     {
-        playerAttributes = @{@"target": userName, @"status": @YES, @"time_remaining": dateToKill};
+        playerAttributes = @{@"target": userName, @"status": @YES, @"last_date_to_kill": dateToKill};
         [self.fullDictionary setObject:playerAttributes forKey:[self.addedUsers objectAtIndex:(count - 2)]];
     }
 }
