@@ -101,7 +101,8 @@
     [player saveInBackground];
     
     SSNUserViewController *userViewController = [[SSNUserViewController alloc] initWithNibName:@"SSNUserViewController" bundle:nil];
-    [self.navigationController pushViewController:userViewController animated:NO];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:userViewController];
+    [self presentViewController:navController animated:YES completion:nil];
 }
 
 - (BOOL)signUpViewController:(PFSignUpViewController * __nonnull)signUpController shouldBeginSignUp:(NSDictionary * __nonnull)info
