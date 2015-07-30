@@ -21,6 +21,7 @@
 @property (nonatomic, strong) PFObject *gameObject;
 @property (strong, nonatomic) IBOutlet UIButton *startGameButton;
 @property (nonatomic, strong) NSMutableDictionary *fullDictionary;
+@property (nonatomic, strong) NSString *creatorUserName;
 
 @end
 
@@ -31,6 +32,8 @@
     // Do any additional setup after loading the view from its nib.
     self.addedUsers = [[NSMutableArray alloc] init];
     self.gameObject = [PFObject objectWithClassName:@"Games"];
+    self.fullDictionary = [[NSMutableDictionary alloc] init];
+    self.creatorUserName = [SSNUser currentUser].username;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -48,8 +51,12 @@
 }
 
 - (IBAction)startGameAction:(id)sender {
+    NSDictionary *playerAttributes = @{@"target": self.creatorUserName, @"status": @YES, @"time_remaining": @"654500"};
+    [self.fullDictionary setObject:playerAttributes forKey:[self.addedUsers lastObject]];
+    
     self.gameObject[@"active"] = @YES;
     self.gameObject[@"game_title"] = self.gameTitleInput.text;
+    self.gameObject[@"player_dict"] = self.fullDictionary;
     [self.gameObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded)
         {
@@ -129,21 +136,17 @@
 - (void)addUserToGame:(NSString *)userName
 {
     NSDictionary *playerAttributes = [[NSDictionary alloc] init];
-    NSDictionary *playerDictionary = [[NSDictionary alloc] init];
 
     NSUInteger count = [self.addedUsers count];
     if(count == 1)
     {
         playerAttributes = @{@"target": userName, @"status": @YES, @"time_remaining": @"654500"};
-        playerDictionary = @{[SSNUser currentUser].username: playerAttributes};
+        [self.fullDictionary setObject:playerAttributes forKey:self.creatorUserName];
     }
     else
     {
         playerAttributes = @{@"target": userName, @"status": @YES, @"time_remaining": @"654500"};
-        playerDictionary = @{[self.addedUsers objectAtIndex:count - 1]: playerAttributes};
+        [self.fullDictionary setObject:playerAttributes forKey:[self.addedUsers objectAtIndex:(count - 2)]];
     }
-    
-    self.gameObject[@"player_dict"] = playerDictionary;
-    
 }
 @end
