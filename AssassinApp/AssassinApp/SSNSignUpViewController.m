@@ -37,7 +37,7 @@
     // Move all fields down on smaller screen sizes
     float yOffset = [UIScreen mainScreen].bounds.size.height <= 480.0f ? 30.0f : 0.0f;
     
-    [self.signUpView.logo setFrame:CGRectMake(66.5f, 50.0f, 190.0f, 190.0f)];
+    [self.signUpView.logo setFrame:CGRectMake(self.signUpView.frame.size.width / 2) - (190/2), 50.0f, 190.0f, 190.0f)];
     
     yOffset += self.signUpView.logo.frame.size.height - 60.0f;
     
