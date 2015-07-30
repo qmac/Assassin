@@ -86,21 +86,27 @@
         if (succeeded)
         {
             NSLog(@"created new game");
-            NSMutableArray *games = [[PFUser currentUser] objectForKey:@"games"];
-            [games addObject:[self.gameObject objectId]];
-            [[PFUser currentUser] setObject:games forKey:@"games"];
-            [[PFUser currentUser] saveInBackground];
+            PFQuery *query = [PFQuery queryWithClassName:@"Player"];
+            [query whereKey:@"userId" equalTo:[PFUser currentUser].objectId];
+            PFObject *player = [query getFirstObject];
+            NSMutableArray *gameIds = player[@"games"];
+            [gameIds addObject:self.gameObject.objectId];
+            [player setObject:gameIds forKey:@"games"];
+            [player saveInBackground];
             for(int i = 0; i < self.addedUsers.count; i++)
             {
                 PFQuery *query = [PFQuery queryWithClassName:@"_User"];
                 [query whereKey:@"username" equalTo:self.addedUsers[i]];
                 [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
                     if (!error) {
-                        PFUser *user = (PFUser *)[objects firstObject];
-                        NSMutableArray *games = [user objectForKey:@"games"];
-                        [games addObject:[self.gameObject objectId]];
-                        [user setObject:games forKey:@"games"];
-                        [user saveInBackground];
+                        NSString *objectId = [objects[0] objectId];
+                        PFQuery *query = [PFQuery queryWithClassName:@"Player"];
+                        [query whereKey:@"userId" equalTo:objectId];
+                        PFObject *currPlayer = [query getFirstObject];
+                        NSMutableArray *tempGames = currPlayer[@"games"];
+                        [tempGames addObject:self.gameObject.objectId];
+                        [currPlayer setObject:tempGames forKey:@"games"];
+                        [currPlayer saveInBackground];
                     }
                 }];
             }
