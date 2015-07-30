@@ -10,14 +10,18 @@
 #import "Parse/Parse.h"
 
 @interface SSNGameViewController ()
+{
+    NSDictionary *playerDict;
+    NSDictionary *playerAttributes;
+    NSString *timeRemaining;
+    NSString *targetPlayer;
+    NSString *lastKill;
+    PFUser *loggedInUser;
 
-@property (nonatomic, strong) NSDictionary *playerDict;
-@property (nonatomic, strong) NSDictionary *playerAttributes;
-@property (nonatomic, strong) NSString *timeRemaining;
-@property (nonatomic, strong) NSString *targetPlayer;
-@property (nonatomic, strong) NSString *lastKill;
-@property (nonatomic, strong) PFUser *loggedInUser;
-
+    NSTimer *timer;
+    int currMinute;
+    int currSeconds;
+}
 @end
 
 
@@ -27,31 +31,31 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     PFQuery *query = [PFQuery queryWithClassName:@"Games"];
-    [query getObjectInBackgroundWithId:@"j5KvQKhcI3" block:^(PFObject *gameObject, NSError *error) {
+    [query getObjectInBackgroundWithId:@"ZRlsokeDXs" block:^(PFObject *gameObject, NSError *error) {
         
         NSLog(@"%@", gameObject);
-        _lastKill = gameObject[@"last_kill"];
-        _playerDict = gameObject[@"player_dict"];
+        lastKill = gameObject[@"last_kill"];
+        playerDict = gameObject[@"player_dict"];
         
-        _loggedInUser = [PFUser currentUser];
-        NSLog(@"%@", _loggedInUser.username);
-        _playerAttributes =[_playerDict valueForKeyPath:_loggedInUser.username]; // Hard code to my username
+        loggedInUser = [PFUser currentUser];
+        NSLog(@"%@", loggedInUser.username);
+        playerAttributes =[playerDict valueForKeyPath:loggedInUser.username]; // Hard code to my username
         
 //        NSLog(@"%@", _playerDict);
-        _targetPlayer = _playerAttributes[@"target"];
-        _timeRemaining = _playerAttributes[@"time_remaining"];
-        BOOL status = _playerAttributes[@"status"];
+        targetPlayer = playerAttributes[@"target"];
+        timeRemaining = playerAttributes[@"time_remaining"];
+//        BOOL status = _playerAttributes[@"status"];
         
 //        NSLog(@"%@ %@ %d", _targetPlayer, _timeRemaining, status);
         
         
         _targetLabel.hidden = false;
-        _targetLabel.text = _targetPlayer;
+        _targetLabel.text = targetPlayer;
         
         _lastKillLabel.hidden = false;
-        _lastKillLabel.text = _lastKill;
+        _lastKillLabel.text = lastKill;
         
-        NSString *timeRemainingMessage = [NSString stringWithFormat:@"Time remaining to kill target: %@", _timeRemaining];
+        NSString *timeRemainingMessage = [NSString stringWithFormat:@"Time remaining to kill target: %@", timeRemaining];
         _timeRemainingLabel.hidden = false;
         _timeRemainingLabel.text = timeRemainingMessage;
         
@@ -60,15 +64,15 @@
         NSData *mydata = [[NSData alloc] initWithContentsOfURL:url];
         _targetImage.image = [UIImage imageWithData:mydata];
     }];
-    NSLog(@"%@", _playerDict);
+    NSLog(@"%@", playerDict);
 }
 
 - (IBAction)confirmKill:(id)sender {
     PFQuery *query = [PFQuery queryWithClassName:@"Games"];
     [query getObjectInBackgroundWithId:@"ZRlsokeDXs" block:^(PFObject *gameObject, NSError *error) {
-        NSString *target = gameObject[@"player_dict"][_loggedInUser.username][@"target"];
+        NSString *target = gameObject[@"player_dict"][loggedInUser.username][@"target"];
         NSString *newTarget = gameObject[@"player_dict"][target][@"target"];
-        NSString *assassin = _loggedInUser.username;
+        NSString *assassin = loggedInUser.username;
         NSString *killMessage = [NSString stringWithFormat:@"%@ killed %@", assassin, target];
         
         //updating target's stats
