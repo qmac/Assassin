@@ -29,6 +29,8 @@
     [self.signUpView.signUpButton setBackgroundColor:UIColorFromRGB(0xC0392B)];
 
     self.signUpView.additionalField.placeholder = @"Full Name";
+    [self.signUpView.additionalField setReturnKeyType:UIReturnKeyDefault];
+    [self.signUpView.emailField setReturnKeyType:UIReturnKeyDone];
 }
 
 - (void)viewDidLayoutSubviews {
@@ -149,6 +151,29 @@
     }
     return YES;
 }
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    if([textField isEqual:self.signUpView.emailField])
+    {
+        [textField resignFirstResponder];
+        [self.signUpView.signUpButton sendActionsForControlEvents:UIControlEventTouchUpInside];
+    }
+    else if([textField isEqual:self.signUpView.additionalField])
+    {
+        [self.signUpView.usernameField becomeFirstResponder];
+    }
+    else if([textField isEqual:self.signUpView.usernameField])
+    {
+        [self.signUpView.passwordField becomeFirstResponder];
+    }
+    else if([textField isEqual:self.signUpView.passwordField])
+    {
+        [self.signUpView.emailField becomeFirstResponder];
+    }
+    return YES;
+}
+
 /*
 #pragma mark - Navigation
 
