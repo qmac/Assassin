@@ -7,15 +7,15 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SSNGameViewController">
             <connections>
-                <outlet property="lastKillImage" destination="cbv-MO-8Zb" id="nl0-oK-FWc"/>
                 <outlet property="lastKillLabel" destination="Si5-xj-ORQ" id="jbf-iw-gEo"/>
                 <outlet property="targetImage" destination="IYh-cz-dg2" id="1N7-X5-vRx"/>
                 <outlet property="targetLabel" destination="AGg-xU-PcY" id="xx2-Iv-VRF"/>
+                <outlet property="timeRemainingLabel" destination="2MM-UY-dWX" id="cih-D1-P4u"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+        <view opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
@@ -52,10 +52,13 @@
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cbv-MO-8Zb">
-                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
-                </imageView>
                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last kill text" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Si5-xj-ORQ">
+                    <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2MM-UY-dWX">
                     <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -69,9 +72,7 @@
                 <constraint firstAttribute="centerX" secondItem="Nf2-gz-WGI" secondAttribute="centerX" id="2st-BW-ZQ9"/>
                 <constraint firstItem="IYh-cz-dg2" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="80" id="4EG-20-5sg"/>
                 <constraint firstItem="Nf2-gz-WGI" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="42" id="8zh-LD-BkR"/>
-                <constraint firstAttribute="centerX" secondItem="cbv-MO-8Zb" secondAttribute="centerX" id="Bxp-Dq-D15"/>
-                <constraint firstItem="Si5-xj-ORQ" firstAttribute="top" secondItem="cbv-MO-8Zb" secondAttribute="bottom" constant="113" id="GvL-Sl-X5f"/>
-                <constraint firstItem="VRQ-V7-BPT" firstAttribute="top" secondItem="YEx-g4-Od7" secondAttribute="bottom" constant="36.5" id="ICV-cg-9HZ">
+                <constraint firstItem="VRQ-V7-BPT" firstAttribute="top" secondItem="YEx-g4-Od7" secondAttribute="bottom" constant="36" id="ICV-cg-9HZ">
                     <variation key="heightClass=regular-widthClass=compact" constant="40"/>
                 </constraint>
                 <constraint firstAttribute="centerY" secondItem="IYh-cz-dg2" secondAttribute="centerY" constant="234" id="Iha-g6-XbK"/>
@@ -79,8 +80,7 @@
                     <variation key="heightClass=regular-widthClass=compact" constant="140"/>
                 </constraint>
                 <constraint firstAttribute="centerX" secondItem="AGg-xU-PcY" secondAttribute="centerX" id="N9m-QS-qqR"/>
-                <constraint firstAttribute="bottom" secondItem="cbv-MO-8Zb" secondAttribute="bottom" constant="138.5" id="NL2-fI-1QC"/>
-                <constraint firstAttribute="trailing" secondItem="cbv-MO-8Zb" secondAttribute="trailing" constant="80" id="TS1-se-bif"/>
+                <constraint firstAttribute="bottom" secondItem="2MM-UY-dWX" secondAttribute="bottom" constant="82" id="QXb-yu-eLn"/>
                 <constraint firstAttribute="centerX" secondItem="Si5-xj-ORQ" secondAttribute="centerX" id="VUw-UP-yek"/>
                 <constraint firstAttribute="trailing" secondItem="YEx-g4-Od7" secondAttribute="trailing" constant="150" id="X2v-hG-juN">
                     <variation key="heightClass=regular-widthClass=compact" constant="140"/>
@@ -88,11 +88,13 @@
                 <constraint firstAttribute="centerY" secondItem="Si5-xj-ORQ" secondAttribute="centerY" constant="-272.5" id="ZPr-Yj-TZm"/>
                 <constraint firstItem="IYh-cz-dg2" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="102" id="Zf6-gz-Ce9"/>
                 <constraint firstItem="AGg-xU-PcY" firstAttribute="top" secondItem="IYh-cz-dg2" secondAttribute="bottom" constant="40" id="fn6-Qz-jQo"/>
+                <constraint firstItem="Si5-xj-ORQ" firstAttribute="top" secondItem="VRQ-V7-BPT" secondAttribute="bottom" constant="99.5" id="iuC-Gu-lO3"/>
                 <constraint firstAttribute="centerY" secondItem="YEx-g4-Od7" secondAttribute="centerY" constant="-135" id="jqH-uX-sX4"/>
-                <constraint firstItem="cbv-MO-8Zb" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="80" id="n9I-1s-Lsi"/>
+                <constraint firstAttribute="bottom" secondItem="VRQ-V7-BPT" secondAttribute="bottom" constant="318.5" id="nMr-GR-jCS"/>
                 <constraint firstItem="AGg-xU-PcY" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="282" id="nOu-at-RfS"/>
                 <constraint firstAttribute="bottom" secondItem="Si5-xj-ORQ" secondAttribute="bottom" constant="30" id="oJa-BE-NJi"/>
                 <constraint firstAttribute="centerY" secondItem="YEx-g4-Od7" secondAttribute="centerY" constant="-135" id="oL7-8O-2li"/>
+                <constraint firstAttribute="centerX" secondItem="2MM-UY-dWX" secondAttribute="centerX" id="oih-R2-xrB"/>
                 <constraint firstAttribute="centerX" secondItem="IYh-cz-dg2" secondAttribute="centerX" id="p1p-JS-9t3"/>
                 <constraint firstAttribute="bottom" secondItem="YEx-g4-Od7" secondAttribute="bottom" constant="100" id="s8c-o1-yXH"/>
                 <constraint firstAttribute="centerY" secondItem="AGg-xU-PcY" secondAttribute="centerY" constant="107.5" id="tFy-uF-ly3"/>
@@ -100,7 +102,6 @@
                 <constraint firstAttribute="bottom" secondItem="YEx-g4-Od7" secondAttribute="bottom" constant="30" id="xMM-GT-KaY"/>
                 <constraint firstAttribute="trailing" secondItem="YEx-g4-Od7" secondAttribute="trailing" constant="160" id="xN8-W1-95G"/>
                 <constraint firstItem="YEx-g4-Od7" firstAttribute="top" secondItem="AGg-xU-PcY" secondAttribute="bottom" constant="40" id="yXO-h4-ZMR"/>
-                <constraint firstItem="cbv-MO-8Zb" firstAttribute="top" secondItem="VRQ-V7-BPT" secondAttribute="bottom" constant="73.5" id="yfC-2Q-Fm8"/>
             </constraints>
             <variation key="default">
                 <mask key="subviews">
@@ -108,8 +109,8 @@
                     <exclude reference="IYh-cz-dg2"/>
                     <exclude reference="Nf2-gz-WGI"/>
                     <exclude reference="VRQ-V7-BPT"/>
-                    <exclude reference="cbv-MO-8Zb"/>
                     <exclude reference="Si5-xj-ORQ"/>
+                    <exclude reference="2MM-UY-dWX"/>
                 </mask>
                 <mask key="constraints">
                     <exclude reference="18F-e7-qCg"/>
@@ -134,15 +135,13 @@
                     <exclude reference="yXO-h4-ZMR"/>
                     <exclude reference="1dn-OC-NVj"/>
                     <exclude reference="ICV-cg-9HZ"/>
-                    <exclude reference="Bxp-Dq-D15"/>
-                    <exclude reference="NL2-fI-1QC"/>
-                    <exclude reference="TS1-se-bif"/>
-                    <exclude reference="n9I-1s-Lsi"/>
-                    <exclude reference="yfC-2Q-Fm8"/>
-                    <exclude reference="GvL-Sl-X5f"/>
+                    <exclude reference="nMr-GR-jCS"/>
                     <exclude reference="VUw-UP-yek"/>
                     <exclude reference="ZPr-Yj-TZm"/>
+                    <exclude reference="iuC-Gu-lO3"/>
                     <exclude reference="oJa-BE-NJi"/>
+                    <exclude reference="QXb-yu-eLn"/>
+                    <exclude reference="oih-R2-xrB"/>
                 </mask>
             </variation>
             <variation key="widthClass=compact">
@@ -159,8 +158,8 @@
                     <include reference="IYh-cz-dg2"/>
                     <include reference="Nf2-gz-WGI"/>
                     <include reference="VRQ-V7-BPT"/>
-                    <include reference="cbv-MO-8Zb"/>
                     <include reference="Si5-xj-ORQ"/>
+                    <include reference="2MM-UY-dWX"/>
                 </mask>
                 <mask key="constraints">
                     <include reference="18F-e7-qCg"/>
@@ -182,16 +181,14 @@
                     <exclude reference="xMM-GT-KaY"/>
                     <include reference="yXO-h4-ZMR"/>
                     <include reference="1dn-OC-NVj"/>
-                    <include reference="ICV-cg-9HZ"/>
-                    <exclude reference="Bxp-Dq-D15"/>
-                    <include reference="NL2-fI-1QC"/>
-                    <include reference="TS1-se-bif"/>
-                    <include reference="n9I-1s-Lsi"/>
-                    <include reference="yfC-2Q-Fm8"/>
-                    <exclude reference="GvL-Sl-X5f"/>
+                    <exclude reference="ICV-cg-9HZ"/>
+                    <include reference="nMr-GR-jCS"/>
                     <include reference="VUw-UP-yek"/>
                     <exclude reference="ZPr-Yj-TZm"/>
-                    <include reference="oJa-BE-NJi"/>
+                    <include reference="iuC-Gu-lO3"/>
+                    <exclude reference="oJa-BE-NJi"/>
+                    <include reference="QXb-yu-eLn"/>
+                    <include reference="oih-R2-xrB"/>
                 </mask>
             </variation>
             <point key="canvasLocation" x="325" y="209"/>
