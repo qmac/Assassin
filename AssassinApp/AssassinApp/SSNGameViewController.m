@@ -59,8 +59,6 @@
         NSURL *url = [NSURL URLWithString:@"http://img4.wikia.nocookie.net/__cb20120524204707/gameofthrones/images/4/4d/Joffrey_in_armor2x09.jpg"];
         NSData *mydata = [[NSData alloc] initWithContentsOfURL:url];
         _targetImage.image = [UIImage imageWithData:mydata];
-        
-        
     }];
     
     NSLog(@"%@", _playerDict);
