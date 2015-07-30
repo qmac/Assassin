@@ -21,13 +21,13 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Target" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AGg-xU-PcY">
-                    <rect key="frame" x="276.5" y="282" width="47" height="20.5"/>
+                    <rect key="frame" x="276" y="282" width="47" height="20.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="IYh-cz-dg2">
-                    <rect key="frame" x="80" y="115.5" width="440" height="146.5"/>
+                    <rect key="frame" x="80" y="115" width="440" height="146.5"/>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your Target" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nf2-gz-WGI">
                     <rect key="frame" x="257" y="75" width="86" height="20.5"/>
@@ -36,27 +36,28 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last Kill" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VRQ-V7-BPT">
-                    <rect key="frame" x="270" y="445" width="60.5" height="20.5"/>
+                    <rect key="frame" x="270" y="435" width="60.5" height="20.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last kill text" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Si5-xj-ORQ">
-                    <rect key="frame" x="254" y="485.5" width="92" height="20.5"/>
+                    <rect key="frame" x="254" y="475" width="92" height="20.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Timer" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b2e-GC-Vjt">
-                    <rect key="frame" x="278.5" y="526" width="43.5" height="20.5"/>
+                    <rect key="frame" x="278" y="516" width="43.5" height="20.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="textColor" red="0.75294117647058822" green="0.22352941176470587" blue="0.16862745098039217" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YEx-g4-Od7">
-                    <rect key="frame" x="260" y="357.5" width="80" height="30"/>
+                    <rect key="frame" x="80" y="352.5" width="440" height="30"/>
+                    <color key="backgroundColor" red="0.75294117650000003" green="0.22352941179999999" blue="0.16862745100000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <state key="normal" title="Kill Confirm">
-                        <color key="titleColor" red="0.75294117647058822" green="0.22352941176470587" blue="0.16862745098039217" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="titleColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <variation key="widthClass=compact" ambiguous="YES" misplaced="YES">
@@ -85,12 +86,16 @@
                     <variation key="heightClass=regular-widthClass=compact" constant="140"/>
                 </constraint>
                 <constraint firstAttribute="centerX" secondItem="b2e-GC-Vjt" secondAttribute="centerX" constant="-0.25" id="MgT-g1-7cn"/>
+                <constraint firstItem="YEx-g4-Od7" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="80" id="N17-Jv-KUQ"/>
                 <constraint firstAttribute="centerX" secondItem="AGg-xU-PcY" secondAttribute="centerX" id="N9m-QS-qqR"/>
                 <constraint firstAttribute="centerX" secondItem="Si5-xj-ORQ" secondAttribute="centerX" id="VUw-UP-yek"/>
                 <constraint firstItem="IYh-cz-dg2" firstAttribute="top" secondItem="Nf2-gz-WGI" secondAttribute="bottom" constant="20" id="X3k-lJ-eBd"/>
+                <constraint firstAttribute="trailing" secondItem="YEx-g4-Od7" secondAttribute="trailing" constant="80" id="XAZ-R9-e58"/>
                 <constraint firstAttribute="bottom" secondItem="VRQ-V7-BPT" secondAttribute="bottom" constant="150" id="XNK-yN-6qS"/>
                 <constraint firstItem="IYh-cz-dg2" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="102" id="Zf6-gz-Ce9"/>
+                <constraint firstItem="VRQ-V7-BPT" firstAttribute="top" secondItem="YEx-g4-Od7" secondAttribute="bottom" constant="52.5" id="Zz0-CH-Cdp"/>
                 <constraint firstAttribute="centerX" secondItem="YEx-g4-Od7" secondAttribute="centerX" id="d7d-qm-7Ng"/>
+                <constraint firstItem="YEx-g4-Od7" firstAttribute="top" secondItem="AGg-xU-PcY" secondAttribute="bottom" constant="50" id="d8n-HJ-JMW"/>
                 <constraint firstItem="AGg-xU-PcY" firstAttribute="top" secondItem="IYh-cz-dg2" secondAttribute="bottom" constant="20" id="f66-rw-W8R"/>
                 <constraint firstItem="AGg-xU-PcY" firstAttribute="top" secondItem="IYh-cz-dg2" secondAttribute="bottom" constant="40" id="fn6-Qz-jQo"/>
                 <constraint firstAttribute="bottom" secondItem="b2e-GC-Vjt" secondAttribute="bottom" constant="33" id="i5j-NB-Lpj">
@@ -111,13 +116,15 @@
                 <mask key="constraints">
                     <exclude reference="Iha-g6-XbK"/>
                     <exclude reference="Zf6-gz-Ce9"/>
-                    <exclude reference="fn6-Qz-jQo"/>
-                    <exclude reference="tFy-uF-ly3"/>
                     <exclude reference="JfU-2b-Ru5"/>
                     <exclude reference="jqH-uX-sX4"/>
                     <exclude reference="oL7-8O-2li"/>
                     <exclude reference="s8c-o1-yXH"/>
                     <exclude reference="xMM-GT-KaY"/>
+                    <exclude reference="yXO-h4-ZMR"/>
+                    <exclude reference="fn6-Qz-jQo"/>
+                    <exclude reference="tFy-uF-ly3"/>
+                    <exclude reference="0Ec-Jo-e4k"/>
                     <exclude reference="ICV-cg-9HZ"/>
                     <exclude reference="XNK-yN-6qS"/>
                     <exclude reference="2ro-70-hBO"/>

@@ -65,7 +65,6 @@
         self.targetImage.image = [UIImage imageWithData:mydata];
         
         
-        _timerCountdownLabel.textColor=[UIColor redColor];
         [_timerCountdownLabel setText:@"Time remaining:"];
         _timerCountdownLabel.backgroundColor=[UIColor clearColor];
 //        [self.view addSubview:_timerCountdownLabel];
