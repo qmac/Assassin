@@ -11,7 +11,6 @@
                 <outlet property="addPlayerInput" destination="ijh-dR-2WH" id="cOq-qI-jDh"/>
                 <outlet property="gameTitleInput" destination="gCN-rp-peF" id="rju-xx-ecG"/>
                 <outlet property="invitedPlayersTableView" destination="EdV-0b-20M" id="oFZ-yr-uBN"/>
-                <outlet property="startGameButton" destination="DU3-y5-06f" id="w63-J7-mTj"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -31,30 +30,13 @@
                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5ut-Lc-ojH">
-                    <rect key="frame" x="486" y="180" width="106" height="30"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                    <state key="normal" title="Add Player"/>
-                    <connections>
-                        <action selector="addPlayerAction:" destination="-1" eventType="touchUpInside" id="jv7-Rt-h7o"/>
-                    </connections>
-                </button>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Username" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ijh-dR-2WH">
                     <rect key="frame" x="8" y="180" width="470" height="30"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
                 </textField>
-                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DU3-y5-06f">
-                    <rect key="frame" x="222" y="554" width="156" height="30"/>
-                    <state key="normal" title="Create Game">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="startGameAction:" destination="-1" eventType="touchUpInside" id="xiW-v6-xls"/>
-                    </connections>
-                </button>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" alwaysBounceVertical="YES" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="EdV-0b-20M">
-                    <rect key="frame" x="8" y="218" width="584" height="328"/>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="EdV-0b-20M">
+                    <rect key="frame" x="8" y="218" width="584" height="374"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="U0r-zI-vcT"/>
@@ -67,22 +49,35 @@
                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5ut-Lc-ojH">
+                    <rect key="frame" x="486" y="180" width="106" height="30"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <state key="normal" title="Add Player"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="4"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="addPlayerAction:" destination="-1" eventType="touchUpInside" id="jv7-Rt-h7o"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="centerX" secondItem="gCN-rp-peF" secondAttribute="centerX" id="4h9-8Q-eoi"/>
                 <constraint firstItem="gCN-rp-peF" firstAttribute="top" secondItem="MaL-e4-ZPv" secondAttribute="bottom" constant="8" id="BiS-j3-uGJ"/>
-                <constraint firstAttribute="bottom" secondItem="DU3-y5-06f" secondAttribute="bottom" constant="16" id="Bzt-pX-qhn"/>
                 <constraint firstItem="gCN-rp-peF" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="C1f-LU-u4B"/>
                 <constraint firstAttribute="trailing" secondItem="EdV-0b-20M" secondAttribute="trailing" constant="8" id="CGk-AB-lNG"/>
                 <constraint firstItem="5ut-Lc-ojH" firstAttribute="leading" secondItem="ijh-dR-2WH" secondAttribute="trailing" constant="8" id="Ey4-8x-cFD"/>
+                <constraint firstAttribute="bottom" secondItem="EdV-0b-20M" secondAttribute="bottom" constant="8" id="FwV-ZR-Ye9"/>
                 <constraint firstItem="ijh-dR-2WH" firstAttribute="top" secondItem="gCN-rp-peF" secondAttribute="bottom" constant="43" id="Gu7-dK-WkO"/>
-                <constraint firstItem="DU3-y5-06f" firstAttribute="top" secondItem="EdV-0b-20M" secondAttribute="bottom" constant="26" id="Nd2-Qh-lQI"/>
-                <constraint firstAttribute="centerX" secondItem="DU3-y5-06f" secondAttribute="centerX" id="gxg-zK-96d"/>
                 <constraint firstItem="MaL-e4-ZPv" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="84" id="hxm-fa-jtn"/>
                 <constraint firstAttribute="trailing" secondItem="5ut-Lc-ojH" secondAttribute="trailing" id="iMm-cf-Gm3"/>
                 <constraint firstItem="EdV-0b-20M" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="liq-tb-iz7"/>
+                <constraint firstItem="ijh-dR-2WH" firstAttribute="bottom" secondItem="5ut-Lc-ojH" secondAttribute="bottom" id="q29-1p-j7d"/>
                 <constraint firstItem="EdV-0b-20M" firstAttribute="top" secondItem="5ut-Lc-ojH" secondAttribute="bottom" constant="8" id="rV9-jv-IKg"/>
+                <constraint firstItem="ijh-dR-2WH" firstAttribute="top" secondItem="5ut-Lc-ojH" secondAttribute="top" id="rY4-ab-EKF"/>
                 <constraint firstItem="ijh-dR-2WH" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="x0v-FT-zRA"/>
             </constraints>
         </view>
