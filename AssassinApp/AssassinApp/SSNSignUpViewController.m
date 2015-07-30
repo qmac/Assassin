@@ -8,7 +8,7 @@
 
 #import "SSNSignUpViewController.h"
 #import "SSNUserViewController.h"
-#import "SSNUser.h"
+#import <Parse/Parse.h>
 
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
@@ -87,15 +87,16 @@
 
 - (void)signUpViewController:(PFSignUpViewController *)signUpController didSignUpUser:(PFUser *)user
 {
-    SSNUser *customUser = (SSNUser *)user;
-    [customUser setFullName:self.signUpView.additionalField.text];
-    [customUser setGames:[[NSMutableArray alloc] init]];
+    PFObject *player = [PFObject objectWithClassName:@"Player"];
+    player[@"userId"] = user.objectId;
+    player[@"fullName"] = self.signUpView.additionalField.text;
+    player[@"games"] = [[NSMutableArray alloc] init];
     NSString *pic = @"hellonsdata";
     NSData *data = [pic dataUsingEncoding:NSUTF8StringEncoding];
-    [customUser setProfilePicture:[PFFile fileWithData:data]];
-    [customUser setLastSeen:[PFGeoPoint geoPoint]];
-    
-    [customUser saveInBackground];
+    player[@"profilePicture"] = [PFFile fileWithData:data];
+    player[@"lastSeen"] = [PFGeoPoint geoPoint];
+
+    [player saveInBackground];
     
     SSNUserViewController *userViewController = [[SSNUserViewController alloc] initWithNibName:@"SSNUserViewController" bundle:nil];
     [self.navigationController pushViewController:userViewController animated:NO];
