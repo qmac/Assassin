@@ -220,6 +220,7 @@
         {
             [self refreshData];
         }
+        self.lastKillLabel.text = killMessage;
     }
     else {
         NSLog(@"Somehow another button got pressed. Jesus take the wheel!");
