@@ -96,11 +96,7 @@
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss Z"];
         NSDate *end = [formatter dateFromString:self.timeRemaining];
-
-        NSTimeInterval secondsInEightHours = 1 * 60;
-        NSDate *newDate = [start dateByAddingTimeInterval:secondsInEightHours];
-        
-        NSTimeInterval duration = [newDate timeIntervalSinceDate:start];
+        NSTimeInterval duration = [end timeIntervalSinceDate:start];
 
         NSInteger hours = floor(duration/(60*60));
         NSInteger minutes = floor((duration/60) - hours * 60);
@@ -213,7 +209,7 @@
             
         if ([gameObject[@"active"]  isEqual: @YES])
         {
-        [self viewDidLoad];
+            [self viewDidLoad];
         }
     }
     else {
@@ -254,6 +250,8 @@
     gameObject[@"last_kill"] = killMessage;
     
     [gameObject saveInBackground];
+    
+    [self viewDidLoad];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -279,19 +277,21 @@
         {
             self.currSeconds-=1;
         }
-        else if(self.currMinute == 0)
+        if(self.currMinute == 0)
         {
-            self.currHour -= 1;
-            self.currMinute=59;
+            if(self.currSeconds == 0){
+                self.currHour -= 1;
+                self.currMinute=59;
+            }
         }
         if(self.currHour>-1)
             [self.timerCountdownLabel setText:[NSString stringWithFormat:@"%@%ld%@%02ld%@%02ld",@"Time remaining: ",(long)self.currHour,@":",(long)self.currMinute, @":", (long)self.currSeconds]];
-    }
-    else
-    {
-        [self.timer invalidate];
-//        [self suicide];
-    }
+        }
+        else
+        {
+            [self.timer invalidate];
+            [self suicide];
+        }
 }
 
 @end
