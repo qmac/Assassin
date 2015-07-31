@@ -7,7 +7,9 @@
 //
 
 #import "SSNGameViewController.h"
-#import "Parse/Parse.h"
+#import "SSNLastSeenViewController.h"
+#import <CoreLocation/CoreLocation.h>
+#import <Parse/Parse.h>
 
 @interface SSNGameViewController ()
 
@@ -18,6 +20,7 @@
 @property (nonatomic, strong) NSString *lastKill;
 @property (nonatomic, strong) PFUser *loggedInUser;
 @property (nonatomic, strong) NSTimer *timer;
+@property (nonatomic, strong) PFObject *targetPlayerObject;
 @property (nonatomic) NSInteger currMinute;
 @property (nonatomic) NSInteger currSeconds;
 @property (nonatomic) NSInteger currHour;
@@ -47,20 +50,18 @@
         PFObject *targetUser = [userQuery getFirstObject];
         PFQuery *playerQuery = [PFQuery queryWithClassName:@"Player"];
         [playerQuery whereKey:@"userId" equalTo:targetUser.objectId];
-        PFObject *player = [playerQuery getFirstObject];
+        self.targetPlayerObject = [playerQuery getFirstObject];
         
         self.targetLabel.hidden = false;
-        self.targetLabel.text = player[@"fullName"];
+        self.targetLabel.text = self.targetPlayerObject[@"fullName"];
         
         self.timeRemaining = self.playerAttributes[@"last_date_to_kill"];
         NSLog(@"%@ Time remaining: %@", self.targetPlayer, self.timeRemaining);
-        
-
 
         self.lastKillLabel.hidden = false;
         self.lastKillLabel.text = self.lastKill;
         
-        PFFile *profilePicture = player[@"profilePicture"];
+        PFFile *profilePicture = self.targetPlayerObject[@"profilePicture"];
         self.targetImage.image = [UIImage imageWithData:[profilePicture getData]];
         self.targetImage.layer.cornerRadius = self.targetImage.frame.size.width/2;
         self.targetImage.layer.masksToBounds = YES;
@@ -121,6 +122,14 @@
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss Z"];
     return [formatter stringFromDate:newDate];
+}
+
+#pragma last seen
+- (IBAction)openLastSeen:(id)sender
+{
+    SSNLastSeenViewController *lastSeenController = [[SSNLastSeenViewController alloc] init];
+    lastSeenController.targetPoint = self.targetPlayerObject[@"lastSeen"];
+    [self.navigationController pushViewController:lastSeenController animated:YES];
 }
 
 #pragma kills/suicide
