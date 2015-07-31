@@ -162,6 +162,10 @@
     gameObject[@"last_kill"] = killMessage;
     [gameObject saveInBackground];
     
+    if ([gameObject[@"active"]  isEqual: @YES])
+    {
+    [self viewDidLoad];
+    }
 }
 
 -(void)suicide
