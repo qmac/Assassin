@@ -64,7 +64,7 @@
         self.playerAttributes = [self.playerDict valueForKeyPath:self.loggedInUser.username];
         
         PFQuery *userPlayerQuery = [PFQuery queryWithClassName:@"Player"];
-        [query whereKey:@"userId" equalTo:self.loggedInUser.objectId];
+        [userPlayerQuery whereKey:@"userId" equalTo:self.loggedInUser.objectId];
         self.userPlayerObject = [userPlayerQuery getFirstObject];
         
         self.targetPlayer = self.playerAttributes[@"target"];
@@ -182,27 +182,29 @@
         PFObject *gameObject = [query getObjectWithId:self.gameId];
         NSString *assassin = self.userPlayerObject[@"fullName"];
         NSString *target = self.targetPlayerObject[@"fullName"];
-        NSString *newTarget = gameObject[@"player_dict"][target][@"target"];
+        NSString *newTarget = gameObject[@"player_dict"][self.targetPlayer][@"target"];
         NSString *killMessage = [NSString stringWithFormat:@"%@ killed %@", assassin, target];
         
         //updating target's stats
-        gameObject[@"player_dict"][target][@"status"] = @NO;
-        gameObject[@"player_dict"][target][@"last_date_to_kill"] = @"0";
-        gameObject[@"player_dict"][target][@"target"] = @"";
+        gameObject[@"player_dict"][self.targetPlayer][@"status"] = @NO;
+        gameObject[@"player_dict"][self.targetPlayer][@"last_date_to_kill"] = @"0";
+        gameObject[@"player_dict"][self.targetPlayer][@"target"] = @"";
         
+        NSString *assassinUsername = self.loggedInUser[@"username"];
+
         //updating assassin's stats
-        if (![newTarget isEqualToString: assassin])
+        if (![newTarget isEqualToString: assassinUsername])
         {
             //game is not over
-            gameObject[@"player_dict"][assassin][@"target"] = newTarget;
-            gameObject[@"player_dict"][assassin][@"last_date_to_kill"] = [self updateTime];
+            gameObject[@"player_dict"][assassinUsername][@"target"] = newTarget;
+            gameObject[@"player_dict"][assassinUsername][@"last_date_to_kill"] = [self updateTime];
         }
         else
         {
             //game is over
-            gameObject[@"player_dict"][target][@"status"] = @YES;
-            gameObject[@"player_dict"][target][@"last_date_to_kill"] = @"0";
-            gameObject[@"player_dict"][target][@"target"] = @"";
+            gameObject[@"player_dict"][self.targetPlayer][@"status"] = @YES;
+            gameObject[@"player_dict"][self.targetPlayer][@"last_date_to_kill"] = @"0";
+            gameObject[@"player_dict"][self.targetPlayer][@"target"] = @"";
             self.timerCountdownLabel.hidden = true;
             self.killConfirmButton.hidden = true;
             self.targetLabel.text = @"Congratulations, you are the master assassin!";
