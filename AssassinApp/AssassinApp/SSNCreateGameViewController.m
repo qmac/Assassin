@@ -68,11 +68,21 @@
 
 - (IBAction)addPlayerAction:(id)sender
 {
-    [self.addedUsers addObject:self.addPlayerInput.text];
-    [self addUserToGame:self.addPlayerInput.text];
+    PFQuery *query = [PFQuery queryWithClassName:@"_User"];
+    [query whereKey:@"username" equalTo:self.addPlayerInput.text];
+    if([query countObjects] == 0)
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Username" message:@"The entered username does not exist." delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
+        [alert show];
+    }
+    else
+    {
+        [self.addedUsers addObject:self.addPlayerInput.text];
+        [self addUserToGame:self.addPlayerInput.text];
+        [self arrayDidUpdate];
+    }
     self.addPlayerInput.text = @"";
     [self.view endEditing:YES];
-    [self arrayDidUpdate];
 }
 
 - (IBAction)startGameAction:(id)sender {
