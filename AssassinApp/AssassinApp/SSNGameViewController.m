@@ -101,6 +101,14 @@
     NSLog(@"%@", playerDict);
 }
 
+- (NSUInteger)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskPortrait;
+}
+
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
+    return UIInterfaceOrientationPortrait;
+}
+
 -(NSString *)updateTime
 {
     NSDate *currentDate = [NSDate date];
