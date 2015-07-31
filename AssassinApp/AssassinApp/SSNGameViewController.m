@@ -63,6 +63,8 @@
         NSData *mydata = [[NSData alloc] initWithContentsOfURL:url];
 
         self.targetImage.image = [UIImage imageWithData:mydata];
+        self.targetImage.layer.cornerRadius = self.targetImage.layer.borderWidth/2;
+        self.targetImage.layer.masksToBounds = YES;
         
         
         [_timerCountdownLabel setText:@"Time remaining:"];
