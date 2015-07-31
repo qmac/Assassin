@@ -33,6 +33,7 @@
 		AC649FD51B698261007C3E88 /* assassinlogo.png in Resources */ = {isa = PBXBuildFile; fileRef = AC649FD41B698261007C3E88 /* assassinlogo.png */; };
 		AC649FD91B69ABCC007C3E88 /* SSNCreateGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC649FD71B69ABCC007C3E88 /* SSNCreateGameViewController.m */; };
 		AC649FDA1B69ABCC007C3E88 /* SSNCreateGameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC649FD81B69ABCC007C3E88 /* SSNCreateGameViewController.xib */; };
+		C81A62151B6B472200D0526F /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = C81A62141B6B472200D0526F /* MBProgressHUD.m */; };
 		E5E194361B6B24DF00E2ADFD /* dead_assassin.png in Resources */ = {isa = PBXBuildFile; fileRef = E5E194351B6B24DF00E2ADFD /* dead_assassin.png */; };
 		E5E435581B690F6500A012BA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E5E435571B690F6500A012BA /* main.m */; };
 		E5E4355B1B690F6500A012BA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E5E4355A1B690F6500A012BA /* AppDelegate.m */; };
@@ -89,6 +90,8 @@
 		AC649FD61B69ABCC007C3E88 /* SSNCreateGameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSNCreateGameViewController.h; sourceTree = "<group>"; };
 		AC649FD71B69ABCC007C3E88 /* SSNCreateGameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSNCreateGameViewController.m; sourceTree = "<group>"; };
 		AC649FD81B69ABCC007C3E88 /* SSNCreateGameViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SSNCreateGameViewController.xib; sourceTree = "<group>"; };
+		C81A62131B6B472200D0526F /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBProgressHUD.h; path = AssassinApp/MBProgressHUD.h; sourceTree = "<group>"; };
+		C81A62141B6B472200D0526F /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBProgressHUD.m; path = AssassinApp/MBProgressHUD.m; sourceTree = "<group>"; };
 		E5E194351B6B24DF00E2ADFD /* dead_assassin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dead_assassin.png; sourceTree = "<group>"; };
 		E5E435521B690F6500A012BA /* AssassinApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AssassinApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5E435561B690F6500A012BA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -196,6 +199,8 @@
 		E5E435491B690F6500A012BA = {
 			isa = PBXGroup;
 			children = (
+				C81A62131B6B472200D0526F /* MBProgressHUD.h */,
+				C81A62141B6B472200D0526F /* MBProgressHUD.m */,
 				AC649F8F1B691519007C3E88 /* Frameworks */,
 				E5E435541B690F6500A012BA /* AssassinApp */,
 				E5E4356E1B690F6500A012BA /* AssassinAppTests */,
@@ -384,6 +389,7 @@
 				E5E435581B690F6500A012BA /* main.m in Sources */,
 				E5F673381B693678004B7D6A /* SSNGameViewController.m in Sources */,
 				E5F6733A1B693678004B7D6A /* SSNUserViewController.m in Sources */,
+				C81A62151B6B472200D0526F /* MBProgressHUD.m in Sources */,
 				AC649FBA1B692785007C3E88 /* SSNLogInViewController.m in Sources */,
 				E5E4358F1B6AFFCC00A012BA /* SSNLastSeenViewController.m in Sources */,
 			);

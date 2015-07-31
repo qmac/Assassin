@@ -10,6 +10,7 @@
 
 @interface SSNGameViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UILabel *targetTitle;
 @property (weak, nonatomic) IBOutlet UILabel *targetLabel;
 @property (weak, nonatomic) IBOutlet UILabel *lastKillLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timerCountdownLabel;

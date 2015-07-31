@@ -10,6 +10,7 @@
 #import <Parse/Parse.h>
 #import <Parse/PFObject.h>
 #import "SSNGameViewController.h"
+#import "SSNUserViewController.h"
 #import <Parse/PFQuery.h>
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
@@ -75,6 +76,11 @@
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Username" message:@"The entered username does not exist." delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
         [alert show];
     }
+    else if ([self.addPlayerInput.text isEqualToString:[PFUser currentUser].username])
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"You cannot add yourself to the game." delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
+        [alert show];
+    }
     else
     {
         [self.addedUsers addObject:self.addPlayerInput.text];
@@ -114,34 +120,38 @@
         [targets insertObject:key atIndex:0];
     }
     
-    //randomize targets
-    NSString *currentPlayer = targets[0];
-    NSString *randomTarget = @"";
-    for (int k = 0; k <= [targets count]; k++)
+    NSInteger count = [targets count];
+    if (count > 2 )
     {
-        //get random target
-        do
+        //randomize targets
+        NSString *currentPlayer = targets[0];
+        NSString *previousAssassin = @"";
+        NSString *randomTarget = @"";
+        for (NSInteger k = 0; k < count; k++)
         {
-            NSUInteger randomIndex = arc4random() % [targets count];
-            randomTarget = targets[randomIndex];
-        } while ([randomTarget isEqualToString:currentPlayer]);
-        
-        //set target to random target
-        self.gameObject[@"player_dict"][currentPlayer][@"target"] = randomTarget;
-        currentPlayer = randomTarget;
-        
-        //remove randomTarget from target array
-        NSInteger count = [targets count];
-        for (NSInteger index = (count - 1); index >= 0; index--) {
-            NSString *target = targets[index];
-            if ([target isEqualToString:randomTarget]) {
-                [targets removeObjectAtIndex:index];
-                break;
+            //get random target
+            do
+            {
+                NSUInteger randomIndex = arc4random() % [targets count];
+                randomTarget = targets[randomIndex];
+            } while ([randomTarget isEqualToString:currentPlayer] || [randomTarget isEqualToString:previousAssassin]);
+            
+            //set target to random target
+            self.gameObject[@"player_dict"][currentPlayer][@"target"] = randomTarget;
+            previousAssassin = currentPlayer;
+            currentPlayer = randomTarget;
+            
+            //remove randomTarget from target array
+            NSInteger count2 = [targets count];
+            for (NSInteger index = (count2 - 1); index >= 0; index--) {
+                NSString *target = targets[index];
+                if ([target isEqualToString:randomTarget]) {
+                    [targets removeObjectAtIndex:index];
+                    break;
+                }
             }
         }
     }
-    
-    self.gameObject[@"player_dict"][currentPlayer][@"target"] = targets[0];
     
     [self.gameObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded)
@@ -171,9 +181,11 @@
                     }
                 }];
             }
+            SSNUserViewController *userViewController = [[SSNUserViewController alloc] init];
+            [self.navigationController pushViewController:userViewController animated:YES];
             SSNGameViewController *gameViewController = [[SSNGameViewController alloc] initWithNibName:@"SSNGameViewController" bundle:nil];
             [gameViewController setGameId:[self.gameObject objectId]];
-            [self.navigationController pushViewController:gameViewController animated:YES];
+            [userViewController.navigationController pushViewController:gameViewController animated:YES];
         }
         else
         {

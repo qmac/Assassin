@@ -71,12 +71,26 @@ static NSString *const CellIdentifier = @"gameCell";
     [self fetchGamesData];
     
     [PFGeoPoint geoPointForCurrentLocationInBackground:^(PFGeoPoint *geoPoint, NSError *error){
-        PFUser *user = [PFUser currentUser];
-        PFQuery *playerQuery = [PFQuery queryWithClassName:@"Player"];
-        [playerQuery whereKey:@"userId" equalTo:user.objectId];
-        PFObject *player = [playerQuery getFirstObject];
-        player[@"lastSeen"] = geoPoint;
-        [player saveInBackground];
+        if(error)
+        {
+            NSLog(@"Failed to update lastSeen");
+            UIAlertView *alert = [[UIAlertView alloc]
+                                  initWithTitle:@"Error"
+                                  message:@"You need to enable location services for this app."
+                                  delegate:nil
+                                  cancelButtonTitle:@"Ok"
+                                  otherButtonTitles:nil];
+            [alert show];
+        }
+        else
+        {
+            PFUser *user = [PFUser currentUser];
+            PFQuery *playerQuery = [PFQuery queryWithClassName:@"Player"];
+            [playerQuery whereKey:@"userId" equalTo:user.objectId];
+            PFObject *player = [playerQuery getFirstObject];
+            player[@"lastSeen"] = geoPoint;
+            [player saveInBackground];
+        }
     }];
 }
 
@@ -255,6 +269,7 @@ static NSString *const CellIdentifier = @"gameCell";
     {
         [gameViewController setGameId:[[self.inactiveGamesData objectAtIndex:indexPath.row] objectId]];
     }
+
     [self.navigationController pushViewController:gameViewController animated:YES];
 }
 

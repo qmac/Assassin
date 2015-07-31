@@ -11,6 +11,8 @@
 #import <CoreLocation/CoreLocation.h>
 #import <Parse/Parse.h>
 #import "SSNCreateGameViewController.h"
+#import "MBProgressHUD.h"
+
 
 @interface SSNGameViewController ()
 
@@ -26,22 +28,29 @@
 @property (nonatomic) NSInteger currMinute;
 @property (nonatomic) NSInteger currSeconds;
 @property (nonatomic) NSInteger currHour;
+@property (nonatomic) MBProgressHUD *hud;
+
 
 @end
 
 @implementation SSNGameViewController
 
 - (void)viewDidLoad {
+    
+    self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    self.hud.mode = MBProgressHUDModeIndeterminate;
+    self.hud.labelText = @"Loading Game";
+    
     [super viewDidLoad];
     
-    NSArray *viewControllers = [self.navigationController viewControllers];
-    for(UIViewController *tempVC in viewControllers)
-    {
-        if([tempVC isKindOfClass:[SSNCreateGameViewController class]])
-        {
-            [tempVC removeFromParentViewController];
-        }
-    }
+//    NSArray *viewControllers = [self.navigationController viewControllers];
+//    for(UIViewController *tempVC in viewControllers)
+//    {
+//        if([tempVC isKindOfClass:[SSNCreateGameViewController class]])
+//        {
+//            [tempVC removeFromParentViewController];
+//        }
+//    }
     
     PFQuery *query = [PFQuery queryWithClassName:@"Games"];
     [query getObjectInBackgroundWithId:self.gameId block:^(PFObject *gameObject, NSError *error) {
@@ -55,7 +64,7 @@
         self.playerAttributes = [self.playerDict valueForKeyPath:self.loggedInUser.username];
         
         PFQuery *userPlayerQuery = [PFQuery queryWithClassName:@"Player"];
-        [query whereKey:@"userId" equalTo:self.loggedInUser.objectId];
+        [userPlayerQuery whereKey:@"userId" equalTo:self.loggedInUser.objectId];
         self.userPlayerObject = [userPlayerQuery getFirstObject];
         
         self.targetPlayer = self.playerAttributes[@"target"];
@@ -73,7 +82,9 @@
         self.targetLabel.hidden = false;
         self.targetLabel.text = self.targetPlayerObject[@"fullName"];
         
+        
         self.timeRemaining = self.playerAttributes[@"last_date_to_kill"];
+        
         NSLog(@"%@ Time remaining: %@", self.targetPlayer, self.timeRemaining);
 
         self.lastKillLabel.hidden = false;
@@ -117,7 +128,9 @@
             self.lastLocationLabel.hidden = true;
             self.targetImage.image = [UIImage imageNamed:@"dead_assassin.png"];
         }
+        
     }];
+    
     NSLog(@"%@", self.playerDict);
 }
 
@@ -171,31 +184,36 @@
         PFObject *gameObject = [query getObjectWithId:self.gameId];
         NSString *assassin = self.userPlayerObject[@"fullName"];
         NSString *target = self.targetPlayerObject[@"fullName"];
-        NSString *newTarget = gameObject[@"player_dict"][target][@"target"];
+        NSString *newTarget = gameObject[@"player_dict"][self.targetPlayer][@"target"];
         NSString *killMessage = [NSString stringWithFormat:@"%@ killed %@", assassin, target];
         
         //updating target's stats
-        gameObject[@"player_dict"][target][@"status"] = @NO;
-        gameObject[@"player_dict"][target][@"last_date_to_kill"] = @"0";
-        gameObject[@"player_dict"][target][@"target"] = @"";
+        gameObject[@"player_dict"][self.targetPlayer][@"status"] = @NO;
+        gameObject[@"player_dict"][self.targetPlayer][@"last_date_to_kill"] = @"0";
+        gameObject[@"player_dict"][self.targetPlayer][@"target"] = @"";
         
+        NSString *assassinUsername = self.loggedInUser[@"username"];
+
         //updating assassin's stats
-        if (![newTarget isEqualToString: assassin])
+        if (![newTarget isEqualToString: assassinUsername])
         {
             //game is not over
-            gameObject[@"player_dict"][assassin][@"target"] = newTarget;
-            gameObject[@"player_dict"][assassin][@"last_date_to_kill"] = [self updateTime];
+            gameObject[@"player_dict"][assassinUsername][@"target"] = newTarget;
+            gameObject[@"player_dict"][assassinUsername][@"last_date_to_kill"] = [self updateTime];
         }
         else
         {
             //game is over
-            gameObject[@"player_dict"][target][@"status"] = @YES;
-            gameObject[@"player_dict"][target][@"last_date_to_kill"] = @"0";
-            gameObject[@"player_dict"][target][@"target"] = @"";
+            gameObject[@"player_dict"][self.targetPlayer][@"status"] = @YES;
+            gameObject[@"player_dict"][self.targetPlayer][@"last_date_to_kill"] = @"0";
+            gameObject[@"player_dict"][self.targetPlayer][@"target"] = @"";
             self.timerCountdownLabel.hidden = true;
             self.killConfirmButton.hidden = true;
+            self.lastLocationLabel.hidden = true;
+            self.targetTitle.hidden = true;
             self.targetLabel.text = @"Congratulations, you are the master assassin!";
             self.targetImage.image = [UIImage imageNamed:@"assassinlogo.png"];
+            self.targetImage.layer.cornerRadius = 0;
             gameObject[@"active"] = @NO;
         }
                 
@@ -205,7 +223,7 @@
             
         if ([gameObject[@"active"]  isEqual: @YES])
         {
-        [self viewDidLoad];
+            [self viewDidLoad];
         }
     }
     else {
@@ -219,7 +237,6 @@
     PFObject *gameObject = [query getObjectWithId:self.gameId];
     NSString *currentUser = self.loggedInUser.username;
     NSString *target = gameObject[@"player_dict"][currentUser][@"target"];
-    
     //find your assassin
     NSString *yourAssassin;
     for (NSString *key in gameObject[@"player_dict"])
@@ -246,6 +263,8 @@
     gameObject[@"last_kill"] = killMessage;
     
     [gameObject saveInBackground];
+    
+    [self viewDidLoad];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -260,7 +279,7 @@
 
 -(void)timerFired
 {
-    if((self.currMinute>0 || self.currSeconds>=0) && self.currMinute>=0)
+    if((self.currHour>0 || self.currMinute>=0 || self.currSeconds>=0) && self.currHour>=0)
     {
         if(self.currSeconds==0)
         {
@@ -273,16 +292,20 @@
         }
         if(self.currMinute == 0)
         {
-            self.currHour -= 1;
-            self.currMinute=59;
+            if(self.currSeconds == 0){
+                self.currHour -= 1;
+                self.currMinute=59;
+            }
         }
         if(self.currHour>-1)
             [self.timerCountdownLabel setText:[NSString stringWithFormat:@"%@%ld%@%02ld%@%02ld",@"Time remaining: ",(long)self.currHour,@":",(long)self.currMinute, @":", (long)self.currSeconds]];
-    }
-    else
-    {
-        [self.timer invalidate];
-    }
+        }
+        else
+        {
+            [self.timer invalidate];
+            [self suicide];
+        }
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
 }
 
 @end
