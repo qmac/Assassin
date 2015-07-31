@@ -55,7 +55,7 @@
         self.playerAttributes = [self.playerDict valueForKeyPath:self.loggedInUser.username];
         
         PFQuery *userPlayerQuery = [PFQuery queryWithClassName:@"Player"];
-        [query whereKey:@"userId" equalTo:self.loggedInUser.objectId];
+        [userPlayerQuery whereKey:@"userId" equalTo:self.loggedInUser.objectId];
         self.userPlayerObject = [userPlayerQuery getFirstObject];
         
         self.targetPlayer = self.playerAttributes[@"target"];
