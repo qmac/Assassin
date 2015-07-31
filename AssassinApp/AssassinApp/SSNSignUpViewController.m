@@ -30,7 +30,7 @@
     [self.signUpView.signUpButton setBackgroundColor:UIColorFromRGB(0xC0392B)];
 
     self.signUpView.additionalField.placeholder = @"Full Name";
-    [self.signUpView.additionalField setReturnKeyType:UIReturnKeyDefault];
+    [self.signUpView.additionalField setReturnKeyType:UIReturnKeyNext];
     [self.signUpView.additionalField setAutocapitalizationType:UITextAutocapitalizationTypeWords];
     [self.signUpView.emailField setReturnKeyType:UIReturnKeyDone];
 }
