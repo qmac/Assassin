@@ -208,8 +208,10 @@
             self.timerCountdownLabel.hidden = true;
             self.killConfirmButton.hidden = true;
             self.lastLocationLabel.hidden = true;
+            self.targetTitle.hidden = true;
             self.targetLabel.text = @"Congratulations, you are the master assassin!";
             self.targetImage.image = [UIImage imageNamed:@"assassinlogo.png"];
+            self.targetImage.layer.cornerRadius = 0;
             gameObject[@"active"] = @NO;
         }
                 
@@ -233,7 +235,6 @@
     PFObject *gameObject = [query getObjectWithId:self.gameId];
     NSString *currentUser = self.loggedInUser.username;
     NSString *target = gameObject[@"player_dict"][currentUser][@"target"];
-    
     //find your assassin
     NSString *yourAssassin;
     for (NSString *key in gameObject[@"player_dict"])
