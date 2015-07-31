@@ -102,7 +102,7 @@
     //randomize targets
     NSString *currentPlayer = targets[0];
     NSString *randomTarget = @"";
-    for (int k = 0; k < [targets count]; k++)
+    for (int k = 0; k <= [targets count]; k++)
     {
         //get random target
         do
@@ -123,16 +123,6 @@
                 [targets removeObjectAtIndex:index];
                 break;
             }
-        }
-    }
-    
-    //remove randomTarget from target array
-    NSInteger count = [targets count];
-    for (NSInteger index = (count - 1); index >= 0; index--) {
-        NSString *target = targets[index];
-        if ([target isEqualToString:randomTarget]) {
-            [targets removeObjectAtIndex:index];
-            break;
         }
     }
     
