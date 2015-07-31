@@ -15,16 +15,12 @@
 
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
-#define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
-
 @interface SSNUserViewController () <UITableViewDataSource, UITableViewDelegate>
 
-@property (nonatomic, strong) NSString *userId;
 @property (nonatomic, strong) NSMutableArray *activeGamesData;
 @property (nonatomic, strong) NSMutableArray *inactiveGamesData;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
-
 
 @end
 
@@ -69,17 +65,25 @@ static NSString *const CellIdentifier = @"gameCell";
     [logoutButton addTarget:self action:@selector(logoutUser) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *logoutItem = [[UIBarButtonItem alloc] initWithCustomView:logoutButton];
     self.navigationItem.leftBarButtonItem = logoutItem;
+    
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
 
     [self fetchGamesData];
+    
+    [PFGeoPoint geoPointForCurrentLocationInBackground:^(PFGeoPoint *geoPoint, NSError *error){
+        PFUser *user = [PFUser currentUser];
+        PFQuery *playerQuery = [PFQuery queryWithClassName:@"Player"];
+        [playerQuery whereKey:@"userId" equalTo:user.objectId];
+        PFObject *player = [playerQuery getFirstObject];
+        player[@"lastSeen"] = geoPoint;
+        [player saveInBackground];
+    }];
 }
 
 
 - (void)stopRefresh
-
 {
-    
     [self.refreshControl endRefreshing];
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -93,6 +97,14 @@ static NSString *const CellIdentifier = @"gameCell";
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (NSUInteger)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskPortrait;
+}
+
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
+    return UIInterfaceOrientationPortrait;
 }
 
 #pragma mark - Parse Methods
@@ -153,7 +165,15 @@ static NSString *const CellIdentifier = @"gameCell";
     NSLog(@"loggedout");
     [PFUser logOut];
     SSNLogInViewController *logInViewController = [[SSNLogInViewController alloc] init];
-    [self.navigationController popToViewController:logInViewController animated:NO];
+    NSArray *viewStack = [self.navigationController viewControllers];
+    if([viewStack containsObject:logInViewController])
+    {
+        [self.navigationController popToViewController:logInViewController animated:NO];
+    }
+    else
+    {
+        [self.navigationController pushViewController:logInViewController animated:NO];
+    }
 }
 
 #pragma mark - UITableView Datasource

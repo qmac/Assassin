@@ -48,6 +48,14 @@
     self.navigationItem.leftBarButtonItem = cancelButton;
 }
 
+- (NSUInteger)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskPortrait;
+}
+
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
+    return UIInterfaceOrientationPortrait;
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -60,11 +68,21 @@
 
 - (IBAction)addPlayerAction:(id)sender
 {
-    [self.addedUsers addObject:self.addPlayerInput.text];
-    [self addUserToGame:self.addPlayerInput.text];
+    PFQuery *query = [PFQuery queryWithClassName:@"_User"];
+    [query whereKey:@"username" equalTo:self.addPlayerInput.text];
+    if([query countObjects] == 0)
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Username" message:@"The entered username does not exist." delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
+        [alert show];
+    }
+    else
+    {
+        [self.addedUsers addObject:self.addPlayerInput.text];
+        [self addUserToGame:self.addPlayerInput.text];
+        [self arrayDidUpdate];
+    }
     self.addPlayerInput.text = @"";
     [self.view endEditing:YES];
-    [self arrayDidUpdate];
 }
 
 - (IBAction)startGameAction:(id)sender {
@@ -81,14 +99,50 @@
     [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss Z"];
     NSString *dateToKill = [formatter stringFromDate:newDate];
     
-    NSDictionary *playerAttributes = @{@"target": self.creatorUserName, @"status": @YES, @"last_date_to_kill": dateToKill};
+    NSMutableDictionary *playerAttributes = [NSMutableDictionary dictionaryWithDictionary:@{@"target": self.creatorUserName, @"status": @YES, @"last_date_to_kill": dateToKill}];
     [self.fullDictionary setObject:playerAttributes forKey:[self.addedUsers lastObject]];
     
     self.gameObject[@"active"] = @YES;
     self.gameObject[@"game_title"] = self.gameTitleInput.text;
     self.gameObject[@"player_dict"] = self.fullDictionary;
     self.gameObject[@"last_kill"] = @"No one has died yet :(";
-
+    
+    //create an array of targets
+    NSMutableArray *targets = [[NSMutableArray alloc] init];
+    for (NSString *key in self.gameObject[@"player_dict"])
+    {
+        [targets insertObject:key atIndex:0];
+    }
+    
+    //randomize targets
+    NSString *currentPlayer = targets[0];
+    NSString *randomTarget = @"";
+    for (int k = 0; k <= [targets count]; k++)
+    {
+        //get random target
+        do
+        {
+            NSUInteger randomIndex = arc4random() % [targets count];
+            randomTarget = targets[randomIndex];
+        } while ([randomTarget isEqualToString:currentPlayer]);
+        
+        //set target to random target
+        self.gameObject[@"player_dict"][currentPlayer][@"target"] = randomTarget;
+        currentPlayer = randomTarget;
+        
+        //remove randomTarget from target array
+        NSInteger count = [targets count];
+        for (NSInteger index = (count - 1); index >= 0; index--) {
+            NSString *target = targets[index];
+            if ([target isEqualToString:randomTarget]) {
+                [targets removeObjectAtIndex:index];
+                break;
+            }
+        }
+    }
+    
+    self.gameObject[@"player_dict"][currentPlayer][@"target"] = targets[0];
+    
     [self.gameObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded)
         {
@@ -119,7 +173,7 @@
             }
             SSNGameViewController *gameViewController = [[SSNGameViewController alloc] initWithNibName:@"SSNGameViewController" bundle:nil];
             [gameViewController setGameId:[self.gameObject objectId]];
-            [self presentViewController:gameViewController animated:YES completion:nil];
+            [self.navigationController pushViewController:gameViewController animated:YES];
         }
         else
         {
@@ -194,8 +248,6 @@
 
 - (void)addUserToGame:(NSString *)userName
 {
-    NSDictionary *playerAttributes = [[NSDictionary alloc] init];
-    
     NSDate *currentDate = [NSDate date];
     
     // Create and initialize date component instance
@@ -212,12 +264,12 @@
     NSUInteger count = [self.addedUsers count];
     if(count == 1)
     {
-        playerAttributes = @{@"target": userName, @"status": @YES, @"last_date_to_kill": dateToKill};
+        NSMutableDictionary *playerAttributes = [NSMutableDictionary dictionaryWithDictionary:@{@"target": userName, @"status": @YES, @"last_date_to_kill": dateToKill}];
         [self.fullDictionary setObject:playerAttributes forKey:self.creatorUserName];
     }
     else
     {
-        playerAttributes = @{@"target": userName, @"status": @YES, @"last_date_to_kill": dateToKill};
+        NSMutableDictionary *playerAttributes = [NSMutableDictionary dictionaryWithDictionary:@{@"target": userName, @"status": @YES, @"last_date_to_kill": dateToKill}];
         [self.fullDictionary setObject:playerAttributes forKey:[self.addedUsers objectAtIndex:(count - 2)]];
     }
 }
