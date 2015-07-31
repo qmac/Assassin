@@ -36,25 +36,19 @@
 @implementation SSNGameViewController
 
 - (void)viewDidLoad {
-    
+    [super viewDidLoad];
+
+    [self refreshData];
+}
+
+- (void)refreshData
+{
     self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     self.hud.mode = MBProgressHUDModeIndeterminate;
     self.hud.labelText = @"Loading Game";
-    
-    [super viewDidLoad];
-    
-//    NSArray *viewControllers = [self.navigationController viewControllers];
-//    for(UIViewController *tempVC in viewControllers)
-//    {
-//        if([tempVC isKindOfClass:[SSNCreateGameViewController class]])
-//        {
-//            [tempVC removeFromParentViewController];
-//        }
-//    }
-    
     PFQuery *query = [PFQuery queryWithClassName:@"Games"];
     [query getObjectInBackgroundWithId:self.gameId block:^(PFObject *gameObject, NSError *error) {
-
+        
         NSLog(@"%@", gameObject);
         self.lastKill = gameObject[@"last_kill"];
         self.playerDict = gameObject[@"player_dict"];
@@ -86,7 +80,7 @@
         self.timeRemaining = self.playerAttributes[@"last_date_to_kill"];
         
         NSLog(@"%@ Time remaining: %@", self.targetPlayer, self.timeRemaining);
-
+        
         self.lastKillLabel.hidden = false;
         self.lastKillLabel.text = self.lastKill;
         
@@ -106,11 +100,11 @@
         [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss Z"];
         NSDate *end = [formatter dateFromString:self.timeRemaining];
         NSTimeInterval duration = [end timeIntervalSinceDate:start];
-
+        
         NSInteger hours = floor(duration/(60*60));
         NSInteger minutes = floor((duration/60) - hours * 60);
         NSInteger seconds = floor(duration - (minutes * 60) - (hours * 60 * 60));
-
+        
         
         NSLog(@"Duration: %f", duration);
         NSLog(@"%zd", hours);
@@ -223,7 +217,7 @@
             
         if ([gameObject[@"active"]  isEqual: @YES])
         {
-            [self viewDidLoad];
+            [self refreshData];
         }
     }
     else {
@@ -264,7 +258,7 @@
     
     [gameObject saveInBackground];
     
-    [self viewDidLoad];
+    [self refreshData];
 }
 
 - (void)didReceiveMemoryWarning {
