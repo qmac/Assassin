@@ -33,7 +33,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.addedUsers = [[NSMutableArray alloc] init];
-    self.gameObject = [PFObject objectWithClassName:@"Games2"];
+    self.gameObject = [PFObject objectWithClassName:@"Games"];
     self.fullDictionary = [[NSMutableDictionary alloc] init];
     self.creatorUserName = [PFUser currentUser].username;
     [self.addPlayerButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
