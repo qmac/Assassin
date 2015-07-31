@@ -304,6 +304,7 @@
             [self.timer invalidate];
             [self suicide];
         }
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
 }
 
 @end
