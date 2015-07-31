@@ -116,23 +116,26 @@
     
     //randomize targets
     NSString *currentPlayer = targets[0];
+    NSString *previousAssassin = @"";
     NSString *randomTarget = @"";
-    for (int k = 0; k <= [targets count]; k++)
+    NSInteger count = [targets count];
+    for (NSInteger k = 0; k < count; k++)
     {
         //get random target
         do
         {
             NSUInteger randomIndex = arc4random() % [targets count];
             randomTarget = targets[randomIndex];
-        } while ([randomTarget isEqualToString:currentPlayer]);
+        } while ([randomTarget isEqualToString:currentPlayer] || [randomTarget isEqualToString:previousAssassin]);
         
         //set target to random target
         self.gameObject[@"player_dict"][currentPlayer][@"target"] = randomTarget;
+        previousAssassin = currentPlayer;
         currentPlayer = randomTarget;
         
         //remove randomTarget from target array
-        NSInteger count = [targets count];
-        for (NSInteger index = (count - 1); index >= 0; index--) {
+        NSInteger count2 = [targets count];
+        for (NSInteger index = (count2 - 1); index >= 0; index--) {
             NSString *target = targets[index];
             if ([target isEqualToString:randomTarget]) {
                 [targets removeObjectAtIndex:index];
@@ -140,8 +143,6 @@
             }
         }
     }
-    
-    self.gameObject[@"player_dict"][currentPlayer][@"target"] = targets[0];
     
     [self.gameObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded)
