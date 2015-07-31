@@ -75,8 +75,8 @@ static NSString *const CellIdentifier = @"gameCell";
         {
             NSLog(@"Failed to update lastSeen");
             UIAlertView *alert = [[UIAlertView alloc]
-                                  initWithTitle:@"Error"
-                                  message:@"You need to enable location services for this app."
+                                  initWithTitle:@"Error retrieving location"
+                                  message:@""
                                   delegate:nil
                                   cancelButtonTitle:@"Ok"
                                   otherButtonTitles:nil];
