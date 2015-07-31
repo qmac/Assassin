@@ -155,6 +155,8 @@
         self.killConfirmButton.hidden = true;
         self.targetLabel.text = @"Congratulations, you are the master assassin!";
         self.targetImage.image = [UIImage imageNamed:@"assassinlogo.png"];
+        self.targetImage.layer.cornerRadius = 0;
+        self.targetImage.layer.masksToBounds = YES;
         gameObject[@"active"] = @NO;
     }
         
