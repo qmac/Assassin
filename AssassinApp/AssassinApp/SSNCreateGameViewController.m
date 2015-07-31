@@ -89,13 +89,10 @@
     self.gameObject[@"player_dict"] = self.fullDictionary;
     self.gameObject[@"last_kill"] = @"No one has died yet :(";
     
-    NSLog(@"%@", self.gameObject);
-    
     //create an array of targets
     NSMutableArray *targets = [[NSMutableArray alloc] init];
     for (NSString *key in self.gameObject[@"player_dict"])
     {
-        NSLog(@"%@", self.gameObject[@"player_dict"][key][@"target"]);
         [targets insertObject:key atIndex:0];
     }
     
@@ -127,8 +124,6 @@
     }
     
     self.gameObject[@"player_dict"][currentPlayer][@"target"] = targets[0];
-    
-    NSLog(@"%@", self.gameObject);
     
     [self.gameObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded)
