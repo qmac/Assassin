@@ -11,6 +11,8 @@
 #import <CoreLocation/CoreLocation.h>
 #import <Parse/Parse.h>
 #import "SSNCreateGameViewController.h"
+#import "MBProgressHUD.h"
+
 
 @interface SSNGameViewController ()
 
@@ -26,12 +28,19 @@
 @property (nonatomic) NSInteger currMinute;
 @property (nonatomic) NSInteger currSeconds;
 @property (nonatomic) NSInteger currHour;
+@property (nonatomic) MBProgressHUD *hud;
+
 
 @end
 
 @implementation SSNGameViewController
 
 - (void)viewDidLoad {
+    
+    self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    self.hud.mode = MBProgressHUDModeIndeterminate;
+    self.hud.labelText = @"Loading Game";
+    
     [super viewDidLoad];
     
     NSArray *viewControllers = [self.navigationController viewControllers];
@@ -117,7 +126,9 @@
             self.lastLocationLabel.hidden = true;
             self.targetImage.image = [UIImage imageNamed:@"dead_assassin.png"];
         }
+        
     }];
+    
     NSLog(@"%@", self.playerDict);
 }
 
@@ -196,6 +207,7 @@
             gameObject[@"player_dict"][self.targetPlayer][@"target"] = @"";
             self.timerCountdownLabel.hidden = true;
             self.killConfirmButton.hidden = true;
+            self.lastLocationLabel.hidden = true;
             self.targetLabel.text = @"Congratulations, you are the master assassin!";
             self.targetImage.image = [UIImage imageNamed:@"assassinlogo.png"];
             gameObject[@"active"] = @NO;
@@ -285,6 +297,8 @@
     {
         [self.timer invalidate];
     }
+    
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
 }
 
 @end
