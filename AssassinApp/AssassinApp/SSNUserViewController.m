@@ -73,7 +73,14 @@ static NSString *const CellIdentifier = @"gameCell";
     [PFGeoPoint geoPointForCurrentLocationInBackground:^(PFGeoPoint *geoPoint, NSError *error){
         if(error)
         {
-            NSLog(@"shite");
+            NSLog(@"Failed to update lastSeen");
+            UIAlertView *alert = [[UIAlertView alloc]
+                                  initWithTitle:@"Error"
+                                  message:@"You need to enable location services for this app."
+                                  delegate:nil
+                                  cancelButtonTitle:@"Ok"
+                                  otherButtonTitles:nil];
+            [alert show];
         }
         else
         {
@@ -83,7 +90,6 @@ static NSString *const CellIdentifier = @"gameCell";
             PFObject *player = [playerQuery getFirstObject];
             player[@"lastSeen"] = geoPoint;
             [player saveInBackground];
-            NSLog(@"location updated");
         }
     }];
 }
