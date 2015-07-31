@@ -153,7 +153,13 @@
 #pragma mark - UIAlertViewDelegate
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (buttonIndex == 0)
+    if ([alertView.title isEqualToString:@"Selfie Time!"] && buttonIndex == 0)
+    {
+        [self dismissViewControllerAnimated:YES completion:^{
+            [self presentUserViewController];
+        }];
+    }
+    else if(buttonIndex == 0)
     {
         [self presentUserViewController];
     }
@@ -216,6 +222,9 @@
     
     cameraController.allowsEditing = NO;
     cameraController.delegate = delegate;
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Selfie Time!" message:@"Please take a picture for your profile"
+                                                   delegate:self cancelButtonTitle:@"No Thanks" otherButtonTitles:@"Okay", nil];
+    [alert show];
     [controller presentViewController:cameraController animated:YES completion:nil];
 }
 
@@ -227,7 +236,6 @@
 
 - (void) imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    
     UIImage  *image =  [info objectForKey:UIImagePickerControllerOriginalImage];
     CGSize size = CGSizeMake(120, 150);
     
