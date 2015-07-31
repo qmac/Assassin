@@ -18,6 +18,7 @@
 @property (nonatomic, strong) NSString *lastKill;
 @property (nonatomic, strong) PFUser *loggedInUser;
 @property (nonatomic, strong) NSTimer *timer;
+@property (nonatomic, strong) PFObject *targetPlayerObject;
 @property (nonatomic) NSInteger currMinute;
 @property (nonatomic) NSInteger currSeconds;
 @property (nonatomic) NSInteger currHour;
@@ -47,20 +48,18 @@
         PFObject *targetUser = [userQuery getFirstObject];
         PFQuery *playerQuery = [PFQuery queryWithClassName:@"Player"];
         [playerQuery whereKey:@"userId" equalTo:targetUser.objectId];
-        PFObject *player = [playerQuery getFirstObject];
+        self.targetPlayerObject = [playerQuery getFirstObject];
         
         self.targetLabel.hidden = false;
-        self.targetLabel.text = player[@"fullName"];
+        self.targetLabel.text = self.targetPlayerObject[@"fullName"];
         
         self.timeRemaining = self.playerAttributes[@"last_date_to_kill"];
         NSLog(@"%@ Time remaining: %@", self.targetPlayer, self.timeRemaining);
-        
-
 
         self.lastKillLabel.hidden = false;
         self.lastKillLabel.text = self.lastKill;
         
-        PFFile *profilePicture = player[@"profilePicture"];
+        PFFile *profilePicture = self.targetPlayerObject[@"profilePicture"];
         self.targetImage.image = [UIImage imageWithData:[profilePicture getData]];
         self.targetImage.layer.cornerRadius = self.targetImage.layer.borderWidth/2;
         self.targetImage.layer.masksToBounds = YES;
@@ -126,7 +125,7 @@
 #pragma last seen
 - (IBAction)openLastSeen:(id)sender
 {
-    
+    PFGeoPoint *geoPoint = self.targetPlayerObject[@"lastSeen"];
 }
 
 #pragma kills/suicide
