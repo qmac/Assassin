@@ -127,7 +127,7 @@
             }
             SSNGameViewController *gameViewController = [[SSNGameViewController alloc] initWithNibName:@"SSNGameViewController" bundle:nil];
             [gameViewController setGameId:[self.gameObject objectId]];
-            [self presentViewController:gameViewController animated:YES completion:nil];
+            [self.navigationController pushViewController:gameViewController animated:YES];
         }
         else
         {
