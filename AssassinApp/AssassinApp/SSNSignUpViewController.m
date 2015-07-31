@@ -12,7 +12,7 @@
 
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
-@interface SSNSignUpViewController () <PFSignUpViewControllerDelegate, UITextInputDelegate>
+@interface SSNSignUpViewController () <PFSignUpViewControllerDelegate, UITextInputDelegate, UIAlertViewDelegate>
 @property (nonatomic, strong) NSString *userId;
 
 @end
@@ -107,6 +107,8 @@
     player[@"userId"] = user.objectId;
     player[@"fullName"] = self.signUpView.additionalField.text;
     player[@"games"] = [[NSMutableArray alloc] init];
+    NSURL *defaultPicUrl = [NSURL URLWithString:@"http://www.boiseweekly.com/images/icons/user_generic.gif"];
+    player[@"profilePicture"] = [PFFile fileWithName:@"Default Selfie" data:[NSData dataWithContentsOfURL:defaultPicUrl]];
     player[@"lastSeen"] = [PFGeoPoint geoPoint];
 
     [player saveInBackground];
@@ -147,6 +149,16 @@
     }
     return YES;
 }
+
+#pragma mark - UIAlertViewDelegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 0)
+    {
+        [self presentUserViewController];
+    }
+}
+
 #pragma mark - UITextFieldDelegate
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
@@ -195,7 +207,7 @@
     BOOL hasCamera = [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera];
     if (!hasCamera || (delegate == nil) || (controller == nil)) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Camera Not Available"
-                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                                                       delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
     }
     UIImagePickerController *cameraController = [[UIImagePickerController alloc] init];
@@ -208,8 +220,9 @@
 }
 
 - (void) imagePickerControllerDidCancel: (UIImagePickerController *) picker {
-    //User clicked cancel in camera controller
-    [picker dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:^{
+        [self presentUserViewController];
+    }];
 }
 
 - (void) imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
@@ -232,11 +245,15 @@
     [player saveInBackground];
     
     [self dismissViewControllerAnimated:YES completion:^{
-        SSNUserViewController *userViewController = [[SSNUserViewController alloc] initWithNibName:@"SSNUserViewController" bundle:nil];
-        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:userViewController];
-        [self presentViewController:navController animated:YES completion:nil];
+        [self presentUserViewController];
     }];
     
 }
 
+- (void)presentUserViewController
+{
+    SSNUserViewController *userViewController = [[SSNUserViewController alloc] initWithNibName:@"SSNUserViewController" bundle:nil];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:userViewController];
+    [self presentViewController:navController animated:YES completion:nil];
+}
 @end
