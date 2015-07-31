@@ -10,6 +10,7 @@
 #import "SSNLastSeenViewController.h"
 #import <CoreLocation/CoreLocation.h>
 #import <Parse/Parse.h>
+#import "SSNCreateGameViewController.h"
 
 @interface SSNGameViewController ()
 
@@ -31,6 +32,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    NSArray *viewControllers = [self.navigationController viewControllers];
+    for(UIViewController *tempVC in viewControllers)
+    {
+        if([tempVC isKindOfClass:[SSNCreateGameViewController class]])
+        {
+            [tempVC removeFromParentViewController];
+        }
+    }
     
     PFQuery *query = [PFQuery queryWithClassName:@"Games"];
     [query getObjectInBackgroundWithId:self.gameId block:^(PFObject *gameObject, NSError *error) {
@@ -141,45 +151,60 @@
 #pragma kills/suicide
 
 - (IBAction)confirmKill:(id)sender {
-    PFQuery *query = [PFQuery queryWithClassName:@"Games"];
-    PFObject *gameObject = [query getObjectWithId:self.gameId];
-    NSString *assassin = self.loggedInUser.username;
-    NSString *target = gameObject[@"player_dict"][assassin][@"target"];
-    NSString *newTarget = gameObject[@"player_dict"][target][@"target"];
-    NSString *killMessage = [NSString stringWithFormat:@"%@ killed %@", assassin, target];
+    UIAlertView *alert = [[UIAlertView alloc]
+                   initWithTitle:@"Confirm Kill"
+                   message:@"Are you sure you want to confirm kill?"
+                   delegate:self
+                   cancelButtonTitle:@"Cancel"
+                   otherButtonTitles:@"Confirm", nil];
+    [alert show];
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if(buttonIndex == 1) {
+        PFQuery *query = [PFQuery queryWithClassName:@"Games"];
+        PFObject *gameObject = [query getObjectWithId:self.gameId];
+        NSString *assassin = self.loggedInUser.username;
+        NSString *target = gameObject[@"player_dict"][assassin][@"target"];
+        NSString *newTarget = gameObject[@"player_dict"][target][@"target"];
+        NSString *killMessage = [NSString stringWithFormat:@"%@ killed %@", assassin, target];
         
-    //updating target's stats
-    gameObject[@"player_dict"][target][@"status"] = @NO;
-    gameObject[@"player_dict"][target][@"last_date_to_kill"] = @"0";
-    gameObject[@"player_dict"][target][@"target"] = @"";
-        
-    //updating assassin's stats
-    if (![newTarget isEqualToString: assassin])
-    {
-        //game is not over
-        gameObject[@"player_dict"][assassin][@"target"] = newTarget;
-        gameObject[@"player_dict"][assassin][@"last_date_to_kill"] = [self updateTime];
-    }
-    else
-    {
-        //game is over
-        gameObject[@"player_dict"][target][@"status"] = @YES;
+        //updating target's stats
+        gameObject[@"player_dict"][target][@"status"] = @NO;
         gameObject[@"player_dict"][target][@"last_date_to_kill"] = @"0";
         gameObject[@"player_dict"][target][@"target"] = @"";
-        self.timerCountdownLabel.hidden = true;
-        self.killConfirmButton.hidden = true;
-        self.targetLabel.text = @"Congratulations, you are the master assassin!";
-        self.targetImage.image = [UIImage imageNamed:@"assassinlogo.png"];
-        gameObject[@"active"] = @NO;
-    }
         
-    //updating game message
-    gameObject[@"last_kill"] = killMessage;
-    [gameObject saveInBackground];
-    
-    if ([gameObject[@"active"]  isEqual: @YES])
-    {
-    [self viewDidLoad];
+        //updating assassin's stats
+        if (![newTarget isEqualToString: assassin])
+        {
+            //game is not over
+            gameObject[@"player_dict"][assassin][@"target"] = newTarget;
+            gameObject[@"player_dict"][assassin][@"last_date_to_kill"] = [self updateTime];
+        }
+        else
+        {
+            //game is over
+            gameObject[@"player_dict"][target][@"status"] = @YES;
+            gameObject[@"player_dict"][target][@"last_date_to_kill"] = @"0";
+            gameObject[@"player_dict"][target][@"target"] = @"";
+            self.timerCountdownLabel.hidden = true;
+            self.killConfirmButton.hidden = true;
+            self.targetLabel.text = @"Congratulations, you are the master assassin!";
+            self.targetImage.image = [UIImage imageNamed:@"assassinlogo.png"];
+            gameObject[@"active"] = @NO;
+        }
+                
+        //updating game message
+        gameObject[@"last_kill"] = killMessage;
+        [gameObject saveInBackground];
+            
+        if ([gameObject[@"active"]  isEqual: @YES])
+        {
+        [self viewDidLoad];
+        }
+    }
+    else {
+        NSLog(@"Somehow another button got pressed. Jesus take the wheel!");
     }
 }
 
