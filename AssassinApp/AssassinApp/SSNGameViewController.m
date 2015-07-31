@@ -21,6 +21,7 @@
 @property (nonatomic, strong) NSString *lastKill;
 @property (nonatomic, strong) PFUser *loggedInUser;
 @property (nonatomic, strong) NSTimer *timer;
+@property (nonatomic, strong) PFObject *userPlayerObject;
 @property (nonatomic, strong) PFObject *targetPlayerObject;
 @property (nonatomic) NSInteger currMinute;
 @property (nonatomic) NSInteger currSeconds;
@@ -53,6 +54,10 @@
         NSLog(@"%@", self.loggedInUser.username);
         self.playerAttributes = [self.playerDict valueForKeyPath:self.loggedInUser.username];
         
+        PFQuery *userPlayerQuery = [PFQuery queryWithClassName:@"Player"];
+        [query whereKey:@"userId" equalTo:self.loggedInUser.objectId];
+        self.userPlayerObject = [userPlayerQuery getFirstObject];
+        
         self.targetPlayer = self.playerAttributes[@"target"];
         NSLog(@"%@", self.targetPlayer);
         PFQuery *userQuery = [PFQuery queryWithClassName:@"_User"];
@@ -60,9 +65,9 @@
         PFObject *targetUser = [userQuery getFirstObject];
         
         if (targetUser != nil){
-            PFQuery *playerQuery = [PFQuery queryWithClassName:@"Player"];
-            [playerQuery whereKey:@"userId" equalTo:targetUser.objectId];
-            self.targetPlayerObject = [playerQuery getFirstObject];
+            PFQuery *targetPlayerQuery = [PFQuery queryWithClassName:@"Player"];
+            [targetPlayerQuery whereKey:@"userId" equalTo:targetUser.objectId];
+            self.targetPlayerObject = [targetPlayerQuery getFirstObject];
         }
         
         self.targetLabel.hidden = false;
@@ -164,8 +169,8 @@
     if(buttonIndex == 1) {
         PFQuery *query = [PFQuery queryWithClassName:@"Games"];
         PFObject *gameObject = [query getObjectWithId:self.gameId];
-        NSString *assassin = self.loggedInUser.username;
-        NSString *target = gameObject[@"player_dict"][assassin][@"target"];
+        NSString *assassin = self.userPlayerObject[@"fullName"];
+        NSString *target = self.targetPlayerObject[@"fullName"];
         NSString *newTarget = gameObject[@"player_dict"][target][@"target"];
         NSString *killMessage = [NSString stringWithFormat:@"%@ killed %@", assassin, target];
         
