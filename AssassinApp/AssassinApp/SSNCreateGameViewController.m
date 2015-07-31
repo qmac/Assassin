@@ -48,6 +48,14 @@
     self.navigationItem.leftBarButtonItem = cancelButton;
 }
 
+- (NSUInteger)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskPortrait;
+}
+
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
+    return UIInterfaceOrientationPortrait;
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -87,6 +95,8 @@
     self.gameObject[@"active"] = @YES;
     self.gameObject[@"game_title"] = self.gameTitleInput.text;
     self.gameObject[@"player_dict"] = self.fullDictionary;
+    self.gameObject[@"last_kill"] = @"No one has died yet :(";
+
     [self.gameObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded)
         {

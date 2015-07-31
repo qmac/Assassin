@@ -69,6 +69,8 @@ static NSString *const CellIdentifier = @"gameCell";
     [logoutButton addTarget:self action:@selector(logoutUser) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *logoutItem = [[UIBarButtonItem alloc] initWithCustomView:logoutButton];
     self.navigationItem.leftBarButtonItem = logoutItem;
+    
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
 
     [self fetchGamesData];
 }
@@ -93,6 +95,14 @@ static NSString *const CellIdentifier = @"gameCell";
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (NSUInteger)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskPortrait;
+}
+
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
+    return UIInterfaceOrientationPortrait;
 }
 
 #pragma mark - Parse Methods
@@ -146,14 +156,22 @@ static NSString *const CellIdentifier = @"gameCell";
 - (void) launchCreateGame:(id)sender
 {
     SSNCreateGameViewController *createGameViewController = [[SSNCreateGameViewController alloc] initWithNibName:@"SSNCreateGameViewController" bundle:nil];
-    [self.navigationController popToViewController:createGameViewController animated:YES];
+    [self.navigationController pushViewController:createGameViewController animated:YES];
 }
 -(void) logoutUser
 {
     NSLog(@"loggedout");
     [PFUser logOut];
     SSNLogInViewController *logInViewController = [[SSNLogInViewController alloc] init];
-    [self.navigationController pushViewController:logInViewController animated:NO];
+    NSArray *viewStack = [self.navigationController viewControllers];
+    if([viewStack containsObject:logInViewController])
+    {
+        [self.navigationController popToViewController:logInViewController animated:NO];
+    }
+    else
+    {
+        [self.navigationController pushViewController:logInViewController animated:NO];
+    }
 }
 
 #pragma mark - UITableView Datasource
