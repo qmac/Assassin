@@ -82,7 +82,9 @@
         self.targetLabel.hidden = false;
         self.targetLabel.text = self.targetPlayerObject[@"fullName"];
         
+        
         self.timeRemaining = self.playerAttributes[@"last_date_to_kill"];
+        
         NSLog(@"%@ Time remaining: %@", self.targetPlayer, self.timeRemaining);
 
         self.lastKillLabel.hidden = false;
@@ -219,7 +221,7 @@
             
         if ([gameObject[@"active"]  isEqual: @YES])
         {
-        [self viewDidLoad];
+            [self viewDidLoad];
         }
     }
     else {
@@ -260,6 +262,8 @@
     gameObject[@"last_kill"] = killMessage;
     
     [gameObject saveInBackground];
+    
+    [self viewDidLoad];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -274,7 +278,7 @@
 
 -(void)timerFired
 {
-    if((self.currMinute>0 || self.currSeconds>=0) && self.currMinute>=0)
+    if((self.currHour>0 || self.currMinute>=0 || self.currSeconds>=0) && self.currHour>=0)
     {
         if(self.currSeconds==0)
         {
@@ -287,17 +291,19 @@
         }
         if(self.currMinute == 0)
         {
-            self.currHour -= 1;
-            self.currMinute=59;
+            if(self.currSeconds == 0){
+                self.currHour -= 1;
+                self.currMinute=59;
+            }
         }
         if(self.currHour>-1)
             [self.timerCountdownLabel setText:[NSString stringWithFormat:@"%@%ld%@%02ld%@%02ld",@"Time remaining: ",(long)self.currHour,@":",(long)self.currMinute, @":", (long)self.currSeconds]];
-    }
-    else
-    {
-        [self.timer invalidate];
-    }
-    
+        }
+        else
+        {
+            [self.timer invalidate];
+            [self suicide];
+        }
     [MBProgressHUD hideHUDForView:self.view animated:YES];
 }
 
