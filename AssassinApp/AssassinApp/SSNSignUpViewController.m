@@ -99,6 +99,8 @@
 
     [player saveInBackground];
     
+    [self launchCameraControllerFromViewController:self usingDelegate:self];
+
     //SSNUserViewController *userViewController = [[SSNUserViewController alloc] initWithNibName:@"SSNUserViewController" bundle:nil];
    // UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:userViewController];
    // [self presentViewController:navController animated:YES completion:nil];
@@ -131,7 +133,6 @@
         [alert show];
         return NO;
     }
-    [self launchCameraControllerFromViewController:self usingDelegate:self];
     return YES;
 }
 #pragma mark - UITextFieldDelegate
@@ -189,7 +190,7 @@
     cameraController.sourceType = UIImagePickerControllerSourceTypeCamera;
     [cameraController setCameraDevice:UIImagePickerControllerCameraDeviceFront];
     
-    cameraController.allowsEditing = YES;
+    cameraController.allowsEditing = NO;
     cameraController.delegate = delegate;
     [controller presentViewController:cameraController animated:YES completion:nil];
 }
