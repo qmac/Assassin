@@ -97,6 +97,11 @@
         [alert show];
         return;
     }
+    else if (self.gameTitleInput.text.length == 0){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Game Name" message:@"You must add a name for the game." delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
+        [alert show];
+        return;
+    }
     NSDate *currentDate = [NSDate date];
     
     // Create and initialize date component instance
