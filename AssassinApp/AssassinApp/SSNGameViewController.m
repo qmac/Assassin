@@ -8,7 +8,8 @@
 
 #import "SSNGameViewController.h"
 #import "SSNLastSeenViewController.h"
-#import "Parse/Parse.h"
+#import <CoreLocation/CoreLocation.h>
+#import <Parse/Parse.h>
 
 @interface SSNGameViewController ()
 
@@ -126,8 +127,8 @@
 #pragma last seen
 - (IBAction)openLastSeen:(id)sender
 {
-    PFGeoPoint *geoPoint = self.targetPlayerObject[@"lastSeen"];
     SSNLastSeenViewController *lastSeenController = [[SSNLastSeenViewController alloc] init];
+    lastSeenController.targetPoint = self.targetPlayerObject[@"lastSeen"];
     [self.navigationController pushViewController:lastSeenController animated:YES];
 }
 
