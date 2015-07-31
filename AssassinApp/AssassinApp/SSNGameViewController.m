@@ -55,11 +55,15 @@
         self.timeRemaining = self.playerAttributes[@"last_date_to_kill"];
         NSLog(@"%@ Time remaining: %@", self.targetPlayer, self.timeRemaining);
         
+
+
         self.lastKillLabel.hidden = false;
         self.lastKillLabel.text = self.lastKill;
         
         PFFile *profilePicture = player[@"profilePicture"];
         self.targetImage.image = [UIImage imageWithData:[profilePicture getData]];
+        self.targetImage.layer.cornerRadius = self.targetImage.layer.borderWidth/2;
+        self.targetImage.layer.masksToBounds = YES;
         
         self.timerCountdownLabel.textColor=[UIColor redColor];
         [self.timerCountdownLabel setText:@"Time remaining:"];
