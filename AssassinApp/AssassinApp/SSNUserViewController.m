@@ -15,16 +15,12 @@
 
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
-#define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
-
 @interface SSNUserViewController () <UITableViewDataSource, UITableViewDelegate>
 
-@property (nonatomic, strong) NSString *userId;
 @property (nonatomic, strong) NSMutableArray *activeGamesData;
 @property (nonatomic, strong) NSMutableArray *inactiveGamesData;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
-
 
 @end
 
@@ -71,15 +67,21 @@ static NSString *const CellIdentifier = @"gameCell";
     self.navigationItem.leftBarButtonItem = logoutItem;
 
     [self fetchGamesData];
+    
+    [PFGeoPoint geoPointForCurrentLocationInBackground:^(PFGeoPoint *geoPoint, NSError *error){
+        PFUser *user = [PFUser currentUser];
+        PFQuery *playerQuery = [PFQuery queryWithClassName:@"Player"];
+        [playerQuery whereKey:@"userId" equalTo:user.objectId];
+        PFObject *player = [playerQuery getFirstObject];
+        player[@"lastSeen"] = geoPoint;
+        [player saveInBackground];
+    }];
 }
 
 
 - (void)stopRefresh
-
 {
-    
     [self.refreshControl endRefreshing];
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated
