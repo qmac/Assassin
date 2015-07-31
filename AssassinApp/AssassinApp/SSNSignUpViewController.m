@@ -13,6 +13,7 @@
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 @interface SSNSignUpViewController () <PFSignUpViewControllerDelegate, UITextInputDelegate>
+@property (nonatomic, strong) NSString *userId;
 
 @end
 
@@ -87,22 +88,34 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (NSUInteger)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskPortrait;
+}
+
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
+    return UIInterfaceOrientationPortrait;
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
+}
+
 - (void)signUpViewController:(PFSignUpViewController *)signUpController didSignUpUser:(PFUser *)user
 {
     PFObject *player = [PFObject objectWithClassName:@"Player"];
+    self.userId = user.objectId;
     player[@"userId"] = user.objectId;
     player[@"fullName"] = self.signUpView.additionalField.text;
     player[@"games"] = [[NSMutableArray alloc] init];
-    NSString *pic = @"hellonsdata";
-    NSData *data = [pic dataUsingEncoding:NSUTF8StringEncoding];
-    player[@"profilePicture"] = [PFFile fileWithData:data];
     player[@"lastSeen"] = [PFGeoPoint geoPoint];
 
     [player saveInBackground];
     
-    SSNUserViewController *userViewController = [[SSNUserViewController alloc] initWithNibName:@"SSNUserViewController" bundle:nil];
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:userViewController];
-    [self presentViewController:navController animated:YES completion:nil];
+    [self launchCameraControllerFromViewController:self usingDelegate:self];
+
+    //SSNUserViewController *userViewController = [[SSNUserViewController alloc] initWithNibName:@"SSNUserViewController" bundle:nil];
+   // UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:userViewController];
+   // [self presentViewController:navController animated:YES completion:nil];
 }
 
 - (BOOL)signUpViewController:(PFSignUpViewController * __nonnull)signUpController shouldBeginSignUp:(NSDictionary * __nonnull)info
@@ -175,14 +188,55 @@
     return YES;
 }
 
-/*
-#pragma mark - Navigation
+#pragma mark - Camera
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+-(void) launchCameraControllerFromViewController: (UIViewController *)controller usingDelegate:(id<UIImagePickerControllerDelegate, UINavigationControllerDelegate>)delegate{
+    //Launches camera controller.
+    BOOL hasCamera = [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera];
+    if (!hasCamera || (delegate == nil) || (controller == nil)) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Camera Not Available"
+                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+    }
+    UIImagePickerController *cameraController = [[UIImagePickerController alloc] init];
+    cameraController.sourceType = UIImagePickerControllerSourceTypeCamera;
+    [cameraController setCameraDevice:UIImagePickerControllerCameraDeviceFront];
+    
+    cameraController.allowsEditing = NO;
+    cameraController.delegate = delegate;
+    [controller presentViewController:cameraController animated:YES completion:nil];
 }
-*/
+
+- (void) imagePickerControllerDidCancel: (UIImagePickerController *) picker {
+    //User clicked cancel in camera controller
+    [picker dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void) imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    
+    UIImage  *image =  [info objectForKey:UIImagePickerControllerOriginalImage];
+    CGSize size = CGSizeMake(120, 150);
+    
+    UIGraphicsBeginImageContextWithOptions(size, NO, 0.0);
+    [image drawInRect:CGRectMake(0, 0, size.width, size.height)];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    NSData * imageData = UIImagePNGRepresentation(newImage);
+
+    PFQuery *query = [PFQuery queryWithClassName:@"Player"];
+    [query whereKey:@"userId" equalTo:self.userId];
+    PFObject *player = [query getFirstObject];
+    player[@"profilePicture"] = [PFFile fileWithName:@"Selfie" data:imageData];
+    [player saveInBackground];
+    
+    [self dismissViewControllerAnimated:YES completion:^{
+        SSNUserViewController *userViewController = [[SSNUserViewController alloc] initWithNibName:@"SSNUserViewController" bundle:nil];
+        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:userViewController];
+        [self presentViewController:navController animated:YES completion:nil];
+    }];
+    
+}
 
 @end

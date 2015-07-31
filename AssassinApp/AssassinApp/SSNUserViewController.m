@@ -65,6 +65,8 @@ static NSString *const CellIdentifier = @"gameCell";
     [logoutButton addTarget:self action:@selector(logoutUser) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *logoutItem = [[UIBarButtonItem alloc] initWithCustomView:logoutButton];
     self.navigationItem.leftBarButtonItem = logoutItem;
+    
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
 
     [self fetchGamesData];
     
@@ -95,6 +97,14 @@ static NSString *const CellIdentifier = @"gameCell";
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (NSUInteger)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskPortrait;
+}
+
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
+    return UIInterfaceOrientationPortrait;
 }
 
 #pragma mark - Parse Methods
