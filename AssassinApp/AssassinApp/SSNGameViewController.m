@@ -208,6 +208,7 @@
             self.targetLabel.text = @"Congratulations, you are the master assassin!";
             self.targetImage.image = [UIImage imageNamed:@"assassinlogo.png"];
             self.targetImage.layer.cornerRadius = 0;
+            self.lastKillLabel.text = killMessage;
             gameObject[@"active"] = @NO;
         }
                 
