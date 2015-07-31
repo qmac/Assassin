@@ -123,6 +123,12 @@
     return [formatter stringFromDate:newDate];
 }
 
+#pragma last seen
+- (IBAction)openLastSeen:(id)sender
+{
+    
+}
+
 #pragma kills/suicide
 
 - (IBAction)confirmKill:(id)sender {
