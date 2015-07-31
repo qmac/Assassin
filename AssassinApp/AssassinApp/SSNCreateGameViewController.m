@@ -125,16 +125,24 @@
     {
         //randomize targets
         NSString *currentPlayer = targets[0];
+        NSString *firstAssassin = currentPlayer;
         NSString *previousAssassin = @"";
         NSString *randomTarget = @"";
         for (NSInteger k = 0; k < count; k++)
         {
-            //get random target
-            do
+            if (k == count - 1)
             {
-                NSUInteger randomIndex = arc4random() % [targets count];
-                randomTarget = targets[randomIndex];
-            } while ([randomTarget isEqualToString:currentPlayer] || [randomTarget isEqualToString:previousAssassin]);
+                randomTarget = firstAssassin;
+            }
+            else
+            {
+                //get random target
+                do
+                {
+                    NSUInteger randomIndex = arc4random() % [targets count];
+                    randomTarget = targets[randomIndex];
+                } while ([randomTarget isEqualToString:currentPlayer] || [randomTarget isEqualToString:previousAssassin] || [randomTarget isEqualToString:firstAssassin]);
+            }
             
             //set target to random target
             self.gameObject[@"player_dict"][currentPlayer][@"target"] = randomTarget;
