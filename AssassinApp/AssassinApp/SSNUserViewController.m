@@ -262,6 +262,8 @@ static NSString *const CellIdentifier = @"gameCell";
     
     SSNGameViewController *gameViewController = [[SSNGameViewController alloc] initWithNibName:@"SSNGameViewController" bundle:nil];
     [gameViewController setGameId:[[self.activeGamesData objectAtIndex:indexPath.row] objectId]];
+    
+    
     [self.navigationController pushViewController:gameViewController animated:YES];
 }
 
