@@ -15,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *timerCountdownLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *targetImage;
 @property (weak, nonatomic) IBOutlet UIButton *killConfirmButton;
+@property (weak, nonatomic) IBOutlet UILabel *targetHeadingLabel;
 
 @property (nonatomic, strong) NSString *gameId;
 

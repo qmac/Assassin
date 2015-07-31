@@ -48,9 +48,12 @@
         PFQuery *userQuery = [PFQuery queryWithClassName:@"_User"];
         [userQuery whereKey:@"username" equalTo:self.targetPlayer];
         PFObject *targetUser = [userQuery getFirstObject];
-        PFQuery *playerQuery = [PFQuery queryWithClassName:@"Player"];
-        [playerQuery whereKey:@"userId" equalTo:targetUser.objectId];
-        self.targetPlayerObject = [playerQuery getFirstObject];
+        
+        if (targetUser != nil){
+            PFQuery *playerQuery = [PFQuery queryWithClassName:@"Player"];
+            [playerQuery whereKey:@"userId" equalTo:targetUser.objectId];
+            self.targetPlayerObject = [playerQuery getFirstObject];
+        }
         
         self.targetLabel.hidden = false;
         self.targetLabel.text = self.targetPlayerObject[@"fullName"];
@@ -92,9 +95,10 @@
         self.currMinute = (int) minutes;
         self.currSeconds = (int)seconds;
         
-        if ([gameObject[@"player_dict"][[PFUser currentUser].username][@"status"]  isEqual: @NO]) {
+        if ([gameObject[@"player_dict"][self.loggedInUser.username][@"status"]  isEqual: @NO]) {
             self.timerCountdownLabel.hidden = true;
             self.killConfirmButton.hidden = true;
+            self.targetHeadingLabel.hidden = true;
         }
     }];
     NSLog(@"%@", self.playerDict);
