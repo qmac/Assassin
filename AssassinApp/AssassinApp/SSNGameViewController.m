@@ -21,6 +21,7 @@
 @property (nonatomic, strong) NSString *lastKill;
 @property (nonatomic, strong) PFUser *loggedInUser;
 @property (nonatomic, strong) NSTimer *timer;
+@property (nonatomic, strong) PFObject *userPlayerObject;
 @property (nonatomic, strong) PFObject *targetPlayerObject;
 @property (nonatomic) NSInteger currMinute;
 @property (nonatomic) NSInteger currSeconds;
@@ -53,14 +54,21 @@
         NSLog(@"%@", self.loggedInUser.username);
         self.playerAttributes = [self.playerDict valueForKeyPath:self.loggedInUser.username];
         
+        PFQuery *userPlayerQuery = [PFQuery queryWithClassName:@"Player"];
+        [query whereKey:@"userId" equalTo:self.loggedInUser.objectId];
+        self.userPlayerObject = [userPlayerQuery getFirstObject];
+        
         self.targetPlayer = self.playerAttributes[@"target"];
         NSLog(@"%@", self.targetPlayer);
         PFQuery *userQuery = [PFQuery queryWithClassName:@"_User"];
         [userQuery whereKey:@"username" equalTo:self.targetPlayer];
         PFObject *targetUser = [userQuery getFirstObject];
-        PFQuery *playerQuery = [PFQuery queryWithClassName:@"Player"];
-        [playerQuery whereKey:@"userId" equalTo:targetUser.objectId];
-        self.targetPlayerObject = [playerQuery getFirstObject];
+        
+        if (targetUser != nil){
+            PFQuery *targetPlayerQuery = [PFQuery queryWithClassName:@"Player"];
+            [targetPlayerQuery whereKey:@"userId" equalTo:targetUser.objectId];
+            self.targetPlayerObject = [targetPlayerQuery getFirstObject];
+        }
         
         self.targetLabel.hidden = false;
         self.targetLabel.text = self.targetPlayerObject[@"fullName"];
@@ -102,9 +110,12 @@
         self.currMinute = (int) minutes;
         self.currSeconds = (int)seconds;
         
-        if ([gameObject[@"player_dict"][[PFUser currentUser].username][@"status"]  isEqual: @NO]) {
+        if ([gameObject[@"player_dict"][self.loggedInUser.username][@"status"]  isEqual: @NO]) {
             self.timerCountdownLabel.hidden = true;
             self.killConfirmButton.hidden = true;
+            self.targetHeadingLabel.text = @"You have been assassinated";
+            self.lastLocationLabel.hidden = true;
+            self.targetImage.image = [UIImage imageNamed:@"dead_assassin.png"];
         }
     }];
     NSLog(@"%@", self.playerDict);
@@ -158,8 +169,8 @@
     if(buttonIndex == 1) {
         PFQuery *query = [PFQuery queryWithClassName:@"Games"];
         PFObject *gameObject = [query getObjectWithId:self.gameId];
-        NSString *assassin = self.loggedInUser.username;
-        NSString *target = gameObject[@"player_dict"][assassin][@"target"];
+        NSString *assassin = self.userPlayerObject[@"fullName"];
+        NSString *target = self.targetPlayerObject[@"fullName"];
         NSString *newTarget = gameObject[@"player_dict"][target][@"target"];
         NSString *killMessage = [NSString stringWithFormat:@"%@ killed %@", assassin, target];
         

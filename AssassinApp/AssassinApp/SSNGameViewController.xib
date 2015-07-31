@@ -9,6 +9,8 @@
             <connections>
                 <outlet property="killConfirmButton" destination="YEx-g4-Od7" id="dy2-9L-GS4"/>
                 <outlet property="lastKillLabel" destination="Si5-xj-ORQ" id="jbf-iw-gEo"/>
+                <outlet property="lastLocationLabel" destination="5re-vc-8fs" id="Vu9-8l-TEg"/>
+                <outlet property="targetHeadingLabel" destination="Nf2-gz-WGI" id="8fj-XY-JDI"/>
                 <outlet property="targetImage" destination="IYh-cz-dg2" id="1N7-X5-vRx"/>
                 <outlet property="targetLabel" destination="AGg-xU-PcY" id="xx2-Iv-VRF"/>
                 <outlet property="timerCountdownLabel" destination="b2e-GC-Vjt" id="dib-UL-EdK"/>
@@ -32,20 +34,20 @@
                     <color key="textColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last Kill" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VRQ-V7-BPT">
-                    <rect key="frame" x="270" y="443" width="61" height="21"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Most recent kill in this game:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VRQ-V7-BPT">
+                    <rect key="frame" x="190" y="494" width="220" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Last kill text" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Si5-xj-ORQ">
-                    <rect key="frame" x="254" y="484" width="92" height="21"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last kill text" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Si5-xj-ORQ">
+                    <rect key="frame" x="254" y="535" width="92" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Timer" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b2e-GC-Vjt">
-                    <rect key="frame" x="278" y="525" width="44" height="21"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Timer" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b2e-GC-Vjt">
+                    <rect key="frame" x="278" y="433" width="44" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" red="0.75294117647058822" green="0.22352941176470587" blue="0.16862745098039217" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
@@ -103,7 +105,7 @@
                 <constraint firstItem="YEx-g4-Od7" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="150" id="JfU-2b-Ru5">
                     <variation key="heightClass=regular-widthClass=compact" constant="140"/>
                 </constraint>
-                <constraint firstAttribute="centerX" secondItem="b2e-GC-Vjt" secondAttribute="centerX" constant="-0.25" id="MgT-g1-7cn"/>
+                <constraint firstAttribute="centerX" secondItem="b2e-GC-Vjt" secondAttribute="centerX" id="MgT-g1-7cn"/>
                 <constraint firstItem="5re-vc-8fs" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="80" id="Mlw-as-XRC"/>
                 <constraint firstItem="YEx-g4-Od7" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="80" id="N17-Jv-KUQ"/>
                 <constraint firstAttribute="centerX" secondItem="AGg-xU-PcY" secondAttribute="centerX" id="N9m-QS-qqR"/>
@@ -124,6 +126,7 @@
                 <constraint firstAttribute="bottom" secondItem="b2e-GC-Vjt" secondAttribute="bottom" constant="33" id="i5j-NB-Lpj">
                     <variation key="heightClass=regular-widthClass=compact" constant="50"/>
                 </constraint>
+                <constraint firstItem="b2e-GC-Vjt" firstAttribute="top" secondItem="YEx-g4-Od7" secondAttribute="bottom" constant="20" id="iZj-cK-vpZ"/>
                 <constraint firstItem="b2e-GC-Vjt" firstAttribute="top" secondItem="Si5-xj-ORQ" secondAttribute="bottom" constant="20" id="ik5-5L-EuF"/>
                 <constraint firstAttribute="centerY" secondItem="YEx-g4-Od7" secondAttribute="centerY" constant="-135" id="jqH-uX-sX4"/>
                 <constraint firstAttribute="trailing" secondItem="IYh-cz-dg2" secondAttribute="trailing" constant="113" id="mh0-jS-qkA"/>
@@ -136,6 +139,7 @@
                 <constraint firstAttribute="centerX" secondItem="5re-vc-8fs" secondAttribute="centerX" id="wzD-pF-byu"/>
                 <constraint firstAttribute="bottom" secondItem="YEx-g4-Od7" secondAttribute="bottom" constant="30" id="xMM-GT-KaY"/>
                 <constraint firstItem="Si5-xj-ORQ" firstAttribute="top" secondItem="VRQ-V7-BPT" secondAttribute="bottom" constant="29.5" id="xTU-EQ-QG2"/>
+                <constraint firstItem="VRQ-V7-BPT" firstAttribute="top" secondItem="b2e-GC-Vjt" secondAttribute="bottom" constant="40" id="y7j-CN-QIF"/>
                 <constraint firstItem="YEx-g4-Od7" firstAttribute="top" secondItem="AGg-xU-PcY" secondAttribute="bottom" constant="55" id="yXO-h4-ZMR"/>
                 <constraint firstItem="YEx-g4-Od7" firstAttribute="top" secondItem="5re-vc-8fs" secondAttribute="bottom" constant="25" id="yfH-81-xFE"/>
             </constraints>
@@ -161,12 +165,14 @@
                     <exclude reference="yXO-h4-ZMR"/>
                     <exclude reference="fn6-Qz-jQo"/>
                     <exclude reference="tFy-uF-ly3"/>
+                    <exclude reference="i5j-NB-Lpj"/>
+                    <exclude reference="ik5-5L-EuF"/>
                     <exclude reference="0Ec-Jo-e4k"/>
                     <exclude reference="ICV-cg-9HZ"/>
                     <exclude reference="XNK-yN-6qS"/>
+                    <exclude reference="Zz0-CH-Cdp"/>
                     <exclude reference="2ro-70-hBO"/>
                     <exclude reference="xTU-EQ-QG2"/>
-                    <exclude reference="i5j-NB-Lpj"/>
                 </mask>
             </variation>
             <variation key="heightClass=regular-widthClass=compact">
