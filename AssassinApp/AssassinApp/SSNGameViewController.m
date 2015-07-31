@@ -196,6 +196,7 @@
             gameObject[@"player_dict"][self.targetPlayer][@"target"] = @"";
             self.timerCountdownLabel.hidden = true;
             self.killConfirmButton.hidden = true;
+            self.lastLocationLabel.hidden = true;
             self.targetLabel.text = @"Congratulations, you are the master assassin!";
             self.targetImage.image = [UIImage imageNamed:@"assassinlogo.png"];
             gameObject[@"active"] = @NO;
