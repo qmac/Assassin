@@ -98,7 +98,9 @@
         if ([gameObject[@"player_dict"][self.loggedInUser.username][@"status"]  isEqual: @NO]) {
             self.timerCountdownLabel.hidden = true;
             self.killConfirmButton.hidden = true;
-            self.targetHeadingLabel.hidden = true;
+            self.targetHeadingLabel.text = @"You have been assassinated";
+            self.lastLocationLabel.hidden = true;
+            self.targetImage.image = [UIImage imageNamed:@"dead_assassin.png"];
         }
     }];
     NSLog(@"%@", self.playerDict);
