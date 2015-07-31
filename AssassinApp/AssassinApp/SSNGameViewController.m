@@ -157,6 +157,7 @@
         if ([gameObject[@"player_dict"][key][@"target"] isEqualToString: currentUser])
         {
             yourAssassin = key;
+            break;
         }
     }
     
