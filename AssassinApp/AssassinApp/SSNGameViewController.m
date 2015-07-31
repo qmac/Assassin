@@ -43,14 +43,14 @@
     
     [super viewDidLoad];
     
-    NSArray *viewControllers = [self.navigationController viewControllers];
-    for(UIViewController *tempVC in viewControllers)
-    {
-        if([tempVC isKindOfClass:[SSNCreateGameViewController class]])
-        {
-            [tempVC removeFromParentViewController];
-        }
-    }
+//    NSArray *viewControllers = [self.navigationController viewControllers];
+//    for(UIViewController *tempVC in viewControllers)
+//    {
+//        if([tempVC isKindOfClass:[SSNCreateGameViewController class]])
+//        {
+//            [tempVC removeFromParentViewController];
+//        }
+//    }
     
     PFQuery *query = [PFQuery queryWithClassName:@"Games"];
     [query getObjectInBackgroundWithId:self.gameId block:^(PFObject *gameObject, NSError *error) {
