@@ -75,6 +75,11 @@
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Username" message:@"The entered username does not exist." delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
         [alert show];
     }
+    else if ([self.addPlayerInput.text isEqualToString:[PFUser currentUser].username])
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"You cannot add yourself to the game." delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
+        [alert show];
+    }
     else
     {
         [self.addedUsers addObject:self.addPlayerInput.text];
