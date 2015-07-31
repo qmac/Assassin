@@ -259,6 +259,10 @@ static NSString *const CellIdentifier = @"gameCell";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if(indexPath.section == 1)
+    {
+        return;
+    }
     
     SSNGameViewController *gameViewController = [[SSNGameViewController alloc] initWithNibName:@"SSNGameViewController" bundle:nil];
     if(indexPath.section == 0)
