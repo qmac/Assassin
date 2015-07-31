@@ -260,6 +260,11 @@ static NSString *const CellIdentifier = @"gameCell";
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+    if (indexPath.section == 1)
+    {
+        return;
+    }
+    
     SSNGameViewController *gameViewController = [[SSNGameViewController alloc] initWithNibName:@"SSNGameViewController" bundle:nil];
     [gameViewController setGameId:[[self.activeGamesData objectAtIndex:indexPath.row] objectId]];
     
