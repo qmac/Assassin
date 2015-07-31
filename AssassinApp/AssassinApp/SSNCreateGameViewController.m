@@ -92,6 +92,11 @@
 }
 
 - (IBAction)startGameAction:(id)sender {
+    if ([self.addedUsers count] == 0) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Game" message:@"You must add people to the game." delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
+        [alert show];
+        return;
+    }
     NSDate *currentDate = [NSDate date];
     
     // Create and initialize date component instance
