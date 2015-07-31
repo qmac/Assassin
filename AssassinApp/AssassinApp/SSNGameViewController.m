@@ -63,7 +63,7 @@
         
         PFFile *profilePicture = self.targetPlayerObject[@"profilePicture"];
         self.targetImage.image = [UIImage imageWithData:[profilePicture getData]];
-        self.targetImage.layer.cornerRadius = self.targetImage.layer.borderWidth/2;
+        self.targetImage.layer.cornerRadius = self.targetImage.frame.size.width/2;
         self.targetImage.layer.masksToBounds = YES;
         
         self.timerCountdownLabel.textColor=[UIColor redColor];
@@ -147,14 +147,34 @@
     gameObject[@"player_dict"][target][@"last_date_to_kill"] = @"0";
     gameObject[@"player_dict"][target][@"target"] = @"";
         
-    //updating assasin's stats
-    gameObject[@"player_dict"][assassin][@"target"] = newTarget;
-    gameObject[@"player_dict"][assassin][@"last_date_to_kill"] = [self updateTime];
+    //updating assassin's stats
+    if (![newTarget isEqualToString: assassin])
+    {
+        //game is not over
+        gameObject[@"player_dict"][assassin][@"target"] = newTarget;
+        gameObject[@"player_dict"][assassin][@"last_date_to_kill"] = [self updateTime];
+    }
+    else
+    {
+        //game is over
+        gameObject[@"player_dict"][target][@"status"] = @YES;
+        gameObject[@"player_dict"][target][@"last_date_to_kill"] = @"0";
+        gameObject[@"player_dict"][target][@"target"] = @"";
+        self.timerCountdownLabel.hidden = true;
+        self.killConfirmButton.hidden = true;
+        self.targetLabel.text = @"Congratulations, you are the master assassin!";
+        self.targetImage.image = [UIImage imageNamed:@"assassinlogo.png"];
+        gameObject[@"active"] = @NO;
+    }
         
     //updating game message
     gameObject[@"last_kill"] = killMessage;
-        
     [gameObject saveInBackground];
+    
+    if ([gameObject[@"active"]  isEqual: @YES])
+    {
+    [self viewDidLoad];
+    }
 }
 
 -(void)suicide
