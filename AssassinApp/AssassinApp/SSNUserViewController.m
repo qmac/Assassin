@@ -71,12 +71,20 @@ static NSString *const CellIdentifier = @"gameCell";
     [self fetchGamesData];
     
     [PFGeoPoint geoPointForCurrentLocationInBackground:^(PFGeoPoint *geoPoint, NSError *error){
-        PFUser *user = [PFUser currentUser];
-        PFQuery *playerQuery = [PFQuery queryWithClassName:@"Player"];
-        [playerQuery whereKey:@"userId" equalTo:user.objectId];
-        PFObject *player = [playerQuery getFirstObject];
-        player[@"lastSeen"] = geoPoint;
-        [player saveInBackground];
+        if(error)
+        {
+            NSLog(@"shite");
+        }
+        else
+        {
+            PFUser *user = [PFUser currentUser];
+            PFQuery *playerQuery = [PFQuery queryWithClassName:@"Player"];
+            [playerQuery whereKey:@"userId" equalTo:user.objectId];
+            PFObject *player = [playerQuery getFirstObject];
+            player[@"lastSeen"] = geoPoint;
+            [player saveInBackground];
+            NSLog(@"location updated");
+        }
     }];
 }
 
