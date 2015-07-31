@@ -62,6 +62,8 @@
         
         PFFile *profilePicture = player[@"profilePicture"];
         self.targetImage.image = [UIImage imageWithData:[profilePicture getData]];
+        NSLog(@"%f", self.targetImage.frame.size.width/2);
+        NSLog(@"%f", self.targetImage.frame.size.height/2);
         self.targetImage.layer.cornerRadius = self.targetImage.frame.size.width/2;
         self.targetImage.layer.masksToBounds = YES;
         

@@ -65,7 +65,7 @@
                     </connections>
                 </button>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="IYh-cz-dg2">
-                    <rect key="frame" x="127" y="115" width="346" height="146.5"/>
+                    <rect key="frame" x="115" y="115" width="371" height="146.5"/>
                 </imageView>
             </subviews>
             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -96,18 +96,21 @@
                 <constraint firstItem="IYh-cz-dg2" firstAttribute="top" secondItem="Nf2-gz-WGI" secondAttribute="bottom" constant="20" id="X3k-lJ-eBd"/>
                 <constraint firstAttribute="trailing" secondItem="YEx-g4-Od7" secondAttribute="trailing" constant="80" id="XAZ-R9-e58"/>
                 <constraint firstAttribute="bottom" secondItem="VRQ-V7-BPT" secondAttribute="bottom" constant="150" id="XNK-yN-6qS"/>
+                <constraint firstAttribute="trailing" secondItem="IYh-cz-dg2" secondAttribute="trailing" constant="114" id="ZCx-L1-zIN"/>
                 <constraint firstItem="IYh-cz-dg2" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="102" id="Zf6-gz-Ce9"/>
                 <constraint firstItem="VRQ-V7-BPT" firstAttribute="top" secondItem="YEx-g4-Od7" secondAttribute="bottom" constant="52.5" id="Zz0-CH-Cdp"/>
                 <constraint firstAttribute="trailing" secondItem="IYh-cz-dg2" secondAttribute="trailing" constant="128" id="aIi-IE-XfL"/>
                 <constraint firstAttribute="centerX" secondItem="YEx-g4-Od7" secondAttribute="centerX" id="d7d-qm-7Ng"/>
                 <constraint firstItem="YEx-g4-Od7" firstAttribute="top" secondItem="AGg-xU-PcY" secondAttribute="bottom" constant="50" id="d8n-HJ-JMW"/>
                 <constraint firstItem="AGg-xU-PcY" firstAttribute="top" secondItem="IYh-cz-dg2" secondAttribute="bottom" constant="20" id="f66-rw-W8R"/>
+                <constraint firstAttribute="trailing" secondItem="IYh-cz-dg2" secondAttribute="trailing" constant="117" id="fKu-61-1cU"/>
                 <constraint firstItem="AGg-xU-PcY" firstAttribute="top" secondItem="IYh-cz-dg2" secondAttribute="bottom" constant="40" id="fn6-Qz-jQo"/>
                 <constraint firstAttribute="bottom" secondItem="b2e-GC-Vjt" secondAttribute="bottom" constant="33" id="i5j-NB-Lpj">
                     <variation key="heightClass=regular-widthClass=compact" constant="50"/>
                 </constraint>
                 <constraint firstItem="b2e-GC-Vjt" firstAttribute="top" secondItem="Si5-xj-ORQ" secondAttribute="bottom" constant="20" id="ik5-5L-EuF"/>
                 <constraint firstAttribute="centerY" secondItem="YEx-g4-Od7" secondAttribute="centerY" constant="-135" id="jqH-uX-sX4"/>
+                <constraint firstAttribute="trailing" secondItem="IYh-cz-dg2" secondAttribute="trailing" constant="113" id="mh0-jS-qkA"/>
                 <constraint firstItem="AGg-xU-PcY" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="282" id="nOu-at-RfS"/>
                 <constraint firstAttribute="centerY" secondItem="YEx-g4-Od7" secondAttribute="centerY" constant="-135" id="oL7-8O-2li"/>
                 <constraint firstAttribute="centerX" secondItem="IYh-cz-dg2" secondAttribute="centerX" id="p1p-JS-9t3"/>
@@ -129,6 +132,9 @@
                     <exclude reference="X0A-ng-MK4"/>
                     <exclude reference="Zf6-gz-Ce9"/>
                     <exclude reference="aIi-IE-XfL"/>
+                    <exclude reference="fKu-61-1cU"/>
+                    <exclude reference="mh0-jS-qkA"/>
+                    <exclude reference="uIA-YN-n33"/>
                     <exclude reference="JfU-2b-Ru5"/>
                     <exclude reference="jqH-uX-sX4"/>
                     <exclude reference="oL7-8O-2li"/>
