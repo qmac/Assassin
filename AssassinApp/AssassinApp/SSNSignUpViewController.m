@@ -31,6 +31,7 @@
 
     self.signUpView.additionalField.placeholder = @"Full Name";
     [self.signUpView.additionalField setReturnKeyType:UIReturnKeyDefault];
+    [self.signUpView.additionalField setAutocapitalizationType:UITextAutocapitalizationTypeWords];
     [self.signUpView.emailField setReturnKeyType:UIReturnKeyDone];
 }
 
