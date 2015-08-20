@@ -248,32 +248,15 @@
     return 40;
 }
 
-- (UIView *)createHeaderWithTitle:(NSString *)title
-{
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0.0, self.view.frame.size.width, 45.0)];
-    headerView.backgroundColor = [UIColor clearColor];
-    headerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    if (title)
-    {
-        UILabel *accountLabel =
-        [[UILabel alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 18, 5,
-                                                  self.view.frame.size.width - self.view.frame.size.width / 5,
-                                                  35.0)];
-        
-        accountLabel.textAlignment = NSTextAlignmentLeft;
-        accountLabel.text = title;
-        accountLabel.textColor = [UIColor lightGrayColor];
-        accountLabel.numberOfLines = 3;
-        accountLabel.opaque = NO;
-        accountLabel.backgroundColor = [UIColor clearColor];
-        [headerView addSubview:accountLabel];
-    }
-    return headerView;
-}
-
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    return [self createHeaderWithTitle:[NSString stringWithFormat:@"Invited Players"]];
+    UILabel *headerLabel = [[UILabel alloc] init];
+    headerLabel.text = @"Invited Players";
+    headerLabel.textAlignment = NSTextAlignmentLeft;
+    headerLabel.textColor = [UIColor lightGrayColor];
+    headerLabel.opaque = NO;
+    headerLabel.backgroundColor = [UIColor clearColor];
+    return headerLabel;
 }
 
 - (void)addUserToGame:(NSString *)userName
