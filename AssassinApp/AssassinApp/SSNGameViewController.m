@@ -251,8 +251,18 @@
     gameObject[@"player_dict"][currentUser][@"target"] = @"";
     
     //updating assasin's stats
-    gameObject[@"player_dict"][yourAssassin][@"target"] = target;
-    gameObject[@"player_dict"][yourAssassin][@"last_date_to_kill"] = [self updateTime];
+    if (![yourAssassin isEqualToString:target])
+    {
+        //game is not over
+        gameObject[@"player_dict"][yourAssassin][@"target"] = target;
+        gameObject[@"player_dict"][yourAssassin][@"last_date_to_kill"] = [self updateTime];
+    }
+    else
+    {
+        //game is over
+        gameObject[@"active"] = @NO;
+    }
+    
     
     //updating game message
     NSString *killMessage = [NSString stringWithFormat:@"%@ committed suicide", currentUser];
