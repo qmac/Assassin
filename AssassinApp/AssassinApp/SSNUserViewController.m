@@ -15,7 +15,7 @@
 
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
-@interface SSNUserViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface SSNUserViewController () <UITableViewDataSource, UITableViewDelegate, SSNCreateGameViewControllerDelegate>
 
 @property (nonatomic, strong) NSMutableArray *activeGamesData;
 @property (nonatomic, strong) NSMutableArray *inactiveGamesData;
@@ -172,7 +172,10 @@ static NSString *const CellIdentifier = @"gameCell";
 - (void) launchCreateGame:(id)sender
 {
     SSNCreateGameViewController *createGameViewController = [[SSNCreateGameViewController alloc] initWithNibName:@"SSNCreateGameViewController" bundle:nil];
-    [self.navigationController pushViewController:createGameViewController animated:YES];
+    createGameViewController.delegate = self;
+    
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:createGameViewController];
+    [self presentViewController:nav animated:YES completion:nil];
 }
 -(void) logoutUser
 {
@@ -188,6 +191,18 @@ static NSString *const CellIdentifier = @"gameCell";
     {
         [self.navigationController pushViewController:logInViewController animated:NO];
     }
+}
+
+#pragma mark - Create game delegate
+- (void)createGameViewControllerDidCreateGameWithId:(NSString *)gameId
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+    [self launchGameViewWithId:gameId];
+}
+
+- (void)createGameViewControllerDidCancel
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - UITableView Datasource
@@ -274,6 +289,13 @@ static NSString *const CellIdentifier = @"gameCell";
         [gameViewController setGameId:[[self.inactiveGamesData objectAtIndex:indexPath.row] objectId]];
     }
 
+    [self.navigationController pushViewController:gameViewController animated:YES];
+}
+
+- (void)launchGameViewWithId:(NSString *)gameId
+{
+    SSNGameViewController *gameViewController = [[SSNGameViewController alloc] initWithNibName:@"SSNGameViewController" bundle:nil];
+    gameViewController.gameId = gameId;
     [self.navigationController pushViewController:gameViewController animated:YES];
 }
 
