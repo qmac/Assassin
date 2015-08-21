@@ -197,6 +197,7 @@ static NSString *const CellIdentifier = @"gameCell";
 - (void)createGameViewControllerDidCreateGameWithId:(NSString *)gameId
 {
     [self dismissViewControllerAnimated:YES completion:nil];
+    [self fetchGamesData];
     [self launchGameViewWithId:gameId];
 }
 
@@ -274,22 +275,15 @@ static NSString *const CellIdentifier = @"gameCell";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if(indexPath.section == 1)
-    {
-        return;
-    }
-    
-    SSNGameViewController *gameViewController = [[SSNGameViewController alloc] initWithNibName:@"SSNGameViewController" bundle:nil];
+
     if(indexPath.section == 0)
     {
-        [gameViewController setGameId:[[self.activeGamesData objectAtIndex:indexPath.row] objectId]];
+        [self launchGameViewWithId:[[self.activeGamesData objectAtIndex:indexPath.row] objectId]];
     }
     else
     {
-        [gameViewController setGameId:[[self.inactiveGamesData objectAtIndex:indexPath.row] objectId]];
+        return;
     }
-
-    [self.navigationController pushViewController:gameViewController animated:YES];
 }
 
 - (void)launchGameViewWithId:(NSString *)gameId
