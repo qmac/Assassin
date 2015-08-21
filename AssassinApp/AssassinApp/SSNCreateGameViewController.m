@@ -234,7 +234,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
     if (cell == nil)
     {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
     }
     cell.backgroundColor = [UIColor blackColor];
     cell.textLabel.textColor = [UIColor lightGrayColor];
@@ -243,20 +243,9 @@
     return cell;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 40;
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
-    UILabel *headerLabel = [[UILabel alloc] init];
-    headerLabel.text = @"Invited Players";
-    headerLabel.textAlignment = NSTextAlignmentLeft;
-    headerLabel.textColor = [UIColor lightGrayColor];
-    headerLabel.opaque = NO;
-    headerLabel.backgroundColor = [UIColor clearColor];
-    return headerLabel;
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (void)addUserToGame:(NSString *)userName
