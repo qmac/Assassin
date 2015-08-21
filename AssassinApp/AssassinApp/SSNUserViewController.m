@@ -100,13 +100,6 @@ static NSString *const CellIdentifier = @"gameCell";
     [self.refreshControl endRefreshing];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    self.navigationItem.hidesBackButton = YES;
-    [self.navigationController setNavigationBarHidden:NO];
-}
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -182,15 +175,7 @@ static NSString *const CellIdentifier = @"gameCell";
     NSLog(@"loggedout");
     [PFUser logOut];
     SSNLogInViewController *logInViewController = [[SSNLogInViewController alloc] init];
-    NSArray *viewStack = [self.navigationController viewControllers];
-    if([viewStack containsObject:logInViewController])
-    {
-        [self.navigationController popToViewController:logInViewController animated:NO];
-    }
-    else
-    {
-        [self.navigationController pushViewController:logInViewController animated:NO];
-    }
+    [self presentViewController:logInViewController animated:YES completion:nil];
 }
 
 #pragma mark - Create game delegate
