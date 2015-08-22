@@ -27,14 +27,10 @@
 		AC649FBA1B692785007C3E88 /* SSNLogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC649FB91B692785007C3E88 /* SSNLogInViewController.m */; };
 		AC649FBC1B6927E1007C3E88 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC649FBB1B6927E1007C3E88 /* Social.framework */; };
 		AC649FBE1B6927E5007C3E88 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC649FBD1B6927E5007C3E88 /* Accounts.framework */; };
-		AC649FC21B692CB1007C3E88 /* SSNLogInViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC649FC11B692CB1007C3E88 /* SSNLogInViewController.xib */; };
-		AC649FC61B692F49007C3E88 /* SSNSignUpViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC649FC51B692F49007C3E88 /* SSNSignUpViewController.xib */; };
 		AC649FD21B695B20007C3E88 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = AC649FD01B695B20007C3E88 /* Reachability.m */; };
-		AC649FD51B698261007C3E88 /* assassinlogo.png in Resources */ = {isa = PBXBuildFile; fileRef = AC649FD41B698261007C3E88 /* assassinlogo.png */; };
 		AC649FD91B69ABCC007C3E88 /* SSNCreateGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC649FD71B69ABCC007C3E88 /* SSNCreateGameViewController.m */; };
 		AC649FDA1B69ABCC007C3E88 /* SSNCreateGameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC649FD81B69ABCC007C3E88 /* SSNCreateGameViewController.xib */; };
 		C81A62151B6B472200D0526F /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = C81A62141B6B472200D0526F /* MBProgressHUD.m */; };
-		E5E194361B6B24DF00E2ADFD /* dead_assassin.png in Resources */ = {isa = PBXBuildFile; fileRef = E5E194351B6B24DF00E2ADFD /* dead_assassin.png */; };
 		E5E435581B690F6500A012BA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E5E435571B690F6500A012BA /* main.m */; };
 		E5E4355B1B690F6500A012BA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E5E4355A1B690F6500A012BA /* AppDelegate.m */; };
 		E5E435631B690F6500A012BA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E5E435621B690F6500A012BA /* Images.xcassets */; };
@@ -82,17 +78,13 @@
 		AC649FB91B692785007C3E88 /* SSNLogInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSNLogInViewController.m; sourceTree = "<group>"; };
 		AC649FBB1B6927E1007C3E88 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		AC649FBD1B6927E5007C3E88 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
-		AC649FC11B692CB1007C3E88 /* SSNLogInViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SSNLogInViewController.xib; sourceTree = "<group>"; };
-		AC649FC51B692F49007C3E88 /* SSNSignUpViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SSNSignUpViewController.xib; sourceTree = "<group>"; };
 		AC649FCF1B695B20007C3E88 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		AC649FD01B695B20007C3E88 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
-		AC649FD41B698261007C3E88 /* assassinlogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = assassinlogo.png; sourceTree = "<group>"; };
 		AC649FD61B69ABCC007C3E88 /* SSNCreateGameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSNCreateGameViewController.h; sourceTree = "<group>"; };
 		AC649FD71B69ABCC007C3E88 /* SSNCreateGameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSNCreateGameViewController.m; sourceTree = "<group>"; };
 		AC649FD81B69ABCC007C3E88 /* SSNCreateGameViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SSNCreateGameViewController.xib; sourceTree = "<group>"; };
 		C81A62131B6B472200D0526F /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBProgressHUD.h; path = AssassinApp/MBProgressHUD.h; sourceTree = "<group>"; };
 		C81A62141B6B472200D0526F /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBProgressHUD.m; path = AssassinApp/MBProgressHUD.m; sourceTree = "<group>"; };
-		E5E194351B6B24DF00E2ADFD /* dead_assassin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dead_assassin.png; sourceTree = "<group>"; };
 		E5E435521B690F6500A012BA /* AssassinApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AssassinApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5E435561B690F6500A012BA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E5E435571B690F6500A012BA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -187,15 +179,6 @@
 			path = ThirdParty;
 			sourceTree = "<group>";
 		};
-		AC649FD31B698261007C3E88 /* Assets */ = {
-			isa = PBXGroup;
-			children = (
-				E5E194351B6B24DF00E2ADFD /* dead_assassin.png */,
-				AC649FD41B698261007C3E88 /* assassinlogo.png */,
-			);
-			path = Assets;
-			sourceTree = "<group>";
-		};
 		E5E435491B690F6500A012BA = {
 			isa = PBXGroup;
 			children = (
@@ -220,7 +203,6 @@
 		E5E435541B690F6500A012BA /* AssassinApp */ = {
 			isa = PBXGroup;
 			children = (
-				AC649FD31B698261007C3E88 /* Assets */,
 				AC649FCC1B695B20007C3E88 /* ThirdParty */,
 				E5E4358C1B6AFFCC00A012BA /* SSNLastSeenViewController.h */,
 				E5E4358D1B6AFFCC00A012BA /* SSNLastSeenViewController.m */,
@@ -237,8 +219,6 @@
 				AC649FB61B6926FA007C3E88 /* SSNSignUpViewController.m */,
 				AC649FB81B692785007C3E88 /* SSNLogInViewController.h */,
 				AC649FB91B692785007C3E88 /* SSNLogInViewController.m */,
-				AC649FC11B692CB1007C3E88 /* SSNLogInViewController.xib */,
-				AC649FC51B692F49007C3E88 /* SSNSignUpViewController.xib */,
 				AC649FD61B69ABCC007C3E88 /* SSNCreateGameViewController.h */,
 				AC649FD71B69ABCC007C3E88 /* SSNCreateGameViewController.m */,
 				AC649FD81B69ABCC007C3E88 /* SSNCreateGameViewController.xib */,
@@ -356,14 +336,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				E5E435661B690F6500A012BA /* LaunchScreen.xib in Resources */,
-				AC649FC61B692F49007C3E88 /* SSNSignUpViewController.xib in Resources */,
 				E5F6733B1B693678004B7D6A /* SSNUserViewController.xib in Resources */,
-				AC649FD51B698261007C3E88 /* assassinlogo.png in Resources */,
 				E5E435901B6AFFCC00A012BA /* SSNLastSeenViewController.xib in Resources */,
-				AC649FC21B692CB1007C3E88 /* SSNLogInViewController.xib in Resources */,
 				E5F673391B693678004B7D6A /* SSNGameViewController.xib in Resources */,
 				E5E435631B690F6500A012BA /* Images.xcassets in Resources */,
-				E5E194361B6B24DF00E2ADFD /* dead_assassin.png in Resources */,
 				AC649FDA1B69ABCC007C3E88 /* SSNCreateGameViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

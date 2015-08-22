@@ -235,7 +235,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
     if (cell == nil)
     {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
     }
     cell.backgroundColor = [UIColor blackColor];
     cell.textLabel.textColor = [UIColor lightGrayColor];
@@ -244,37 +244,9 @@
     return cell;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 40;
-}
-
-- (UIView *)createHeaderWithTitle:(NSString *)title
-{
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0.0, self.view.frame.size.width, 45.0)];
-    headerView.backgroundColor = [UIColor clearColor];
-    headerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    if (title)
-    {
-        UILabel *accountLabel =
-        [[UILabel alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 18, 5,
-                                                  self.view.frame.size.width - self.view.frame.size.width / 5,
-                                                  35.0)];
-        
-        accountLabel.textAlignment = NSTextAlignmentLeft;
-        accountLabel.text = title;
-        accountLabel.textColor = [UIColor lightGrayColor];
-        accountLabel.numberOfLines = 3;
-        accountLabel.opaque = NO;
-        accountLabel.backgroundColor = [UIColor clearColor];
-        [headerView addSubview:accountLabel];
-    }
-    return headerView;
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
-    return [self createHeaderWithTitle:[NSString stringWithFormat:@"Invited Players"]];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (void)addUserToGame:(NSString *)userName

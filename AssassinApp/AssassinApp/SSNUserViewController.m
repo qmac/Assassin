@@ -42,7 +42,6 @@ static NSString *const CellIdentifier = @"gameCell";
     UIBarButtonItem *createGameButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(launchCreateGame:)];
     self.navigationItem.rightBarButtonItem = createGameButton;
     
-
     self.refreshControl = [[UIRefreshControl alloc] init];
     self.refreshControl.backgroundColor = [UIColor colorWithRed:0.753 green:0.224 blue:0.169 alpha:1];
     self.refreshControl.tintColor = [UIColor whiteColor];
@@ -170,6 +169,7 @@ static NSString *const CellIdentifier = @"gameCell";
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:createGameViewController];
     [self presentViewController:nav animated:YES completion:nil];
 }
+
 -(void) logoutUser
 {
     NSLog(@"loggedout");
@@ -193,7 +193,8 @@ static NSString *const CellIdentifier = @"gameCell";
 
 #pragma mark - UITableView Datasource
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
     return 2;
 }
 
@@ -226,7 +227,6 @@ static NSString *const CellIdentifier = @"gameCell";
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    // The header for the section is the region name -- get this from the region at the section index.
     if (section == 0) return @"ACTIVE GAMES";
     return @"INACTIVE GAMES";
 }
