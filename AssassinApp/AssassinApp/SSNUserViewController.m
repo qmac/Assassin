@@ -126,6 +126,7 @@ static NSString *const CellIdentifier = @"gameCell";
     PFQuery *activeQuery = [PFQuery queryWithClassName:@"Games"];
     [activeQuery whereKey:@"objectId" containedIn:gameIds];
     [activeQuery whereKey:@"active" equalTo:@YES];
+    [activeQuery orderByDescending:@"createdAt"];
     [activeQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error)
         {
@@ -143,6 +144,7 @@ static NSString *const CellIdentifier = @"gameCell";
     PFQuery *inactiveQuery = [PFQuery queryWithClassName:@"Games"];
     [inactiveQuery whereKey:@"objectId" containedIn:gameIds];
     [inactiveQuery whereKey:@"active" equalTo:@NO];
+    [inactiveQuery orderByDescending:@"createdAt"];
     [inactiveQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error)
         {
