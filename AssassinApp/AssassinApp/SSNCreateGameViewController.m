@@ -41,12 +41,17 @@
     [self.startGameButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.addPlayerButton setBackgroundColor:UIColorFromRGB(0xC0392B)];
     [self.startGameButton setBackgroundColor:UIColorFromRGB(0xC0392B)];
+    
     UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonAction)];
     UIBarButtonItem *startButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(startGameAction:)];
     [cancelButton setTintColor:UIColorFromRGB(0xC0392B)];
     [startButton setTintColor:UIColorFromRGB(0xC0392B)];
     self.navigationItem.rightBarButtonItem = startButton;
     self.navigationItem.leftBarButtonItem = cancelButton;
+    
+    self.navigationController.navigationBar.tintColor = UIColorFromRGB(0xC0392B);
+    self.navigationController.navigationBar.barTintColor = UIColorFromRGB(0x0A0A0A);
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
 }
 
 - (NSUInteger)supportedInterfaceOrientations {
@@ -64,7 +69,7 @@
 
 - (void)cancelButtonAction
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.delegate createGameViewControllerDidCancel];
 }
 
 - (IBAction)addPlayerAction:(id)sender
@@ -199,11 +204,7 @@
                     }
                 }];
             }
-            SSNUserViewController *userViewController = [[SSNUserViewController alloc] init];
-            [self.navigationController pushViewController:userViewController animated:YES];
-            SSNGameViewController *gameViewController = [[SSNGameViewController alloc] initWithNibName:@"SSNGameViewController" bundle:nil];
-            [gameViewController setGameId:[self.gameObject objectId]];
-            [userViewController.navigationController pushViewController:gameViewController animated:YES];
+            [self.delegate createGameViewControllerDidCreateGameWithId:[self.gameObject objectId]];
         }
         else
         {

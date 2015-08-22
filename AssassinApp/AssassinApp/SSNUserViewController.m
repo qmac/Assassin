@@ -15,7 +15,7 @@
 
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
-@interface SSNUserViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface SSNUserViewController () <UITableViewDataSource, UITableViewDelegate, SSNCreateGameViewControllerDelegate>
 
 @property (nonatomic, strong) NSMutableArray *activeGamesData;
 @property (nonatomic, strong) NSMutableArray *inactiveGamesData;
@@ -99,13 +99,6 @@ static NSString *const CellIdentifier = @"gameCell";
     [self.refreshControl endRefreshing];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    self.navigationItem.hidesBackButton = YES;
-    [self.navigationController setNavigationBarHidden:NO];
-}
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -171,7 +164,10 @@ static NSString *const CellIdentifier = @"gameCell";
 - (void) launchCreateGame:(id)sender
 {
     SSNCreateGameViewController *createGameViewController = [[SSNCreateGameViewController alloc] initWithNibName:@"SSNCreateGameViewController" bundle:nil];
-    [self.navigationController pushViewController:createGameViewController animated:YES];
+    createGameViewController.delegate = self;
+    
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:createGameViewController];
+    [self presentViewController:nav animated:YES completion:nil];
 }
 
 -(void) logoutUser
@@ -179,15 +175,20 @@ static NSString *const CellIdentifier = @"gameCell";
     NSLog(@"loggedout");
     [PFUser logOut];
     SSNLogInViewController *logInViewController = [[SSNLogInViewController alloc] init];
-    NSArray *viewStack = [self.navigationController viewControllers];
-    if([viewStack containsObject:logInViewController])
-    {
-        [self.navigationController popToViewController:logInViewController animated:NO];
-    }
-    else
-    {
-        [self.navigationController pushViewController:logInViewController animated:NO];
-    }
+    [self presentViewController:logInViewController animated:YES completion:nil];
+}
+
+#pragma mark - Create game delegate
+- (void)createGameViewControllerDidCreateGameWithId:(NSString *)gameId
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+    [self fetchGamesData];
+    [self launchGameViewWithId:gameId];
+}
+
+- (void)createGameViewControllerDidCancel
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - UITableView Datasource
@@ -259,21 +260,21 @@ static NSString *const CellIdentifier = @"gameCell";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if(indexPath.section == 1)
-    {
-        return;
-    }
-    
-    SSNGameViewController *gameViewController = [[SSNGameViewController alloc] initWithNibName:@"SSNGameViewController" bundle:nil];
+
     if(indexPath.section == 0)
     {
-        gameViewController.gameId = [[self.activeGamesData objectAtIndex:indexPath.row] objectId];
+        [self launchGameViewWithId:[[self.activeGamesData objectAtIndex:indexPath.row] objectId]];
     }
     else
     {
-        gameViewController.gameId = [[self.inactiveGamesData objectAtIndex:indexPath.row] objectId];
+        return;
     }
+}
 
+- (void)launchGameViewWithId:(NSString *)gameId
+{
+    SSNGameViewController *gameViewController = [[SSNGameViewController alloc] initWithNibName:@"SSNGameViewController" bundle:nil];
+    gameViewController.gameId = gameId;
     [self.navigationController pushViewController:gameViewController animated:YES];
 }
 

@@ -8,6 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol SSNCreateGameViewControllerDelegate <NSObject>
+
+- (void)createGameViewControllerDidCreateGameWithId:(NSString *)gameId;
+- (void)createGameViewControllerDidCancel;
+
+@end
+
+
 @interface SSNCreateGameViewController : UIViewController
+
+@property (nonatomic, weak) id<SSNCreateGameViewControllerDelegate> delegate;
 
 @end

@@ -39,21 +39,17 @@
     PFUser *loggedInUser = [PFUser currentUser];
     if(loggedInUser)
     {
-        // To default into Game View
-        //rootViewController = [[SSNGameViewController alloc] initWithNibName:@"SSNGameViewController" bundle:nil];
-        
-        // To default into User View
-        rootViewController = [[SSNUserViewController alloc] initWithNibName:@"SSNUserViewController" bundle:nil];
+        SSNUserViewController *userViewController = [[SSNUserViewController alloc] initWithNibName:@"SSNUserViewController" bundle:nil];
+        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:userViewController];
+        rootViewController = navController;
     }
     else
     {
         rootViewController = [[SSNLogInViewController alloc] initWithNibName:@"SSNLogInViewController" bundle:nil];
     }
-    
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:rootViewController];
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.window.rootViewController = navController;
+    self.window.rootViewController = rootViewController;
     [self.window makeKeyAndVisible];
     
     return YES;

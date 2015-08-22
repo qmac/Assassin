@@ -77,12 +77,6 @@
 
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:YES];
-}
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -114,10 +108,6 @@
     [player saveInBackground];
     
     [self launchCameraControllerFromViewController:self usingDelegate:self];
-
-    //SSNUserViewController *userViewController = [[SSNUserViewController alloc] initWithNibName:@"SSNUserViewController" bundle:nil];
-   // UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:userViewController];
-   // [self presentViewController:navController animated:YES completion:nil];
 }
 
 - (BOOL)signUpViewController:(PFSignUpViewController * __nonnull)signUpController shouldBeginSignUp:(NSDictionary * __nonnull)info
