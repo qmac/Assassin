@@ -20,6 +20,7 @@
 @property (nonatomic, strong) NSMutableArray *activeGamesData;
 @property (nonatomic, strong) NSMutableArray *inactiveGamesData;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (nonatomic, strong) UISegmentedControl *segmentedControl;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 
 @end
@@ -37,7 +38,11 @@ static NSString *const CellIdentifier = @"gameCell";
     self.tableView.delegate = self;
     [self.tableView registerClass:UITableViewCell.class forCellReuseIdentifier:CellIdentifier];
     
-    [self.view addSubview:self.tableView];
+    //[self.view addSubview:self.tableView];
+    self.segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"ACTIVE GAMES", @"INACTIVE GAMES"]];
+    self.segmentedControl.selectedSegmentIndex = 0;
+    [self.segmentedControl addTarget:self action:@selector(selectedSegmentChanged) forControlEvents:UIControlEventValueChanged];
+    self.tableView.tableHeaderView = self.segmentedControl;
     
     UIBarButtonItem *createGameButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(launchCreateGame:)];
     self.navigationItem.rightBarButtonItem = createGameButton;
@@ -191,11 +196,17 @@ static NSString *const CellIdentifier = @"gameCell";
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+#pragma mark - UISegmentedControl
+- (void)selectedSegmentChanged
+{
+    [self.tableView reloadData];
+}
+
 #pragma mark - UITableView Datasource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
+    return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -205,7 +216,7 @@ static NSString *const CellIdentifier = @"gameCell";
     {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
-    if(indexPath.section == 0)
+    if(self.segmentedControl.selectedSegmentIndex == 0)
     {
         cell.textLabel.text = [self.activeGamesData objectAtIndex:indexPath.row][@"game_title"];
     }
@@ -222,37 +233,13 @@ static NSString *const CellIdentifier = @"gameCell";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (section == 0) return [self.activeGamesData count];
+    if (self.segmentedControl.selectedSegmentIndex == 0) return [self.activeGamesData count];
     return [self.inactiveGamesData count];
-}
-
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if (section == 0) return @"ACTIVE GAMES";
-    return @"INACTIVE GAMES";
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 55;
-}
-
-- (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-    return 35;
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    
-    UILabel *myLabel = [[UILabel alloc] init];
-    myLabel.frame = CGRectMake(15, 8, 320, 20);
-    myLabel.font = [UIFont boldSystemFontOfSize:12];
-    myLabel.textColor = UIColorFromRGB(0x818A8A);
-    myLabel.text = [self tableView:tableView titleForHeaderInSection:section];
-    
-    UIView *headerView = [[UIView alloc] init];
-    [headerView addSubview:myLabel];
-    
-    return headerView;
 }
 
 #pragma mark - UITableView Delegate
@@ -261,7 +248,7 @@ static NSString *const CellIdentifier = @"gameCell";
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
-    if(indexPath.section == 0)
+    if(self.segmentedControl.selectedSegmentIndex == 0)
     {
         [self launchGameViewWithId:[[self.activeGamesData objectAtIndex:indexPath.row] objectId]];
     }
