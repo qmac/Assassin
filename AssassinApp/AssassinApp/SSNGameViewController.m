@@ -50,6 +50,7 @@
     [query getObjectInBackgroundWithId:self.gameId block:^(PFObject *gameObject, NSError *error) {
         
         NSLog(@"%@", gameObject);
+        self.navigationItem.title = gameObject[@"game_title"];
         self.lastKill = gameObject[@"last_kill"];
         self.playerDict = gameObject[@"player_dict"];
         
