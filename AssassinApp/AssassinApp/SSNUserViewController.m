@@ -20,7 +20,7 @@
 @property (nonatomic, strong) NSMutableArray *activeGamesData;
 @property (nonatomic, strong) NSMutableArray *inactiveGamesData;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (nonatomic, strong) UISegmentedControl *segmentedControl;
+@property (nonatomic, weak) IBOutlet UISegmentedControl *segmentedControl;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 
 @end
@@ -37,12 +37,6 @@ static NSString *const CellIdentifier = @"gameCell";
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     [self.tableView registerClass:UITableViewCell.class forCellReuseIdentifier:CellIdentifier];
-    
-    //[self.view addSubview:self.tableView];
-    self.segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"ACTIVE GAMES", @"INACTIVE GAMES"]];
-    self.segmentedControl.selectedSegmentIndex = 0;
-    [self.segmentedControl addTarget:self action:@selector(selectedSegmentChanged) forControlEvents:UIControlEventValueChanged];
-    self.tableView.tableHeaderView = self.segmentedControl;
     
     UIBarButtonItem *createGameButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(launchCreateGame:)];
     self.navigationItem.rightBarButtonItem = createGameButton;
@@ -197,13 +191,12 @@ static NSString *const CellIdentifier = @"gameCell";
 }
 
 #pragma mark - UISegmentedControl
-- (void)selectedSegmentChanged
+- (IBAction)selectedSegmentChanged:(id)sender
 {
     [self.tableView reloadData];
 }
 
 #pragma mark - UITableView Datasource
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
@@ -243,7 +236,6 @@ static NSString *const CellIdentifier = @"gameCell";
 }
 
 #pragma mark - UITableView Delegate
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
