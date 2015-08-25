@@ -10,4 +10,6 @@
 
 @interface SSNGameLeaderboardViewController : UIViewController
 
+@property (nonatomic, strong) NSString *gameId;
+
 @end

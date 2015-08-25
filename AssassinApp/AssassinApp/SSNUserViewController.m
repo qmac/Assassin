@@ -257,10 +257,15 @@ static NSString *const CellIdentifier = @"gameCell";
 {
     SSNGameTargetViewController *gameViewController = [[SSNGameTargetViewController alloc] initWithNibName:@"SSNGameTargetViewController" bundle:nil];
     gameViewController.gameId = gameId;
+    gameViewController.tabBarItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemContacts tag:0];
     
     SSNGameLeaderboardViewController *leadboardViewController = [[SSNGameLeaderboardViewController alloc] initWithNibName:@"SSNGameLeaderboardViewController" bundle:nil];
+    leadboardViewController.gameId = gameId;
+    leadboardViewController.tabBarItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemMostViewed tag:1];
     
     UITabBarController *tabBarController = [[UITabBarController alloc] init];
+    tabBarController.tabBar.tintColor = UIColorFromRGB(0xC0392B);
+    tabBarController.tabBar.barTintColor = UIColorFromRGB(0x0A0A0A);
     tabBarController.viewControllers = @[gameViewController, leadboardViewController];
     [self.navigationController pushViewController:tabBarController animated:YES];
 }
