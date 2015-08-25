@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Quinn McNamara. All rights reserved.
 //
 
-#import "SSNGameViewController.h"
+#import "SSNGameTargetViewController.h"
 #import "SSNLastSeenViewController.h"
 #import <CoreLocation/CoreLocation.h>
 #import <Parse/Parse.h>
@@ -14,7 +14,7 @@
 #import "MBProgressHUD.h"
 
 
-@interface SSNGameViewController ()
+@interface SSNGameTargetViewController ()
 
 @property (nonatomic, strong) NSDictionary *playerDict;
 @property (nonatomic, strong) NSDictionary *playerAttributes;
@@ -33,7 +33,7 @@
 
 @end
 
-@implementation SSNGameViewController
+@implementation SSNGameTargetViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

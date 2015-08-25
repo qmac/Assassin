@@ -39,10 +39,12 @@
 		E5E4358F1B6AFFCC00A012BA /* SSNLastSeenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5E4358D1B6AFFCC00A012BA /* SSNLastSeenViewController.m */; };
 		E5E435901B6AFFCC00A012BA /* SSNLastSeenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5E4358E1B6AFFCC00A012BA /* SSNLastSeenViewController.xib */; };
 		E5E435921B6B02F800A012BA /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5E435911B6B02F800A012BA /* MapKit.framework */; };
-		E5F673381B693678004B7D6A /* SSNGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F673331B693678004B7D6A /* SSNGameViewController.m */; };
-		E5F673391B693678004B7D6A /* SSNGameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5F673341B693678004B7D6A /* SSNGameViewController.xib */; };
+		E5F673381B693678004B7D6A /* SSNGameTargetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F673331B693678004B7D6A /* SSNGameTargetViewController.m */; };
+		E5F673391B693678004B7D6A /* SSNGameTargetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5F673341B693678004B7D6A /* SSNGameTargetViewController.xib */; };
 		E5F6733A1B693678004B7D6A /* SSNUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F673361B693678004B7D6A /* SSNUserViewController.m */; };
 		E5F6733B1B693678004B7D6A /* SSNUserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5F673371B693678004B7D6A /* SSNUserViewController.xib */; };
+		ECBA6C371B8D1B4900269519 /* SSNGameLeaderboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECBA6C351B8D1B4900269519 /* SSNGameLeaderboardViewController.m */; };
+		ECBA6C381B8D1B4900269519 /* SSNGameLeaderboardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ECBA6C361B8D1B4900269519 /* SSNGameLeaderboardViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -99,12 +101,15 @@
 		E5E4358D1B6AFFCC00A012BA /* SSNLastSeenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSNLastSeenViewController.m; sourceTree = "<group>"; };
 		E5E4358E1B6AFFCC00A012BA /* SSNLastSeenViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SSNLastSeenViewController.xib; sourceTree = "<group>"; };
 		E5E435911B6B02F800A012BA /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		E5F673321B693678004B7D6A /* SSNGameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSNGameViewController.h; sourceTree = "<group>"; };
-		E5F673331B693678004B7D6A /* SSNGameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSNGameViewController.m; sourceTree = "<group>"; };
-		E5F673341B693678004B7D6A /* SSNGameViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SSNGameViewController.xib; sourceTree = "<group>"; };
+		E5F673321B693678004B7D6A /* SSNGameTargetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSNGameTargetViewController.h; sourceTree = "<group>"; };
+		E5F673331B693678004B7D6A /* SSNGameTargetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSNGameTargetViewController.m; sourceTree = "<group>"; };
+		E5F673341B693678004B7D6A /* SSNGameTargetViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SSNGameTargetViewController.xib; sourceTree = "<group>"; };
 		E5F673351B693678004B7D6A /* SSNUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSNUserViewController.h; sourceTree = "<group>"; };
 		E5F673361B693678004B7D6A /* SSNUserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSNUserViewController.m; sourceTree = "<group>"; };
 		E5F673371B693678004B7D6A /* SSNUserViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SSNUserViewController.xib; sourceTree = "<group>"; };
+		ECBA6C341B8D1B4900269519 /* SSNGameLeaderboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSNGameLeaderboardViewController.h; sourceTree = "<group>"; };
+		ECBA6C351B8D1B4900269519 /* SSNGameLeaderboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSNGameLeaderboardViewController.m; sourceTree = "<group>"; };
+		ECBA6C361B8D1B4900269519 /* SSNGameLeaderboardViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SSNGameLeaderboardViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -207,9 +212,12 @@
 				E5E4358C1B6AFFCC00A012BA /* SSNLastSeenViewController.h */,
 				E5E4358D1B6AFFCC00A012BA /* SSNLastSeenViewController.m */,
 				E5E4358E1B6AFFCC00A012BA /* SSNLastSeenViewController.xib */,
-				E5F673321B693678004B7D6A /* SSNGameViewController.h */,
-				E5F673331B693678004B7D6A /* SSNGameViewController.m */,
-				E5F673341B693678004B7D6A /* SSNGameViewController.xib */,
+				E5F673321B693678004B7D6A /* SSNGameTargetViewController.h */,
+				E5F673331B693678004B7D6A /* SSNGameTargetViewController.m */,
+				ECBA6C341B8D1B4900269519 /* SSNGameLeaderboardViewController.h */,
+				ECBA6C351B8D1B4900269519 /* SSNGameLeaderboardViewController.m */,
+				ECBA6C361B8D1B4900269519 /* SSNGameLeaderboardViewController.xib */,
+				E5F673341B693678004B7D6A /* SSNGameTargetViewController.xib */,
 				E5F673351B693678004B7D6A /* SSNUserViewController.h */,
 				E5F673361B693678004B7D6A /* SSNUserViewController.m */,
 				E5F673371B693678004B7D6A /* SSNUserViewController.xib */,
@@ -338,7 +346,8 @@
 				E5E435661B690F6500A012BA /* LaunchScreen.xib in Resources */,
 				E5F6733B1B693678004B7D6A /* SSNUserViewController.xib in Resources */,
 				E5E435901B6AFFCC00A012BA /* SSNLastSeenViewController.xib in Resources */,
-				E5F673391B693678004B7D6A /* SSNGameViewController.xib in Resources */,
+				ECBA6C381B8D1B4900269519 /* SSNGameLeaderboardViewController.xib in Resources */,
+				E5F673391B693678004B7D6A /* SSNGameTargetViewController.xib in Resources */,
 				E5E435631B690F6500A012BA /* Images.xcassets in Resources */,
 				AC649FDA1B69ABCC007C3E88 /* SSNCreateGameViewController.xib in Resources */,
 			);
@@ -363,11 +372,12 @@
 				E5E4355B1B690F6500A012BA /* AppDelegate.m in Sources */,
 				AC649FD21B695B20007C3E88 /* Reachability.m in Sources */,
 				E5E435581B690F6500A012BA /* main.m in Sources */,
-				E5F673381B693678004B7D6A /* SSNGameViewController.m in Sources */,
+				E5F673381B693678004B7D6A /* SSNGameTargetViewController.m in Sources */,
 				E5F6733A1B693678004B7D6A /* SSNUserViewController.m in Sources */,
 				C81A62151B6B472200D0526F /* MBProgressHUD.m in Sources */,
 				AC649FBA1B692785007C3E88 /* SSNLogInViewController.m in Sources */,
 				E5E4358F1B6AFFCC00A012BA /* SSNLastSeenViewController.m in Sources */,
+				ECBA6C371B8D1B4900269519 /* SSNGameLeaderboardViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

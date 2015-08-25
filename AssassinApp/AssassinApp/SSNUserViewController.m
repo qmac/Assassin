@@ -9,9 +9,10 @@
 #import "Parse/Parse.h"
 
 #import "SSNUserViewController.h"
-#import "SSNGameViewController.h"
+#import "SSNGameTargetViewController.h"
 #import "SSNLogInViewController.h"
 #import "SSNCreateGameViewController.h"
+#import "SSNGameLeaderboardViewController.h"
 
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
@@ -254,9 +255,14 @@ static NSString *const CellIdentifier = @"gameCell";
 
 - (void)launchGameViewWithId:(NSString *)gameId
 {
-    SSNGameViewController *gameViewController = [[SSNGameViewController alloc] initWithNibName:@"SSNGameViewController" bundle:nil];
+    SSNGameTargetViewController *gameViewController = [[SSNGameTargetViewController alloc] initWithNibName:@"SSNGameTargetViewController" bundle:nil];
     gameViewController.gameId = gameId;
-    [self.navigationController pushViewController:gameViewController animated:YES];
+    
+    SSNGameLeaderboardViewController *leadboardViewController = [[SSNGameLeaderboardViewController alloc] initWithNibName:@"SSNGameLeaderboardViewController" bundle:nil];
+    
+    UITabBarController *tabBarController = [[UITabBarController alloc] init];
+    tabBarController.viewControllers = @[gameViewController, leadboardViewController];
+    [self.navigationController pushViewController:tabBarController animated:YES];
 }
 
 

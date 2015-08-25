@@ -11,9 +11,9 @@
 #import "SSNLogInViewController.h"
 #import "SSNSignUpViewController.h"
 #import "SSNUserViewController.h"
-#import "SSNGameViewController.h"
 #import "Reachability.h"
 #import "SSNCreateGameViewController.h"
+
 @interface AppDelegate ()
 
 @end

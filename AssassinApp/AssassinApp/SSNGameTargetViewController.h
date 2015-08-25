@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SSNGameViewController : UIViewController
+@interface SSNGameTargetViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet UILabel *targetTitle;
 @property (weak, nonatomic) IBOutlet UILabel *targetLabel;
